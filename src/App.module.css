@@ -1,0 +1,12 @@
+.pageWrap {
+  transition: opacity 0.22s ease;
+}
+
+.fadeIn {
+  opacity: 1;
+}
+
+.fadeOut {
+  opacity: 0;
+  pointer-events: none;
+}

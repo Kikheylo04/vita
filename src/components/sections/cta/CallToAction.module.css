@@ -1,0 +1,122 @@
+.cta {
+  position: relative;
+  padding: 7rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+  background: var(--color-dark-2);
+}
+
+.bg {
+  display: none;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(120, 20, 20, 0.18) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  max-width: 700px;
+  color: white;
+}
+
+.tag {
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.2;
+  margin-bottom: 0.8rem;
+}
+
+.divider {
+  color: var(--color-gold);
+  font-size: 1.1rem;
+  opacity: 0.6;
+  margin-bottom: 1.2rem;
+}
+
+.desc {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.btnPrimary {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 1rem 2.8rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.btnPrimary:hover {
+  background: var(--color-primary-light);
+  transform: translateY(-2px);
+}
+
+.btnSecondary {
+  background: transparent;
+  color: var(--color-gold);
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  padding: 1rem 2.8rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.btnSecondary:hover {
+  border-color: var(--color-gold);
+  background: rgba(201, 168, 76, 0.08);
+  transform: translateY(-2px);
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.55);
+}
+
+.sep {
+  color: var(--color-gold);
+  opacity: 0.5;
+}
+
+@media (max-width: 480px) {
+  .info { flex-direction: column; gap: 0.4rem; }
+  .sep { display: none; }
+}

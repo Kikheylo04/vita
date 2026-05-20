@@ -1,0 +1,395 @@
+.section {
+  padding: 6rem 2rem;
+  background: var(--color-dark);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.tag {
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.8rem;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.divider {
+  color: var(--color-gold);
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+
+/* Testimonio destacado (activo) */
+.featured {
+  max-width: 750px;
+  margin: 0 auto 4rem;
+  text-align: center;
+  position: relative;
+  padding: 0 2rem;
+}
+
+.quoteIcon {
+  font-family: var(--font-heading);
+  font-size: 8rem;
+  color: var(--color-gold);
+  opacity: 0.15;
+  line-height: 0.5;
+  margin-bottom: 1.5rem;
+  user-select: none;
+}
+
+.comment {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.8;
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.name {
+  font-weight: 700;
+  color: white;
+  font-size: 0.95rem;
+}
+
+.role {
+  font-size: 0.8rem;
+  color: var(--color-gold);
+  letter-spacing: 0.05em;
+}
+
+/* Grid de tarjetas */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  max-width: 1100px;
+  margin: 0 auto 2rem;
+}
+
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 1.5rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.card:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(201,168,76,0.3);
+}
+
+.card.cardActive {
+  background: rgba(201,168,76,0.08);
+  border-color: var(--color-gold);
+}
+
+.cardComment {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.7;
+  margin: 0.8rem 0;
+  font-style: italic;
+}
+
+.cardAuthor {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.cardName {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: white;
+}
+
+.cardRole {
+  font-size: 0.75rem;
+  color: var(--color-gold);
+}
+
+/* Estrellas */
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.starFilled {
+  color: var(--color-gold);
+  font-size: 0.9rem;
+}
+
+.starEmpty {
+  color: rgba(255,255,255,0.2);
+  font-size: 0.9rem;
+}
+
+/* Avatar */
+.avatarImg {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.avatarInitials {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: white;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Dots */
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.dot.dotActive {
+  background: var(--color-gold);
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* Skeleton loaders */
+.skeletonCard {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 1.5rem;
+}
+
+.skeletonLine {
+  background: rgba(255,255,255,0.08);
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonAuthor {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.skeletonAvatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  flex-shrink: 0;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ── Formulario de reseña ─────────────────────────────── */
+.formToggle {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+.btnLeaveReview {
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.4);
+  border-radius: 6px;
+  color: var(--color-gold);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  padding: 0.6rem 1.4rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btnLeaveReview:hover {
+  background: rgba(201,168,76,0.1);
+  border-color: var(--color-gold);
+}
+
+.formWrap {
+  max-width: 680px;
+  margin: 2.5rem auto 0;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 2rem 2rem 1.5rem;
+}
+
+.formTitle {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: white;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.form { display: flex; flex-direction: column; gap: 1.1rem; }
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.formField { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.formField label {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+
+.formField input,
+.formField textarea {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: white;
+  font-size: 0.9rem;
+  padding: 0.65rem 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+  resize: vertical;
+}
+.formField input:focus,
+.formField textarea:focus {
+  border-color: rgba(201,168,76,0.5);
+}
+.formField input::placeholder,
+.formField textarea::placeholder { color: rgba(255,255,255,0.25); }
+
+.ratingRow { display: flex; gap: 0.3rem; }
+
+.ratingStar {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: rgba(255,255,255,0.15);
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.15s, transform 0.1s;
+}
+.ratingStar:hover,
+.ratingStarOn { color: var(--color-gold); }
+.ratingStar:hover { transform: scale(1.15); }
+
+.formActions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.btnCancel {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+  color: rgba(255,255,255,0.45);
+  font-size: 0.85rem;
+  padding: 0.55rem 1.2rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btnCancel:hover { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); }
+
+.btnSubmit {
+  background: var(--color-gold);
+  border: none;
+  border-radius: 6px;
+  color: #0a0a0a;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.55rem 1.4rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btnSubmit:hover:not(:disabled) { opacity: 0.88; }
+.btnSubmit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.formNote {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.25);
+  text-align: center;
+}
+
+.formThanks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1rem;
+}
+.formThanks span {
+  font-size: 1.4rem;
+  color: var(--color-gold);
+}
+.formThanks p {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.7);
+}
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .comment { font-size: 1.1rem; }
+}
+
+@media (max-width: 600px) {
+  .formRow { grid-template-columns: 1fr; }
+  .formWrap { padding: 1.5rem 1.25rem; }
+}
+
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr; }
+  .title { font-size: 1.8rem; }
+}

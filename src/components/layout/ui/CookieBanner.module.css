@@ -1,0 +1,99 @@
+.banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: var(--color-dark-3);
+  border-top: 1px solid rgba(201, 168, 76, 0.2);
+  padding: 1.2rem 2rem;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.text {
+  flex: 1;
+  min-width: 260px;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  color: white;
+  margin-bottom: 0.3rem;
+}
+
+.desc {
+  font-size: 0.82rem;
+  color: var(--color-text-light);
+  line-height: 1.6;
+}
+
+.link {
+  background: none;
+  border: none;
+  color: var(--color-gold);
+  font-size: 0.82rem;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.link:hover {
+  color: white;
+}
+
+.actions {
+  display: flex;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.btnDecline {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.55);
+  padding: 0.55rem 1.2rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+}
+
+.btnDecline:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: white;
+}
+
+.btnAccept {
+  background: var(--color-gold);
+  color: var(--color-dark);
+  border: none;
+  padding: 0.55rem 1.5rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+}
+
+.btnAccept:hover {
+  background: white;
+}
+
+@media (max-width: 600px) {
+  .inner { gap: 1rem; }
+  .actions { width: 100%; justify-content: flex-end; }
+}

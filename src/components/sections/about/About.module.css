@@ -1,0 +1,170 @@
+.about {
+  padding: 6rem 2rem;
+  background: var(--color-dark-3);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+.imageCol {
+  position: sticky;
+  top: 5rem;
+  align-self: start;
+  height: calc(100vh - 5rem);
+}
+
+.imageWrapper {
+  position: relative;
+  overflow: visible;
+}
+
+.chefImg {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  display: block;
+  object-position: center;
+}
+
+.imageBadge {
+  position: absolute;
+  bottom: -1.5rem;
+  right: -1.5rem;
+  background: var(--color-primary);
+  color: white;
+  padding: 1.2rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.imageBadge span {
+  color: var(--color-gold);
+  font-size: 1rem;
+}
+
+.imageBadge strong {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.tag {
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 2.6rem;
+  color: white;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.line {
+  width: 50px;
+  height: 3px;
+  background: var(--color-gold);
+  margin-bottom: 1.5rem;
+}
+
+.body {
+  color: rgba(255,255,255,0.6);
+  font-size: 1rem;
+  line-height: 1.9;
+  margin-bottom: 1rem;
+}
+
+.signature {
+  font-family: var(--font-heading);
+  font-style: italic;
+  color: var(--color-gold);
+  margin-top: 1.5rem;
+  font-size: 1rem;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 3px solid transparent;
+  transition: border-color 0.2s, transform 0.2s;
+  overflow: hidden;
+}
+
+.card:hover {
+  border-color: var(--color-gold);
+  transform: translateY(-3px);
+}
+
+.cardImgWrapper {
+  width: 100%;
+  height: 140px;
+  overflow: hidden;
+}
+
+.cardImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.card:hover .cardImg {
+  transform: scale(1.05);
+}
+
+.cardBody {
+  padding: 1.2rem 1.3rem 1.4rem;
+}
+
+.cardTitle {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  color: white;
+  margin-bottom: 0.4rem;
+}
+
+.cardDesc {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.7;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    grid-template-columns: 1fr 1fr;
+  }
+  .imageCol { grid-column: span 2; }
+  .chefImg { height: 320px; }
+  .imageBadge { right: 1rem; }
+}
+
+@media (max-width: 600px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .imageCol { grid-column: span 1; }
+}
+
+@media (max-width: 480px) {
+  .features { grid-template-columns: 1fr; }
+  .title { font-size: 2rem; }
+}

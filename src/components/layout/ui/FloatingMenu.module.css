@@ -1,0 +1,140 @@
+.wrap {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+/* Items desplegables */
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  opacity: 0;
+  transform: translateY(10px) scale(0.9);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.itemVisible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.label {
+  position: absolute;
+  right: 58px;
+  background: var(--color-dark-3);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--color-text-light);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  padding: 0.3rem 0.7rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.item:hover .label {
+  opacity: 1;
+}
+
+/* Botones secundarios */
+.btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-dark-3);
+  border: 1px solid rgba(201,168,76,0.3);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.btn:hover {
+  border-color: var(--color-gold);
+  background: rgba(201,168,76,0.08);
+  transform: scale(1.06);
+}
+
+.btnWa {
+  background: #1a1a1a;
+  border-color: rgba(37,211,102,0.4);
+  color: #25D366;
+}
+
+.btnWa:hover {
+  background: rgba(37,211,102,0.1);
+  border-color: #25D366;
+}
+
+/* FAB principal */
+.fab {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--color-dark-3);
+  border: 1px solid rgba(201,168,76,0.4);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.fab:hover {
+  border-color: var(--color-gold);
+  transform: scale(1.05);
+}
+
+.fabOpen {
+  border-color: var(--color-gold);
+  background: rgba(201,168,76,0.08);
+}
+
+/* V / X transition */
+.fabV {
+  position: absolute;
+  transition: opacity 0.2s, transform 0.2s;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.fabVHidden {
+  opacity: 0;
+  transform: scale(0.5) rotate(45deg);
+}
+
+.fabX {
+  position: absolute;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.7);
+  opacity: 0;
+  transform: scale(0.5) rotate(-45deg);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.fabXVisible {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+@media (max-width: 480px) {
+  .wrap { bottom: 1.5rem; right: 1.2rem; }
+}

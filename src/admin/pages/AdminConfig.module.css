@@ -1,0 +1,90 @@
+.page { display: flex; flex-direction: column; gap: 1.25rem; padding-bottom: 2rem; }
+.loading { color: rgba(255,255,255,0.4); font-size: 0.9rem; }
+
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 8px;
+  padding: 0.65rem 0.9rem;
+}
+.banner span { font-size: 0.95rem; flex-shrink: 0; }
+.banner p { color: rgba(255,255,255,0.45); font-size: 0.8rem; margin: 0; line-height: 1.4; }
+
+.groups { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.group {
+  background: #181410;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.groupTitle {
+  color: #D4A843;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin: 0;
+  background: rgba(201,168,76,0.04);
+}
+
+.fields {
+  padding: 1rem 1.1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.field { display: flex; flex-direction: column; gap: 0.35rem; }
+.field label { color: rgba(255,255,255,0.45); font-size: 0.78rem; }
+.field input, .field textarea {
+  background: #201c16;
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 7px;
+  color: #fff;
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+  outline: none;
+  resize: vertical;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+.field input:focus, .field textarea:focus { border-color: rgba(201,168,76,0.45); }
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  position: sticky;
+  bottom: 0;
+  background: #0f0c08;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  margin-top: 0.5rem;
+}
+
+.savedMsg {
+  color: #34d399;
+  font-size: 0.85rem;
+}
+
+.btnSave {
+  background: #D4A843;
+  color: #0f0c08;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btnSave:hover:not(:disabled) { background: #c49a35; }
+.btnSave:disabled { opacity: 0.5; cursor: not-allowed; }

@@ -1,0 +1,33 @@
+.btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 148;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--color-dark-3);
+  border: 1px solid rgba(201,168,76,0.35);
+  color: var(--color-gold);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s, background 0.2s, border-color 0.2s;
+}
+
+.btn.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.btn:hover {
+  background: rgba(201,168,76,0.12);
+  border-color: var(--color-gold);
+  transform: translateY(-2px);
+}

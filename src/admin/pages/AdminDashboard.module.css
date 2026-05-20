@@ -1,0 +1,53 @@
+.page { display: flex; flex-direction: column; gap: 2rem; }
+
+.loading { color: rgba(255,255,255,0.4); padding: 2rem; }
+
+.greeting h2 { font-size: 1.4rem; color: #fff; margin: 0 0 0.25rem; }
+.greeting p  { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin: 0; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: #181410;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 1.25rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-2px); }
+
+.cardIcon { font-size: 1.4rem; }
+.cardValue { font-size: 2rem; font-weight: 700; line-height: 1; }
+.cardLabel { font-size: 0.8rem; color: rgba(255,255,255,0.45); }
+
+.section { background: #181410; border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 1.25rem; }
+
+.sectionHeader { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.sectionHeader h3 { color: #fff; font-size: 0.95rem; font-weight: 600; margin: 0; }
+
+.seeAll { background: none; border: none; color: #D4A843; font-size: 0.82rem; cursor: pointer; }
+.seeAll:hover { text-decoration: underline; }
+
+.empty { color: rgba(255,255,255,0.35); font-size: 0.9rem; }
+
+.tableWrap { overflow-x: auto; }
+
+.table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.table th { color: rgba(255,255,255,0.35); font-weight: 500; padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.06); white-space: nowrap; }
+.table td { color: rgba(255,255,255,0.75); padding: 0.6rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.table tr:last-child td { border-bottom: none; }
+
+.status { font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 999px; font-weight: 500; }
+.statusPending   { background: rgba(245,158,11,0.15); color: #f59e0b; }
+.statusConfirmed { background: rgba(52,211,153,0.15); color: #34d399; }
+.statusCancelled { background: rgba(248,113,113,0.15); color: #f87171; }

@@ -1,0 +1,250 @@
+.menu {
+  padding: 8rem 2rem 6rem;
+  min-height: 100vh;
+  background: var(--color-dark);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.tag {
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.8rem;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.divider {
+  color: var(--color-gold);
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.subtitle {
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+}
+
+.controls {
+  max-width: 900px;
+  margin: 0 auto 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.tab {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--color-text-light);
+  padding: 0.55rem 1.3rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+.tab.tabActive {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.searchWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+.search {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 0.7rem 2.5rem 0.7rem 2.5rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-text);
+  background: rgba(255,255,255,0.05);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search::placeholder {
+  color: var(--color-text-light);
+}
+
+.search:focus {
+  border-color: var(--color-gold);
+}
+
+.clearSearch {
+  position: absolute;
+  right: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--color-text-light);
+  font-size: 0.85rem;
+  padding: 0.2rem;
+  cursor: pointer;
+}
+
+.empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--color-text-light);
+}
+
+.empty p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.empty button {
+  background: none;
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+  padding: 0.6rem 1.5rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.empty button:hover {
+  background: var(--color-gold);
+  color: var(--color-dark);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 3px solid transparent;
+  transition: border-color 0.2s, transform 0.2s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  border-bottom-color: var(--color-gold);
+  transform: translateY(-3px);
+}
+
+.cardImgWrapper {
+  overflow: hidden;
+  height: 180px;
+}
+
+.cardImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+
+.card:hover .cardImg {
+  transform: scale(1.05);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+  gap: 1rem;
+  padding: 1.2rem 1.5rem 0;
+}
+
+.cardName {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  color: white;
+  margin-bottom: 0.2rem;
+}
+
+.cardCat {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+}
+
+.badge {
+  background: var(--color-gold);
+  color: var(--color-dark);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.6rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cardDesc {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+  padding: 0 1.5rem;
+}
+
+.cardPrice {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--color-gold);
+  padding: 0 1.5rem 1.5rem;
+  margin-top: auto;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 0.8rem;
+}
+
+.cardPrice span {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+}
+
+@media (max-width: 480px) {
+  .title { font-size: 2.2rem; }
+  .grid { grid-template-columns: 1fr; }
+}

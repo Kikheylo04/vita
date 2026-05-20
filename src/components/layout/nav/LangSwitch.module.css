@@ -1,0 +1,29 @@
+.switch {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.45);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  padding: 0.2rem 0.3rem;
+  transition: color 0.2s;
+}
+
+.btn:hover {
+  color: rgba(255,255,255,0.8);
+}
+
+.btn.active {
+  color: var(--color-gold);
+}
+
+.sep {
+  color: rgba(255,255,255,0.2);
+  font-size: 0.7rem;
+}
