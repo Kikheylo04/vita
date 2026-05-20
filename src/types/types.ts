@@ -1,6 +1,6 @@
 // Shared TypeScript interfaces for the VITA restaurant app
 
-export type PageId = 'home' | 'menu' | 'reservaciones' | 'contacto' | 'privacidad'
+export type PageId = 'home' | 'menu' | 'reservaciones' | 'contacto' | 'privacidad' | 'pedido'
 
 export type MenuCategory =
   | 'Todo'

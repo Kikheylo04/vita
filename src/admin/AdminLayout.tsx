@@ -10,6 +10,7 @@ import AdminTestimonios from './pages/AdminTestimonios'
 import AdminEventos from './pages/AdminEventos'
 import AdminConfig from './pages/AdminConfig'
 import AdminMensajes from './pages/AdminMensajes'
+import AdminPedidos from './pages/AdminPedidos'
 
 const NAV: { id: AdminPage; label: string; icon: string }[] = [
   { id: 'dashboard',     label: 'Dashboard',      icon: '▦' },
@@ -17,6 +18,7 @@ const NAV: { id: AdminPage; label: string; icon: string }[] = [
   { id: 'menu',          label: 'Menú',           icon: '🍽️' },
   { id: 'testimonios',   label: 'Testimonios',    icon: '⭐' },
   { id: 'eventos',       label: 'Eventos',        icon: '🎉' },
+  { id: 'pedidos',       label: 'Pedidos',        icon: '🛒' },
   { id: 'mensajes',      label: 'Mensajes',       icon: '✉️' },
   { id: 'config',        label: 'Configuración',  icon: '⚙️' },
 ]
@@ -80,6 +82,7 @@ export default function AdminLayout() {
           {page === 'menu'          && <AdminMenu />}
           {page === 'testimonios'   && <AdminTestimonios />}
           {page === 'eventos'       && <AdminEventos />}
+          {page === 'pedidos'       && <AdminPedidos />}
           {page === 'mensajes'      && <AdminMensajes />}
           {page === 'config'        && <AdminConfig />}
         </div>

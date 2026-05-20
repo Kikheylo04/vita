@@ -1,13 +1,15 @@
 import { useState, useMemo, useEffect } from 'react'
 import styles from './Menu.module.css'
-import type { MenuItem, MenuCategory } from '../../../types/types'
+import type { MenuItem, MenuCategory, PageId } from '../../../types/types'
 import { useIntersection } from '../../../hooks/useIntersection'
 import { useLang } from '../../../context/LangContext'
 import { useFormatPrice } from '../../../context/RestaurantContext'
+import { useCart } from '../../../context/CartContext'
 import { supabase } from '../../../lib/supabase'
 
 interface MenuProps {
   initialFilter?: MenuCategory
+  setActivePage?: (page: PageId) => void
 }
 
 const categories: MenuCategory[] = ['Todo', 'Entradas', 'Pastas', 'Carnes', 'Mariscos', 'Postres', 'Bebidas']
@@ -44,9 +46,11 @@ const categoryLabels: Record<MenuCategory, { es: string; en: string }> = {
   'Bebidas':    { es: 'Bebidas',   en: 'Drinks' },
 }
 
-export default function Menu({ initialFilter = 'Todo' }: MenuProps) {
+export default function Menu({ initialFilter = 'Todo', setActivePage }: MenuProps) {
   const { t, lang } = useLang()
   const formatPrice = useFormatPrice()
+  const { add, count } = useCart()
+  const [added, setAdded] = useState<string | null>(null)
   const [active, setActive] = useState<MenuCategory>(initialFilter)
   const [search, setSearch] = useState('')
   const [items, setItems] = useState<BilingualMenuItem[]>(STATIC_ITEMS)
@@ -72,6 +76,12 @@ export default function Menu({ initialFilter = 'Todo' }: MenuProps) {
         })))
       })
   }, [])
+
+  const handleAdd = (item: BilingualMenuItem) => {
+    add({ name: item.name, price: item.price, image: item.image })
+    setAdded(item.name)
+    setTimeout(() => setAdded(null), 1200)
+  }
 
   const filtered = useMemo(() => {
     const byCategory = active === 'Todo' ? items : items.filter(i => i.cat === active)
@@ -142,9 +152,26 @@ export default function Menu({ initialFilter = 'Todo' }: MenuProps) {
                 {item.badge && <span className={styles.badge}>{item.badge}</span>}
               </div>
               <p className={styles.cardDesc}>{lang === 'es' ? item.desc : item.descEn}</p>
-              <p className={styles.cardPrice}>{formatPrice(item.price)}</p>
+              <div className={styles.cardFooter}>
+                <p className={styles.cardPrice}>{formatPrice(item.price)}</p>
+                <button
+                  className={`${styles.btnAdd} ${added === item.name ? styles.btnAdded : ''}`}
+                  onClick={() => handleAdd(item)}
+                >
+                  {added === item.name ? '✓' : '+'}
+                </button>
+              </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {count > 0 && (
+        <div className={styles.cartBar}>
+          <span className={styles.cartCount}>{count} {t(count === 1 ? 'platillo' : 'platillos', count === 1 ? 'dish' : 'dishes')}</span>
+          <button className={styles.cartBtn} onClick={() => setActivePage?.('pedido')}>
+            {t('Ver pedido →', 'View order →')}
+          </button>
         </div>
       )}
     </section>

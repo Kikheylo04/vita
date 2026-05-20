@@ -228,23 +228,85 @@
   padding: 0 1.5rem;
 }
 
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 1.5rem 1.5rem;
+  margin-top: auto;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
 .cardPrice {
   font-family: var(--font-heading);
   font-size: 1.3rem;
   color: var(--color-gold);
-  padding: 0 1.5rem 1.5rem;
-  margin-top: auto;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  padding-top: 0.8rem;
 }
 
-.cardPrice span {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  color: var(--color-text-light);
+.btnAdd {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(201,168,76,0.5);
+  background: transparent;
+  color: var(--color-gold);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
+.btnAdd:hover { background: rgba(201,168,76,0.15); border-color: var(--color-gold); }
+.btnAdded { background: var(--color-gold) !important; color: #0a0a0a !important; border-color: var(--color-gold) !important; font-size: 1rem !important; }
+
+/* Barra carrito flotante */
+.cartBar {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1510;
+  border: 1px solid rgba(201,168,76,0.4);
+  border-radius: 50px;
+  padding: 0.75rem 0.75rem 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  z-index: 100;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateX(-50%) translateY(20px); opacity: 0; }
+  to   { transform: translateX(-50%) translateY(0);    opacity: 1; }
+}
+
+.cartCount {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+  white-space: nowrap;
+}
+
+.cartBtn {
+  background: var(--color-gold);
+  border: none;
+  border-radius: 50px;
+  color: #0a0a0a;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.55rem 1.3rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+.cartBtn:hover { opacity: 0.88; }
 
 @media (max-width: 480px) {
   .title { font-size: 2.2rem; }
   .grid { grid-template-columns: 1fr; }
+  .cartBar { width: calc(100% - 2rem); bottom: 1rem; }
 }

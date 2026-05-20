@@ -51,4 +51,21 @@ export interface AdminEvent {
   active: boolean
 }
 
-export type AdminPage = 'dashboard' | 'reservaciones' | 'menu' | 'testimonios' | 'eventos' | 'mensajes' | 'config'
+export type OrderStatus = 'pending' | 'confirmed' | 'ready' | 'delivered' | 'cancelled'
+
+export interface AdminOrder {
+  id: string
+  name: string
+  email: string
+  phone: string
+  date: string
+  time: string
+  guests: number
+  notes: string
+  total: number
+  status: OrderStatus
+  created_at: string
+  order_items?: { name: string; price: number; quantity: number }[]
+}
+
+export type AdminPage = 'dashboard' | 'reservaciones' | 'menu' | 'testimonios' | 'eventos' | 'mensajes' | 'pedidos' | 'config'

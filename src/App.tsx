@@ -16,13 +16,14 @@ import Menu from './components/pages/main/Menu'
 import Reservations from './components/pages/main/Reservations'
 import Contact from './components/pages/main/Contact'
 import Privacy from './components/pages/legal/Privacy'
+import Order from './components/pages/main/Order'
 import NotFound from './components/pages/error/NotFound'
 import type { PageId, MenuCategory } from './types/types'
 import { useLang } from './context/LangContext'
 import styles from './App.module.css'
 import { useRestaurant } from './context/RestaurantContext'
 
-const KNOWN_PAGES: PageId[] = ['home', 'menu', 'reservaciones', 'contacto', 'privacidad']
+const KNOWN_PAGES: PageId[] = ['home', 'menu', 'reservaciones', 'contacto', 'privacidad', 'pedido']
 
 export default function App() {
   const { lang } = useLang()
@@ -39,6 +40,7 @@ export default function App() {
     reservaciones:{ es: 'VITA | Reservaciones', en: 'VITA | Reservations' },
     contacto:    { es: 'VITA | Contacto', en: 'VITA | Contact' },
     privacidad:  { es: 'VITA | Aviso de Privacidad', en: 'VITA | Privacy Policy' },
+    pedido:      { es: 'VITA | Tu Pedido', en: 'VITA | Your Order' },
   }
 
   const metaDescriptions: Record<PageId, { es: string; en: string }> = {
@@ -47,6 +49,7 @@ export default function App() {
     reservaciones:{ es: `Reserva tu mesa en ${RESTAURANT.name}. Martes a Domingo, 13:00–23:00. ${RESTAURANT.neighborhood}, ${RESTAURANT.city}.`, en: `Book your table at ${RESTAURANT.name}. Tuesday to Sunday, 13:00–23:00. ${RESTAURANT.neighborhood}, Mexico City.` },
     contacto:    { es: `Contáctanos en ${RESTAURANT.name} Restaurante. Teléfono, correo y ubicación en ${RESTAURANT.neighborhood}, ${RESTAURANT.city}.`, en: `Contact ${RESTAURANT.name} Restaurant. Phone, email and location in ${RESTAURANT.neighborhood}, Mexico City.` },
     privacidad:  { es: `Aviso de privacidad de ${RESTAURANT.name} Restaurante.`, en: `${RESTAURANT.name} Restaurant privacy policy.` },
+    pedido:      { es: `Confirma tu pedido anticipado en ${RESTAURANT.name}.`, en: `Confirm your pre-order at ${RESTAURANT.name}.` },
   }
 
   useEffect(() => {
@@ -96,10 +99,11 @@ export default function App() {
             <Hours />
           </>
         )}
-        {activePage === 'menu' && <Menu initialFilter={menuFilter} />}
+        {activePage === 'menu' && <Menu initialFilter={menuFilter} setActivePage={navigate} />}
         {activePage === 'reservaciones' && <Reservations />}
         {activePage === 'contacto' && <Contact />}
         {activePage === 'privacidad' && <Privacy />}
+        {activePage === 'pedido' && <Order setActivePage={navigate} />}
         {!KNOWN_PAGES.includes(activePage) && <NotFound setActivePage={navigate} />}
         <Footer setActivePage={navigate} />
       </div>

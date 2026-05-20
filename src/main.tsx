@@ -5,6 +5,7 @@ import App from './App'
 import AdminApp from './admin/AdminApp'
 import { LangProvider } from './context/LangContext'
 import { RestaurantProvider } from './context/RestaurantContext'
+import { CartProvider } from './context/CartContext'
 
 const rootElement = document.getElementById('root')
 if (!rootElement) throw new Error('Root element not found')
@@ -18,7 +19,9 @@ createRoot(rootElement).render(
     ) : (
       <RestaurantProvider>
         <LangProvider>
-          <App />
+          <CartProvider>
+            <App />
+          </CartProvider>
         </LangProvider>
       </RestaurantProvider>
     )}
