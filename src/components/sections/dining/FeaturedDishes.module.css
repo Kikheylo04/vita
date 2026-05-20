@@ -139,6 +139,13 @@
   border-color: var(--color-gold);
 }
 
+.btnAdded {
+  background: var(--color-gold);
+  color: var(--color-dark);
+  border-color: var(--color-gold);
+  opacity: 0.85;
+}
+
 .cta {
   text-align: center;
   margin-top: 3rem;

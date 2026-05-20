@@ -1,8 +1,10 @@
+import { useState } from 'react'
 import styles from './FeaturedDishes.module.css'
 import type { PageId } from '../../../types/types'
 import { useIntersection } from '../../../hooks/useIntersection'
 import { useLang } from '../../../context/LangContext'
 import { useFormatPrice } from '../../../context/RestaurantContext'
+import { useCart } from '../../../context/CartContext'
 
 interface FeaturedDishesProps {
   setActivePage: (page: PageId) => void
@@ -38,8 +40,16 @@ const dishes = [
 export default function FeaturedDishes({ setActivePage }: FeaturedDishesProps) {
   const { t, lang } = useLang()
   const formatPrice = useFormatPrice()
+  const { add } = useCart()
+  const [added, setAdded] = useState<string | null>(null)
   const [headerRef, headerVisible] = useIntersection<HTMLDivElement>({ threshold: 0.1 })
   const [gridRef, gridVisible] = useIntersection<HTMLDivElement>({ threshold: 0.05 })
+
+  const handlePreOrder = (dish: typeof dishes[0]) => {
+    add({ name: dish.name, price: dish.price, image: dish.image })
+    setAdded(dish.name)
+    setTimeout(() => { setAdded(null); setActivePage('pedido') }, 800)
+  }
 
   return (
     <section className={styles.section}>
@@ -61,8 +71,11 @@ export default function FeaturedDishes({ setActivePage }: FeaturedDishesProps) {
               <p className={styles.desc}>{lang === 'es' ? dish.descEs : dish.descEn}</p>
               <div className={styles.footer}>
                 <span className={styles.price}>{formatPrice(dish.price)}</span>
-                <button className={styles.btn} onClick={() => setActivePage('reservaciones')}>
-                  {t('Reservar', 'Reserve')}
+                <button
+                  className={`${styles.btn} ${added === dish.name ? styles.btnAdded : ''}`}
+                  onClick={() => handlePreOrder(dish)}
+                >
+                  {added === dish.name ? t('✓ Agregado', '✓ Added') : t('Pedir anticipado', 'Pre-order')}
                 </button>
               </div>
             </div>
