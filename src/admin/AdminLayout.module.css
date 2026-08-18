@@ -1,10 +1,9 @@
 .wrap {
   display: flex;
   min-height: 100vh;
-  /* Lienzo con brillo ambiental, no un plano liso. */
+  /* Lienzo negro con un brillo apenas perceptible. */
   background:
-    radial-gradient(900px 520px at 78% -8%, rgba(212, 168, 67, 0.055), transparent 62%),
-    radial-gradient(700px 420px at 4% 4%, rgba(212, 168, 67, 0.035), transparent 60%),
+    radial-gradient(1000px 560px at 80% -10%, rgba(212, 168, 67, 0.028), transparent 58%),
     var(--ad-bg);
   background-attachment: fixed;
   color: var(--ad-ink);
@@ -128,60 +127,27 @@
 
 .userBlock { position: relative; }
 
-.userBtn {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  width: 100%;
-  padding: 0.55rem 0.6rem;
-  background: none;
-  border: none;
-  border-radius: var(--ad-radius-sm);
-  color: var(--ad-ink-2);
-  cursor: pointer;
-  font-family: inherit;
-  text-align: left;
-}
-
-.userBtn:hover { background: rgba(255, 255, 255, 0.04); }
-.userBtn:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: -2px; }
-
-.avatar {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: var(--ad-gold-dim);
-  border: 1px solid var(--ad-gold);
-  color: var(--ad-gold);
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  font-size: 0.88rem;
-  flex: none;
-}
-
-.userText { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-
-.userName { font-size: 0.86rem; color: var(--ad-ink); font-weight: 600; }
-
-.userMail {
-  font-size: 0.72rem;
-  color: var(--ad-ink-3);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .userPop {
   position: absolute;
-  bottom: calc(100% + 0.4rem);
-  left: 0;
+  top: calc(100% + 0.5rem);
   right: 0;
+  min-width: 13.5rem;
   background: var(--ad-raised);
   border: 1px solid var(--ad-line-2);
   border-radius: var(--ad-radius-sm);
   padding: 0.3rem;
   z-index: 20;
+}
+
+.userPopMail {
+  font-size: 0.74rem;
+  color: var(--ad-ink-3);
+  margin: 0;
+  padding: 0.5rem 0.7rem 0.55rem;
+  border-bottom: 1px solid var(--ad-line);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .userPopBtn {
@@ -295,6 +261,9 @@
 }
 
 .topAvatar {
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -307,6 +276,9 @@
   font-size: 0.9rem;
   flex: none;
 }
+
+.topAvatar:hover { background: var(--ad-gold); color: #17120a; }
+.topAvatar:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
 
 .content { padding: 1.8rem 1.6rem 3rem; flex: 1; }
 

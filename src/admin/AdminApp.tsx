@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import './theme.css'
 import { AdminAuthProvider, useAdminAuth } from '../context/AdminAuthContext'
 import AdminLogin from './AdminLogin'
@@ -18,6 +19,14 @@ function AdminGate() {
 }
 
 export default function AdminApp() {
+  // index.css pinta el body con el marron del sitio publico. El panel
+  // necesita su propio lienzo, asi que lo sobrescribe mientras esta montado.
+  useEffect(() => {
+    const prev = document.body.style.backgroundColor
+    document.body.style.backgroundColor = '#060505'
+    return () => { document.body.style.backgroundColor = prev }
+  }, [])
+
   return (
     <AdminAuthProvider>
       <AdminGate />

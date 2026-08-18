@@ -4,7 +4,7 @@ import type { AdminPage } from '../types/admin'
 import styles from './AdminLayout.module.css'
 import {
   IconDashboard, IconCalendar, IconMenu, IconStar, IconEvent, IconCart,
-  IconMail, IconSettings, IconBell, IconSearch, IconChevronDown,
+  IconMail, IconSettings, IconBell, IconSearch,
   IconGlobe, IconExternal, IconHamburger, IconLogout,
 } from './ui/Icons'
 import { supabase } from '../lib/supabase'
@@ -99,29 +99,6 @@ export default function AdminLayout() {
             <span>Ver sitio web</span>
             <IconExternal size={14} />
           </a>
-
-          <div className={styles.userBlock} ref={userRef}>
-            <button
-              className={styles.userBtn}
-              onClick={() => setUserMenu(o => !o)}
-              aria-expanded={userMenu}
-            >
-              <span className={styles.avatar} aria-hidden="true">{initial}</span>
-              <span className={styles.userText}>
-                <span className={styles.userName}>Admin VITA</span>
-                <span className={styles.userMail}>{user?.email}</span>
-              </span>
-              <IconChevronDown size={16} />
-            </button>
-            {userMenu && (
-              <div className={styles.userPop} role="menu">
-                <button className={styles.userPopBtn} onClick={signOut} role="menuitem">
-                  <IconLogout size={16} />
-                  <span>Cerrar sesión</span>
-                </button>
-              </div>
-            )}
-          </div>
         </div>
       </aside>
 
@@ -158,7 +135,25 @@ export default function AdminLayout() {
             {unread > 0 && <span className={styles.bellBadge}>{unread}</span>}
           </button>
 
-          <span className={styles.topAvatar} aria-hidden="true">{initial}</span>
+          <div className={styles.userBlock} ref={userRef}>
+            <button
+              className={styles.topAvatar}
+              onClick={() => setUserMenu(o => !o)}
+              aria-expanded={userMenu}
+              aria-label="Cuenta"
+            >
+              {initial}
+            </button>
+            {userMenu && (
+              <div className={styles.userPop} role="menu">
+                <p className={styles.userPopMail}>{user?.email}</p>
+                <button className={styles.userPopBtn} onClick={signOut} role="menuitem">
+                  <IconLogout size={16} />
+                  <span>Cerrar sesión</span>
+                </button>
+              </div>
+            )}
+          </div>
         </header>
 
         <div className={styles.content}>
