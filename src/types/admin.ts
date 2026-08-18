@@ -99,4 +99,35 @@ export interface Profile {
   branch_id: string | null
 }
 
-export type AdminPage = 'dashboard' | 'reservaciones' | 'menu' | 'testimonios' | 'eventos' | 'mensajes' | 'pedidos' | 'config' | 'cuenta' | 'sucursales'
+export type StockUnit = 'kg' | 'g' | 'l' | 'ml' | 'pza' | 'paq'
+export type MovementKind = 'entrada' | 'salida' | 'merma' | 'ajuste'
+
+export interface Ingredient {
+  id: string
+  name: string
+  unit: StockUnit
+  category: string
+  cost: number
+  active: boolean
+}
+
+/** Fila de existencia con el ingrediente ya resuelto. */
+export interface StockRow {
+  ingredient_id: string
+  branch_id: string
+  quantity: number
+  min_quantity: number
+  ingredients: Ingredient | null
+}
+
+export interface StockMovement {
+  id: string
+  branch_id: string
+  ingredient_id: string
+  kind: MovementKind
+  quantity: number
+  note: string
+  created_at: string
+}
+
+export type AdminPage = 'dashboard' | 'reservaciones' | 'menu' | 'testimonios' | 'eventos' | 'mensajes' | 'pedidos' | 'config' | 'cuenta' | 'sucursales' | 'inventario'

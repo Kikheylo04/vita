@@ -273,3 +273,13 @@ export function IconLock({ size = 20, strokeWidth = 1.7 }: IconProps) {
     </svg>
   )
 }
+
+export function IconBox({ size = 20, strokeWidth = 1.7 }: IconProps) {
+  return (
+    <svg {...base(size, strokeWidth)}>
+      <path d="M20.6 7.8v8.4a1.7 1.7 0 0 1-.9 1.5l-6.9 3.8a1.7 1.7 0 0 1-1.6 0l-6.9-3.8a1.7 1.7 0 0 1-.9-1.5V7.8a1.7 1.7 0 0 1 .9-1.5l6.9-3.8a1.7 1.7 0 0 1 1.6 0l6.9 3.8a1.7 1.7 0 0 1 .9 1.5z" />
+      <path d="M3.6 7l8.4 4.6L20.4 7" strokeWidth={detail(strokeWidth)} />
+      <path d="M12 21.2v-9.6" strokeWidth={detail(strokeWidth)} />
+    </svg>
+  )
+}
