@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
-import type { AdminOrder, OrderStatus } from '../../types/admin'
+import type { AdminOrder, OrderStatus, PaymentStatus } from '../../types/admin'
 import styles from './AdminPedidos.module.css'
 
 const STATUS_LABELS: Record<OrderStatus, string> = {
@@ -17,6 +17,26 @@ const STATUS_COLORS: Record<OrderStatus, string> = {
   ready:     '#10b981',
   delivered: '#6b7280',
   cancelled: '#ef4444',
+}
+
+// Etiquetas del cobro. Se muestran aparte del estado en cocina porque un
+// pedido puede estar listo y sin pagar, o pagado y aun sin preparar.
+const PAY_LABELS: Record<PaymentStatus, string> = {
+  unpaid:   'Por cobrar',
+  pending:  'Pago en proceso',
+  paid:     'Pagado',
+  failed:   'Pago fallido',
+  refunded: 'Reembolsado',
+}
+
+// adPill da forma y tamano; la variante solo el color. theme.css es un import
+// global (no .module.css), asi que estas clases se usan como string literal.
+const PAY_PILL: Record<PaymentStatus, string> = {
+  unpaid:   'adPill adPillMute',
+  pending:  'adPill adPillWarn',
+  paid:     'adPill adPillOk',
+  failed:   'adPill adPillCrit',
+  refunded: 'adPill adPillMute',
 }
 
 export default function AdminPedidos() {
@@ -91,6 +111,9 @@ export default function AdminPedidos() {
                   </div>
                 </div>
                 <div className={styles.cardRight}>
+                  <span className={PAY_PILL[order.payment_status] ?? 'adPill adPillMute'}>
+                    {PAY_LABELS[order.payment_status] ?? order.payment_status}
+                  </span>
                   <span className={styles.cardTotal}>${Number(order.total).toFixed(2)}</span>
                   <span className={styles.cardChevron}>{expanded === order.id ? '▲' : '▼'}</span>
                 </div>
@@ -101,6 +124,25 @@ export default function AdminPedidos() {
                   <div className={styles.infoGrid}>
                     <div><span className={styles.infoLabel}>Correo</span><p>{order.email}</p></div>
                     <div><span className={styles.infoLabel}>Teléfono</span><p>{order.phone}</p></div>
+                    <div>
+                      <span className={styles.infoLabel}>Cobro</span>
+                      <p>
+                        {PAY_LABELS[order.payment_status] ?? order.payment_status}
+                        {order.payment_method === 'mercadopago' ? ' · MercadoPago' : ' · En restaurante'}
+                      </p>
+                    </div>
+                    {order.paid_at && (
+                      <div>
+                        <span className={styles.infoLabel}>Pagado el</span>
+                        <p>{new Date(order.paid_at).toLocaleString('es-MX')}</p>
+                      </div>
+                    )}
+                    {order.amount_paid != null && Number(order.amount_paid) !== Number(order.total) && (
+                      <div className={styles.infoFull}>
+                        <span className={styles.infoLabel}>Revisar</span>
+                        <p>Cobrado ${Number(order.amount_paid).toFixed(2)} contra un total de ${Number(order.total).toFixed(2)}.</p>
+                      </div>
+                    )}
                     {order.notes && <div className={styles.infoFull}><span className={styles.infoLabel}>Notas</span><p>{order.notes}</p></div>}
                   </div>
 

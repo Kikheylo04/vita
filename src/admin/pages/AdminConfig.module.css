@@ -6,7 +6,8 @@
   align-items: center;
   gap: 0.6rem;
   background: var(--ad-gold-dim);
-  border: 1px solid var(--ad-gold-dim);
+  border: 1px solid var(--ad-line-2);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
   border-radius: var(--ad-radius-sm);
   padding: 0.65rem 0.9rem;
 }
@@ -44,10 +45,10 @@
 .field { display: flex; flex-direction: column; gap: 0.35rem; }
 .field label { color: var(--ad-ink-3); font-size: 0.78rem; }
 .field input, .field textarea {
-  background: #201c16;
+  background: rgba(0, 0, 0, 0.32);
   border: 1px solid var(--ad-line);
   border-radius: 7px;
-  color: #fff;
+  color: var(--ad-ink);
   font-size: 0.875rem;
   padding: 0.5rem 0.75rem;
   outline: none;
@@ -71,7 +72,7 @@
 }
 
 .savedMsg {
-  color: #34d399;
+  color: var(--ad-ok);
   font-size: 0.85rem;
 }
 
@@ -86,5 +87,5 @@
   cursor: pointer;
   transition: background 0.2s;
 }
-.btnSave:hover:not(:disabled) { background: #c49a35; }
+.btnSave:hover:not(:disabled) { background: var(--ad-gold); }
 .btnSave:disabled { opacity: 0.5; cursor: not-allowed; }

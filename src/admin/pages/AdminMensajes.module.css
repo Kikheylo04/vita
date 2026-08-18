@@ -78,7 +78,8 @@
 
 .btnReply {
   background: var(--ad-gold-dim);
-  border: 1px solid var(--ad-gold-dim);
+  border: 1px solid var(--ad-line-2);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
   border-radius: var(--ad-radius-sm);
   color: var(--ad-gold);
   font-size: 0.8rem;

@@ -56,8 +56,8 @@
 .email { color: var(--ad-ink-3); font-size: 0.78rem; }
 
 .status { font-size: 0.74rem; padding: 0.2rem 0.55rem; border-radius: 999px; font-weight: 500; white-space: nowrap; }
-.statusPending   { background: rgba(245,158,11,0.15); color: #f59e0b; }
-.statusConfirmed { background: rgba(52,211,153,0.15); color: #34d399; }
+.statusPending   { background: rgba(245,158,11,0.15); color: var(--ad-warn); }
+.statusConfirmed { background: rgba(52,211,153,0.15); color: var(--ad-ok); }
 .statusCancelled { background: rgba(248,113,113,0.15); color: var(--ad-crit); }
 
 .actions { display: flex; gap: 0.35rem; }
@@ -70,9 +70,9 @@
   padding: 0.25rem 0.5rem;
   transition: all 0.15s;
 }
-.btnConfirm { color: #34d399; border-color: rgba(52,211,153,0.3); }
+.btnConfirm { color: var(--ad-ok); border-color: rgba(52,211,153,0.3); }
 .btnConfirm:hover { background: rgba(52,211,153,0.1); }
-.btnCancel  { color: #f59e0b; border-color: rgba(245,158,11,0.3); }
+.btnCancel  { color: var(--ad-warn); border-color: rgba(245,158,11,0.3); }
 .btnCancel:hover  { background: rgba(245,158,11,0.1); }
 .btnDelete  { color: rgba(248,113,113,0.6); }
 .btnDelete:hover  { color: var(--ad-crit); }
@@ -90,8 +90,9 @@
 }
 
 .detail {
-  background: #1a1612;
-  border: 1px solid var(--ad-gold-dim);
+  background: var(--ad-surface-2);
+  border: 1px solid var(--ad-line-2);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
   border-radius: 14px;
   width: 100%;
   max-width: 460px;
@@ -106,7 +107,7 @@
   padding: 1.1rem 1.25rem;
   border-bottom: 1px solid var(--ad-line);
 }
-.detailHeader h3 { color: #fff; font-size: 0.95rem; margin: 0; }
+.detailHeader h3 { color: var(--ad-ink); font-size: 0.95rem; margin: 0; }
 .detailHeader button { background: none; border: none; color: var(--ad-ink-3); font-size: 1rem; cursor: pointer; }
 
 .detailBody { padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.65rem; }
@@ -126,7 +127,7 @@
   background: rgba(52,211,153,0.12);
   border: 1px solid rgba(52,211,153,0.3);
   border-radius: 7px;
-  color: #34d399;
+  color: var(--ad-ok);
   font-size: 0.85rem;
   padding: 0.5rem 1rem;
   cursor: pointer;
@@ -138,7 +139,7 @@
   background: rgba(245,158,11,0.12);
   border: 1px solid rgba(245,158,11,0.3);
   border-radius: 7px;
-  color: #f59e0b;
+  color: var(--ad-warn);
   font-size: 0.85rem;
   padding: 0.5rem 1rem;
   cursor: pointer;

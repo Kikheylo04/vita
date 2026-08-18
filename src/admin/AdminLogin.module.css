@@ -28,7 +28,7 @@
 }
 
 .title {
-  color: #fff;
+  color: var(--ad-ink);
   font-size: 1.4rem;
   font-weight: 600;
   margin: 0 0 0.25rem;
@@ -51,10 +51,10 @@
 }
 
 .field input {
-  background: #201c16;
+  background: rgba(0, 0, 0, 0.32);
   border: 1px solid var(--ad-line-2);
   border-radius: var(--ad-radius-sm);
-  color: #fff;
+  color: var(--ad-ink);
   padding: 0.65rem 0.9rem;
   font-size: 0.95rem;
   outline: none;
@@ -84,5 +84,5 @@
   margin-top: 0.5rem;
 }
 
-.btn:hover { background: #c49a35; }
+.btn:hover { background: var(--ad-gold); }
 .btn:disabled { opacity: 0.6; cursor: not-allowed; }
