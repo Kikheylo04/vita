@@ -6,7 +6,7 @@ import {
   IconDashboard, IconCalendar, IconMenu, IconStar, IconEvent, IconCart,
   IconMail, IconSettings, IconBell, IconSearch,
   IconGlobe, IconExternal, IconHamburger, IconLogout,
-  IconUser, IconIdCard, IconLock, IconPin, IconBox, IconRecipe,
+  IconUser, IconIdCard, IconLock, IconPin, IconBox, IconRecipe, IconCard,
 } from './ui/Icons'
 import { supabase } from '../lib/supabase'
 import { BRAND } from '../config/brand'
@@ -25,6 +25,7 @@ import AdminInventario from './pages/AdminInventario'
 import AdminRecetas from './pages/AdminRecetas'
 import AdminCartaSucursal from './pages/AdminCartaSucursal'
 import PlatformTenants from './pages/PlatformTenants'
+import AdminPlan from './pages/AdminPlan'
 
 type IconCmp = ({ size }: { size?: number }) => ReactElement
 
@@ -51,6 +52,7 @@ const NAV: { id: AdminPage; label: string; Icon: IconCmp }[] = [
   { id: 'inventario',    label: 'Inventario',    Icon: IconBox },
   { id: 'sucursales',    label: 'Sucursales',    Icon: IconPin },
   { id: 'config',        label: 'Configuración', Icon: IconSettings },
+  { id: 'plan',          label: 'Plan',          Icon: IconCard },
 ]
 
 export default function AdminLayout() {
@@ -89,7 +91,10 @@ export default function AdminLayout() {
   }, [userMenu])
 
   // El operador de la plataforma administra clientes, no un menu.
-  const nav = isPlatform ? PLATFORM_NAV : NAV
+  const isOwner = profile?.role === 'owner'
+  const nav = isPlatform
+    ? PLATFORM_NAV
+    : isOwner ? NAV : NAV.filter(n => n.id !== 'plan')
   const current = nav.find(n => n.id === page)
   const initial = (user?.email ?? 'A').charAt(0).toUpperCase()
 
@@ -223,6 +228,7 @@ export default function AdminLayout() {
           {page === 'recetas'       && <AdminRecetas />}
           {page === 'carta'         && <AdminCartaSucursal />}
           {page === 'clientes'      && <PlatformTenants />}
+          {page === 'plan'          && <AdminPlan />}
         </div>
       </div>
     </div>

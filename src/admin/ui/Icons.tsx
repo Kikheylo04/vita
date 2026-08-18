@@ -294,3 +294,13 @@ export function IconRecipe({ size = 20, strokeWidth = 1.7 }: IconProps) {
     </svg>
   )
 }
+
+export function IconCard({ size = 20, strokeWidth = 1.7 }: IconProps) {
+  return (
+    <svg {...base(size, strokeWidth)}>
+      <rect x="2.4" y="5" width="19.2" height="14" rx="2.4" />
+      <path d="M2.4 9.6h19.2" />
+      <path d="M6 14.6h3.4" strokeWidth={detail(strokeWidth)} />
+    </svg>
+  )
+}
