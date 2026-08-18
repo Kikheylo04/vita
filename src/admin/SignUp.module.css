@@ -1,0 +1,160 @@
+.wrap {
+  min-height: 100vh;
+  background: var(--ad-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.card {
+  width: 100%;
+  max-width: 430px;
+  background: var(--ad-surface);
+  border: 1px solid var(--ad-line);
+  border-radius: var(--ad-radius);
+  padding: 2rem 1.9rem 2.2rem;
+}
+
+/* ── Pasos ───────────────────────────────── */
+.steps {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 1.8rem;
+  font-size: 0.76rem;
+}
+
+.step { color: var(--ad-ink-3); }
+.stepOn { color: var(--ad-gold); font-weight: 700; }
+.stepDone { color: var(--ad-ok); }
+.stepLine { flex: 1; height: 1px; background: var(--ad-line-2); }
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--ad-ink);
+  margin: 0 0 0.35rem;
+}
+
+.sub { color: var(--ad-ink-2); font-size: 0.88rem; margin: 0 0 1.6rem; }
+
+/* ── Formulario ──────────────────────────── */
+.form { display: flex; flex-direction: column; gap: 1rem; }
+
+.field { display: flex; flex-direction: column; gap: 0.38rem; }
+.field label { font-size: 0.8rem; color: var(--ad-ink-2); }
+
+.field input {
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px solid var(--ad-line-2);
+  border-radius: var(--ad-radius-sm);
+  color: var(--ad-ink);
+  font-family: inherit;
+  font-size: 0.92rem;
+  padding: 0.62rem 0.85rem;
+  outline: none;
+}
+
+.field input::placeholder { color: var(--ad-ink-3); }
+.field input:focus { border-color: var(--ad-gold); }
+
+/* ── Dirección web ───────────────────────── */
+.slugRow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px solid var(--ad-line-2);
+  border-radius: var(--ad-radius-sm);
+  padding-right: 0.7rem;
+}
+
+.slugRow:focus-within { border-color: var(--ad-gold); }
+
+.slugRow input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  padding: 0.62rem 0.85rem;
+}
+
+.slugSuffix {
+  color: var(--ad-ink-3);
+  font-size: 0.84rem;
+  white-space: nowrap;
+}
+
+.slugChecking { font-size: 0.76rem; color: var(--ad-ink-3); margin: 0; }
+.slugOk { font-size: 0.76rem; color: var(--ad-ok); margin: 0; }
+.slugBad { font-size: 0.76rem; color: var(--ad-crit); margin: 0; }
+
+/* ── Botones ─────────────────────────────── */
+.btnPrimary {
+  background: var(--ad-gold-dim);
+  border: 1px solid var(--ad-gold);
+  color: var(--ad-gold);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.72rem 1.2rem;
+  border-radius: var(--ad-radius-sm);
+  cursor: pointer;
+  margin-top: 0.3rem;
+}
+
+.btnPrimary:hover:not(:disabled) { background: var(--ad-gold); color: #0a0c10; }
+.btnPrimary:disabled { opacity: 0.5; cursor: default; }
+.btnPrimary:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
+
+.btnGhost {
+  background: none;
+  border: 1px solid var(--ad-line-2);
+  color: var(--ad-ink-2);
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--ad-radius-sm);
+  cursor: pointer;
+}
+
+.btnGhost:hover { color: var(--ad-ink); border-color: var(--ad-ink-3); }
+
+.btnLink {
+  background: none;
+  border: none;
+  color: var(--ad-ink-3);
+  font-family: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  padding: 0.3rem;
+}
+
+.btnLink:hover { color: var(--ad-gold); }
+
+.err {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ad-crit);
+  font-size: 0.84rem;
+  margin: 0;
+}
+
+/* ── Confirmación ────────────────────────── */
+.done { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.9rem; }
+
+.doneIcon { color: var(--ad-ok); }
+
+.done h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.35rem;
+  color: var(--ad-ink);
+  margin: 0;
+}
+
+.done p { color: var(--ad-ink-2); font-size: 0.9rem; margin: 0; line-height: 1.6; }
+.done strong { color: var(--ad-ink); }

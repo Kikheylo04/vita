@@ -1,11 +1,15 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './theme.css'
 import { AdminAuthProvider, useAdminAuth } from '../context/AdminAuthContext'
 import AdminLogin from './AdminLogin'
 import AdminLayout from './AdminLayout'
+import SignUp from './SignUp'
 
 function AdminGate() {
-  const { user, loading } = useAdminAuth()
+  const { user, loading, profile } = useAdminAuth()
+  const [wantsSignUp, setWantsSignUp] = useState(
+    () => new URLSearchParams(window.location.search).has('registro')
+  )
 
   if (loading) {
     return (
@@ -15,7 +19,28 @@ function AdminGate() {
     )
   }
 
-  return user ? <AdminLayout /> : <AdminLogin />
+  // Sin sesion: entrar o registrarse.
+  if (!user) {
+    return wantsSignUp
+      ? <SignUp onBack={() => setWantsSignUp(false)} />
+      : <AdminLogin onSignUp={() => setWantsSignUp(true)} />
+  }
+
+  // El perfil llega un instante despues de la sesion.
+  if (!profile) {
+    return (
+      <div style={{ minHeight: '100vh', background: 'var(--ad-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--ad-ink-3)', fontFamily: 'sans-serif' }}>
+        Cargando...
+      </div>
+    )
+  }
+
+  // Con sesion pero sin empresa: falta el segundo paso del registro.
+  if (profile.role !== 'platform' && !profile.tenant_id) {
+    return <SignUp onBack={() => setWantsSignUp(false)} />
+  }
+
+  return <AdminLayout />
 }
 
 export default function AdminApp() {

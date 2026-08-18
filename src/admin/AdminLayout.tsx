@@ -24,8 +24,19 @@ import AdminSucursales from './pages/AdminSucursales'
 import AdminInventario from './pages/AdminInventario'
 import AdminRecetas from './pages/AdminRecetas'
 import AdminCartaSucursal from './pages/AdminCartaSucursal'
+import PlatformTenants from './pages/PlatformTenants'
 
 type IconCmp = ({ size }: { size?: number }) => ReactElement
+
+// El rol se lee del almacenamiento local para elegir la pantalla
+// inicial sin esperar a la consulta del perfil.
+function profileRole() {
+  try { return localStorage.getItem('admin_role') } catch { return null }
+}
+
+const PLATFORM_NAV: { id: AdminPage; label: string; Icon: IconCmp }[] = [
+  { id: 'clientes', label: 'Clientes', Icon: IconDashboard },
+]
 
 const NAV: { id: AdminPage; label: string; Icon: IconCmp }[] = [
   { id: 'dashboard',     label: 'Dashboard',     Icon: IconDashboard },
@@ -43,8 +54,11 @@ const NAV: { id: AdminPage; label: string; Icon: IconCmp }[] = [
 ]
 
 export default function AdminLayout() {
-  const { user, signOut } = useAdminAuth()
-  const [page, setPage] = useState<AdminPage>('dashboard')
+  const { user, signOut, profile } = useAdminAuth()
+  const isPlatform = profile?.role === 'platform'
+  const [page, setPage] = useState<AdminPage>(
+    () => (profileRole() === 'platform' ? 'clientes' : 'dashboard')
+  )
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [unread, setUnread] = useState(0)
   const [userMenu, setUserMenu] = useState(false)
@@ -74,7 +88,9 @@ export default function AdminLayout() {
     return () => document.removeEventListener('mousedown', onDown)
   }, [userMenu])
 
-  const current = NAV.find(n => n.id === page)
+  // El operador de la plataforma administra clientes, no un menu.
+  const nav = isPlatform ? PLATFORM_NAV : NAV
+  const current = nav.find(n => n.id === page)
   const initial = (user?.email ?? 'A').charAt(0).toUpperCase()
 
   return (
@@ -89,7 +105,7 @@ export default function AdminLayout() {
         </div>
 
         <nav className={styles.nav} aria-label="Secciones">
-          {NAV.map(({ id, label, Icon }) => (
+          {nav.map(({ id, label, Icon }) => (
             <button
               key={id}
               className={`${styles.navBtn} ${page === id ? styles.navActive : ''}`}
@@ -206,6 +222,7 @@ export default function AdminLayout() {
           {page === 'inventario'    && <AdminInventario />}
           {page === 'recetas'       && <AdminRecetas />}
           {page === 'carta'         && <AdminCartaSucursal />}
+          {page === 'clientes'      && <PlatformTenants />}
         </div>
       </div>
     </div>

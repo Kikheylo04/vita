@@ -86,3 +86,17 @@
 
 .btn:hover { background: var(--ad-gold); }
 .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.signUpLink {
+  background: none;
+  border: none;
+  color: var(--ad-ink-3);
+  font-family: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  padding: 0.6rem 0.3rem 0;
+  text-align: center;
+  width: 100%;
+}
+
+.signUpLink:hover { color: var(--ad-gold); }

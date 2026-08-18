@@ -3,7 +3,7 @@ import { useAdminAuth } from '../context/AdminAuthContext'
 import styles from './AdminLogin.module.css'
 import { BRAND, CONTACT } from '../config/brand'
 
-export default function AdminLogin() {
+export default function AdminLogin({ onSignUp }: { onSignUp?: () => void }) {
   const { signIn } = useAdminAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -61,6 +61,12 @@ export default function AdminLogin() {
           <button type="submit" className={styles.btn} disabled={loading} aria-busy={loading}>
             {loading ? 'Entrando...' : 'Entrar'}
           </button>
+
+          {onSignUp && (
+            <button type="button" className={styles.signUpLink} onClick={onSignUp}>
+              ¿No tienes cuenta? Registra tu restaurante
+            </button>
+          )}
         </form>
       </div>
     </div>
