@@ -139,16 +139,26 @@
   z-index: 20;
 }
 
+.userPopHead {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.6rem 0.7rem 0.7rem;
+  border-bottom: 1px solid var(--ad-line);
+  margin-bottom: 0.3rem;
+}
+
+.userPopName { font-size: 0.88rem; font-weight: 600; color: var(--ad-ink); }
+
 .userPopMail {
   font-size: 0.74rem;
   color: var(--ad-ink-3);
-  margin: 0;
-  padding: 0.5rem 0.7rem 0.55rem;
-  border-bottom: 1px solid var(--ad-line);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.userPopSep { height: 1px; background: var(--ad-line); margin: 0.3rem 0; }
 
 .userPopBtn {
   display: flex;
@@ -166,7 +176,11 @@
   text-align: left;
 }
 
-.userPopBtn:hover { background: rgba(248, 113, 113, 0.12); color: var(--ad-crit); }
+.userPopBtn:hover { background: rgba(255, 255, 255, 0.05); color: var(--ad-ink); }
+.userPopBtn:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: -2px; }
+
+.userPopOut { color: var(--ad-crit); }
+.userPopOut:hover { background: rgba(248, 113, 113, 0.12); color: var(--ad-crit); }
 
 /* ── Main ────────────────────────────────── */
 .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }

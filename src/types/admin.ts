@@ -68,4 +68,4 @@ export interface AdminOrder {
   order_items?: { name: string; price: number; quantity: number }[]
 }
 
-export type AdminPage = 'dashboard' | 'reservaciones' | 'menu' | 'testimonios' | 'eventos' | 'mensajes' | 'pedidos' | 'config'
+export type AdminPage = 'dashboard' | 'reservaciones' | 'menu' | 'testimonios' | 'eventos' | 'mensajes' | 'pedidos' | 'config' | 'cuenta'

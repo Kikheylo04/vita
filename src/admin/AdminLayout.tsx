@@ -6,6 +6,7 @@ import {
   IconDashboard, IconCalendar, IconMenu, IconStar, IconEvent, IconCart,
   IconMail, IconSettings, IconBell, IconSearch,
   IconGlobe, IconExternal, IconHamburger, IconLogout,
+  IconUser, IconIdCard, IconLock,
 } from './ui/Icons'
 import { supabase } from '../lib/supabase'
 
@@ -17,6 +18,7 @@ import AdminEventos from './pages/AdminEventos'
 import AdminConfig from './pages/AdminConfig'
 import AdminMensajes from './pages/AdminMensajes'
 import AdminPedidos from './pages/AdminPedidos'
+import AdminCuenta, { type AccountTab } from './pages/AdminCuenta'
 
 type IconCmp = ({ size }: { size?: number }) => ReactElement
 
@@ -37,6 +39,7 @@ export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [unread, setUnread] = useState(0)
   const [userMenu, setUserMenu] = useState(false)
+  const [accountTab, setAccountTab] = useState<AccountTab>('perfil')
   const userRef = useRef<HTMLDivElement>(null)
 
   const handleNav = (id: AdminPage) => { setPage(id); setSidebarOpen(false) }
@@ -114,7 +117,7 @@ export default function AdminLayout() {
             <IconHamburger size={20} />
           </button>
 
-          <h1 className={styles.pageTitle}>{current?.label}</h1>
+          <h1 className={styles.pageTitle}>{page === 'cuenta' ? 'Mi cuenta' : current?.label}</h1>
 
           <div className={styles.search}>
             <IconSearch size={17} />
@@ -146,8 +149,32 @@ export default function AdminLayout() {
             </button>
             {userMenu && (
               <div className={styles.userPop} role="menu">
-                <p className={styles.userPopMail}>{user?.email}</p>
-                <button className={styles.userPopBtn} onClick={signOut} role="menuitem">
+                <div className={styles.userPopHead}>
+                  <span className={styles.userPopName}>
+                    {(user?.user_metadata as { full_name?: string })?.full_name || 'Admin VITA'}
+                  </span>
+                  <span className={styles.userPopMail}>{user?.email}</span>
+                </div>
+
+                <button className={styles.userPopBtn} role="menuitem"
+                  onClick={() => { setAccountTab('perfil'); setPage('cuenta'); setUserMenu(false) }}>
+                  <IconUser size={16} />
+                  <span>Mi perfil</span>
+                </button>
+                <button className={styles.userPopBtn} role="menuitem"
+                  onClick={() => { setAccountTab('datos'); setPage('cuenta'); setUserMenu(false) }}>
+                  <IconIdCard size={16} />
+                  <span>Datos personales</span>
+                </button>
+                <button className={styles.userPopBtn} role="menuitem"
+                  onClick={() => { setAccountTab('password'); setPage('cuenta'); setUserMenu(false) }}>
+                  <IconLock size={16} />
+                  <span>Cambiar contraseña</span>
+                </button>
+
+                <div className={styles.userPopSep} />
+
+                <button className={`${styles.userPopBtn} ${styles.userPopOut}`} onClick={signOut} role="menuitem">
                   <IconLogout size={16} />
                   <span>Cerrar sesión</span>
                 </button>
@@ -165,6 +192,7 @@ export default function AdminLayout() {
           {page === 'pedidos'       && <AdminPedidos />}
           {page === 'mensajes'      && <AdminMensajes />}
           {page === 'config'        && <AdminConfig />}
+          {page === 'cuenta'        && <AdminCuenta initialTab={accountTab} />}
         </div>
       </div>
     </div>

@@ -243,3 +243,33 @@ export function IconLogout({ size = 20, strokeWidth = 1.7 }: IconProps) {
     </svg>
   )
 }
+
+export function IconUser({ size = 20, strokeWidth = 1.7 }: IconProps) {
+  return (
+    <svg {...base(size, strokeWidth)}>
+      <circle cx="12" cy="8.2" r="4.1" />
+      <path d="M4.4 20.6a7.8 7.8 0 0 1 15.2 0" />
+    </svg>
+  )
+}
+
+export function IconIdCard({ size = 20, strokeWidth = 1.7 }: IconProps) {
+  return (
+    <svg {...base(size, strokeWidth)}>
+      <rect x="2.6" y="5" width="18.8" height="14" rx="2.4" />
+      <circle cx="8.6" cy="10.9" r="2.1" strokeWidth={detail(strokeWidth)} />
+      <path d="M5.2 16.1a3.7 3.7 0 0 1 6.8 0" strokeWidth={detail(strokeWidth)} />
+      <path d="M15.1 10.2h3.6M15.1 13.6h3.6" strokeWidth={detail(strokeWidth)} />
+    </svg>
+  )
+}
+
+export function IconLock({ size = 20, strokeWidth = 1.7 }: IconProps) {
+  return (
+    <svg {...base(size, strokeWidth)}>
+      <rect x="4.4" y="10.3" width="15.2" height="10.5" rx="2.4" />
+      <path d="M7.9 10.3V7.6a4.1 4.1 0 0 1 8.2 0v2.7" />
+      <circle cx="12" cy="15.5" r="1.2" fill="currentColor" stroke="none" />
+    </svg>
+  )
+}

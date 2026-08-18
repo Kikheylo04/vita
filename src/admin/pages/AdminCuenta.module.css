@@ -1,0 +1,164 @@
+.page { display: flex; flex-direction: column; gap: 1.3rem; max-width: 720px; }
+
+.head { display: flex; flex-direction: column; gap: 0.25rem; }
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--ad-ink);
+  margin: 0;
+}
+
+.sub { color: var(--ad-ink-2); font-size: 0.9rem; margin: 0; }
+
+/* ── Pestañas ────────────────────────────── */
+.tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+.tab {
+  background: none;
+  border: 1px solid var(--ad-line-2);
+  border-radius: 999px;
+  color: var(--ad-ink-2);
+  font-size: 0.83rem;
+  font-family: inherit;
+  padding: 0.45rem 0.95rem;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.tab:hover { color: var(--ad-ink); border-color: var(--ad-ink-3); }
+.tab:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
+
+.tabActive {
+  border-color: var(--ad-gold);
+  color: var(--ad-gold);
+  background: var(--ad-gold-dim);
+  font-weight: 600;
+}
+
+/* ── Tarjeta ─────────────────────────────── */
+.card {
+  background: linear-gradient(160deg, #171614 0%, #100f0e 100%);
+  border: 1px solid var(--ad-line);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 6px 18px rgba(0, 0, 0, 0.45);
+  border-radius: var(--ad-radius);
+  padding: 1.5rem 1.6rem;
+}
+
+/* ── Perfil ──────────────────────────────── */
+.profileTop {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding-bottom: 1.3rem;
+  border-bottom: 1px solid var(--ad-line);
+}
+
+.bigAvatar {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background: var(--ad-gold-dim);
+  border: 1px solid var(--ad-gold);
+  color: var(--ad-gold);
+  display: grid;
+  place-items: center;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.7rem;
+  flex: none;
+}
+
+.profileName {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ad-ink);
+  margin: 0 0 0.15rem;
+}
+
+.profileMail { font-size: 0.87rem; color: var(--ad-ink-2); margin: 0 0 0.5rem; }
+
+.roleTag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ad-gold);
+  background: var(--ad-gold-dim);
+  border-radius: 999px;
+  padding: 0.22rem 0.6rem;
+}
+
+.factList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.1rem;
+  margin: 1.3rem 0 0;
+}
+
+.factList dt {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ad-ink-3);
+  margin-bottom: 0.3rem;
+}
+
+.factList dd { margin: 0; font-size: 0.92rem; color: var(--ad-ink); }
+
+.hint {
+  margin: 1.4rem 0 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--ad-line);
+  font-size: 0.83rem;
+  color: var(--ad-ink-3);
+}
+
+/* ── Formularios ─────────────────────────── */
+.form { display: flex; flex-direction: column; gap: 1.05rem; }
+
+.field { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.field label { font-size: 0.82rem; color: var(--ad-ink-2); }
+
+.field input {
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px solid var(--ad-line-2);
+  border-radius: var(--ad-radius-sm);
+  color: var(--ad-ink);
+  font-family: inherit;
+  font-size: 0.92rem;
+  padding: 0.65rem 0.85rem;
+}
+
+.field input::placeholder { color: var(--ad-ink-3); }
+.field input:focus { outline: none; border-color: var(--ad-gold); }
+
+.btn {
+  align-self: flex-start;
+  background: var(--ad-gold-dim);
+  border: 1px solid var(--ad-gold);
+  color: var(--ad-gold);
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 0.62rem 1.3rem;
+  border-radius: var(--ad-radius-sm);
+  cursor: pointer;
+}
+
+.btn:hover:not(:disabled) { background: var(--ad-gold); color: #17120a; }
+.btn:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
+.btn:disabled { opacity: 0.55; cursor: default; }
+
+.ok, .err {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.86rem;
+  margin: 0;
+}
+
+.ok { color: var(--ad-ok); }
+.err { color: var(--ad-crit); }
