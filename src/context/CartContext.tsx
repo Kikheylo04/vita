@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, type ReactNode } from 'react'
 
 export interface CartItem {
+  menuItemId: string
   name: string
   price: number
   quantity: number
@@ -10,8 +11,8 @@ export interface CartItem {
 interface CartContextType {
   items: CartItem[]
   add: (item: Omit<CartItem, 'quantity'>) => void
-  remove: (name: string) => void
-  updateQty: (name: string, qty: number) => void
+  remove: (id: string) => void
+  updateQty: (id: string, qty: number) => void
   clear: () => void
   total: number
   count: number
@@ -26,17 +27,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const add = (item: Omit<CartItem, 'quantity'>) => {
     setItems(prev => {
-      const exists = prev.find(i => i.name === item.name)
-      if (exists) return prev.map(i => i.name === item.name ? { ...i, quantity: i.quantity + 1 } : i)
+      const exists = prev.find(i => i.menuItemId === item.menuItemId)
+      if (exists) return prev.map(i => i.menuItemId === item.menuItemId ? { ...i, quantity: i.quantity + 1 } : i)
       return [...prev, { ...item, quantity: 1 }]
     })
   }
 
-  const remove = (name: string) => setItems(prev => prev.filter(i => i.name !== name))
+  const remove = (id: string) => setItems(prev => prev.filter(i => i.menuItemId !== id))
 
-  const updateQty = (name: string, qty: number) => {
-    if (qty <= 0) { remove(name); return }
-    setItems(prev => prev.map(i => i.name === name ? { ...i, quantity: qty } : i))
+  const updateQty = (id: string, qty: number) => {
+    if (qty <= 0) { remove(id); return }
+    setItems(prev => prev.map(i => i.menuItemId === id ? { ...i, quantity: qty } : i))
   }
 
   const clear = () => setItems([])

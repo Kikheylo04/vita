@@ -21,6 +21,7 @@ export default function Order({ setActivePage }: OrderProps) {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
+  const [sendError, setSendError] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -46,6 +47,7 @@ export default function Order({ setActivePage }: OrderProps) {
     const errs = validate()
     if (Object.keys(errs).length > 0) { setErrors(errs); return }
     setLoading(true)
+    setSendError(false)
 
     const { data: order, error } = await supabase.from('orders').insert({
       name: form.name, email: form.email, phone: form.phone,
@@ -53,13 +55,29 @@ export default function Order({ setActivePage }: OrderProps) {
       notes: form.notes, total, status: 'pending',
     }).select('id').single()
 
-    if (!error && order) {
-      await supabase.from('order_items').insert(
-        items.map(i => ({ order_id: order.id, name: i.name, price: i.price, quantity: i.quantity }))
-      )
-      clear()
-      setDone(true)
+    if (error || !order) {
+      console.error('Error creando el pedido:', error?.message)
+      setSendError(true)
+      setLoading(false)
+      return
     }
+
+    const { error: itemsError } = await supabase.from('order_items').insert(
+      // price/name los reescribe el trigger desde menu_items.
+      items.map(i => ({ order_id: order.id, menu_item_id: i.menuItemId, name: i.name, price: i.price, quantity: i.quantity }))
+    )
+
+    if (itemsError) {
+      // El pedido quedaria sin platillos: lo borramos para no dejar basura en el panel.
+      console.error('Error guardando los platillos:', itemsError.message)
+      await supabase.from('orders').delete().eq('id', order.id)
+      setSendError(true)
+      setLoading(false)
+      return
+    }
+
+    clear()
+    setDone(true)
     setLoading(false)
   }
 
@@ -95,18 +113,18 @@ export default function Order({ setActivePage }: OrderProps) {
             <h3 className={styles.cartTitle}>{t('Resumen del pedido', 'Order summary')}</h3>
             <div className={styles.cartItems}>
               {items.map(item => (
-                <div key={item.name} className={styles.cartItem}>
+                <div key={item.menuItemId} className={styles.cartItem}>
                   {item.image && <img src={item.image} alt={item.name} className={styles.cartImg} />}
                   <div className={styles.cartItemInfo}>
                     <p className={styles.cartItemName}>{item.name}</p>
                     <p className={styles.cartItemPrice}>{formatPrice(item.price)}</p>
                   </div>
                   <div className={styles.qtyRow}>
-                    <button onClick={() => updateQty(item.name, item.quantity - 1)}>−</button>
+                    <button onClick={() => updateQty(item.menuItemId, item.quantity - 1)}>−</button>
                     <span>{item.quantity}</span>
-                    <button onClick={() => updateQty(item.name, item.quantity + 1)}>+</button>
+                    <button onClick={() => updateQty(item.menuItemId, item.quantity + 1)}>+</button>
                   </div>
-                  <button className={styles.removeBtn} onClick={() => remove(item.name)}>✕</button>
+                  <button className={styles.removeBtn} onClick={() => remove(item.menuItemId)}>✕</button>
                 </div>
               ))}
             </div>
@@ -171,6 +189,12 @@ export default function Order({ setActivePage }: OrderProps) {
               <textarea name="notes" value={form.notes} onChange={handleChange} rows={3}
                 placeholder={t('Alergias, preferencias...', 'Allergies, preferences...')} />
             </div>
+
+            {sendError && (
+              <p className={styles.errMsg} role="alert">
+                {t('Hubo un error al enviar tu pedido. Intenta de nuevo por favor.', 'There was an error sending your order. Please try again.')}
+              </p>
+            )}
 
             <button type="submit" className={styles.btnSubmit} disabled={loading || count === 0}>
               {loading ? t('Enviando...', 'Sending...') : t(`Confirmar pedido — ${formatPrice(total)}`, `Confirm order — ${formatPrice(total)}`)}

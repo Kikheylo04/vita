@@ -1,17 +1,31 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './FeaturedDishes.module.css'
 import type { PageId } from '../../../types/types'
 import { useIntersection } from '../../../hooks/useIntersection'
 import { useLang } from '../../../context/LangContext'
 import { useFormatPrice } from '../../../context/RestaurantContext'
 import { useCart } from '../../../context/CartContext'
+import { supabase } from '../../../lib/supabase'
 
 interface FeaturedDishesProps {
   setActivePage: (page: PageId) => void
 }
 
-const dishes = [
+interface Dish {
+  id: string
+  name: string
+  descEs: string
+  descEn: string
+  price: number
+  badge: string
+  image: string
+}
+
+// Sin id: son solo respaldo visual si la base no responde.
+// El boton de pedido se oculta hasta que llega el id real.
+const dishes: Dish[] = [
   {
+    id: '',
     name: 'Bistecca alla Fiorentina',
     descEs: 'Corte T-Bone de 500g con papas al romero. La estrella de nuestra carta desde el primer día.',
     descEn: '500g T-Bone cut with rosemary potatoes. The star of our menu since day one.',
@@ -20,6 +34,7 @@ const dishes = [
     image: 'https://images.unsplash.com/photo-1558030006-450675393462?w=800&auto=format&fit=crop&q=85',
   },
   {
+    id: '',
     name: 'Risotto al Tartufo',
     descEs: 'Arroz carnaroli cremoso con trufa blanca de temporada importada directamente de Italia.',
     descEn: 'Creamy carnaroli rice with seasonal white truffle imported directly from Italy.',
@@ -28,6 +43,7 @@ const dishes = [
     image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=800&auto=format&fit=crop&q=85',
   },
   {
+    id: '',
     name: 'Tagliatelle al Ragù',
     descEs: 'Pasta fresca artesanal con ragù de res y cerdo cocinado a fuego lento durante 6 horas.',
     descEn: 'Artisan fresh pasta with beef and pork ragù slow-cooked for 6 hours.',
@@ -42,11 +58,38 @@ export default function FeaturedDishes({ setActivePage }: FeaturedDishesProps) {
   const formatPrice = useFormatPrice()
   const { add } = useCart()
   const [added, setAdded] = useState<string | null>(null)
+  const [featured, setFeatured] = useState<Dish[]>(dishes)
   const [headerRef, headerVisible] = useIntersection<HTMLDivElement>({ threshold: 0.1 })
   const [gridRef, gridVisible] = useIntersection<HTMLDivElement>({ threshold: 0.05 })
 
-  const handlePreOrder = (dish: typeof dishes[0]) => {
-    add({ name: dish.name, price: dish.price, image: dish.image })
+  useEffect(() => {
+    supabase
+      .from('menu_items')
+      .select('id,name,description,description_en,price,badge,image')
+      .eq('active', true)
+      .in('name', dishes.map(d => d.name))
+      .then(({ data, error }) => {
+        if (error) { console.error('Error cargando platos estrella:', error.message); return }
+        if (!data || data.length === 0) return
+        // Se respeta el orden curado del arreglo local.
+        setFeatured(dishes.map(local => {
+          const row = data.find(r => r.name === local.name)
+          if (!row) return local
+          return {
+            id: String(row.id),
+            name: row.name,
+            descEs: row.description || local.descEs,
+            descEn: row.description_en || local.descEn,
+            price: row.price,
+            badge: row.badge || local.badge,
+            image: row.image || local.image,
+          }
+        }))
+      })
+  }, [])
+
+  const handlePreOrder = (dish: Dish) => {
+    add({ menuItemId: dish.id, name: dish.name, price: dish.price, image: dish.image })
     setAdded(dish.name)
     setTimeout(() => { setAdded(null); setActivePage('pedido') }, 800)
   }
@@ -60,8 +103,8 @@ export default function FeaturedDishes({ setActivePage }: FeaturedDishesProps) {
       </div>
 
       <div ref={gridRef} className={`${styles.grid} fade-up ${gridVisible ? 'visible' : ''}`}>
-        {dishes.map((dish, i) => (
-          <div key={i} className={styles.card}>
+        {featured.map(dish => (
+          <div key={dish.name} className={styles.card}>
             <div className={styles.imgWrapper}>
               <img src={dish.image} alt={dish.name} className={styles.img} loading="lazy" decoding="async" />
               <span className={styles.badge}>{dish.badge}</span>
@@ -71,12 +114,14 @@ export default function FeaturedDishes({ setActivePage }: FeaturedDishesProps) {
               <p className={styles.desc}>{lang === 'es' ? dish.descEs : dish.descEn}</p>
               <div className={styles.footer}>
                 <span className={styles.price}>{formatPrice(dish.price)}</span>
-                <button
-                  className={`${styles.btn} ${added === dish.name ? styles.btnAdded : ''}`}
-                  onClick={() => handlePreOrder(dish)}
-                >
-                  {added === dish.name ? t('✓ Agregado', '✓ Added') : t('Pedir anticipado', 'Pre-order')}
-                </button>
+                {dish.id && (
+                  <button
+                    className={`${styles.btn} ${added === dish.name ? styles.btnAdded : ''}`}
+                    onClick={() => handlePreOrder(dish)}
+                  >
+                    {added === dish.name ? t('✓ Agregado', '✓ Added') : t('Pedir anticipado', 'Pre-order')}
+                  </button>
+                )}
               </div>
             </div>
           </div>

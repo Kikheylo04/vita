@@ -15,25 +15,26 @@ interface MenuProps {
 const categories: MenuCategory[] = ['Todo', 'Entradas', 'Pastas', 'Carnes', 'Mariscos', 'Postres', 'Bebidas']
 
 interface BilingualMenuItem extends Omit<MenuItem, 'desc'> {
+  id: string
   desc: string
   descEn: string
 }
 
 const STATIC_ITEMS: BilingualMenuItem[] = [
-  { cat: 'Entradas', name: 'Bruschetta al Pomodoro', desc: 'Pan tostado con tomate fresco, albahaca y aceite de oliva virgen extra.', descEn: 'Toasted bread with fresh tomato, basil and extra virgin olive oil.', price: 4.99, badge: '', image: 'https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=400&auto=format&fit=crop&q=80' },
-  { cat: 'Entradas', name: 'Carpaccio di Manzo', desc: 'Finas láminas de res con rúcula, parmesano y alcaparras.', descEn: 'Thin slices of beef with arugula, parmesan and capers.', price: 8.99, badge: 'Popular', image: 'https://images.unsplash.com/photo-1625944525533-473f1a3d54e7?w=400&auto=format&fit=crop&q=80' },
-  { cat: 'Entradas', name: 'Burrata Fresca', desc: 'Burrata cremosa con tomates cherry, pesto de albahaca y reducción de balsámico.', descEn: 'Creamy burrata with cherry tomatoes, basil pesto and balsamic reduction.', price: 9.99, badge: '', image: 'https://images.unsplash.com/photo-1595587637401-83ff822bd63e?w=400&auto=format&fit=crop&q=80' },
-  { cat: 'Pastas', name: 'Tagliatelle al Ragù', desc: 'Pasta fresca artesanal con ragù de res y cerdo cocinado 6 horas.', descEn: 'Artisan fresh pasta with beef and pork ragù slow-cooked for 6 hours.', price: 11.99, badge: "Chef's Choice", image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&auto=format&fit=crop&q=80' },
-  { cat: 'Pastas', name: 'Pappardelle ai Funghi', desc: 'Pasta ancha con mix de hongos silvestres, trufa negra y parmesano.', descEn: 'Wide pasta with wild mushroom mix, black truffle and parmesan.', price: 13.99, badge: '', image: 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=400&auto=format&fit=crop&q=80' },
-  { cat: 'Pastas', name: 'Risotto al Tartufo', desc: 'Arroz carnaroli cremoso con trufa blanca de temporada.', descEn: 'Creamy carnaroli rice with seasonal white truffle.', price: 16.99, badge: 'Temporada', image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=400&auto=format&fit=crop&q=80' },
-  { cat: 'Carnes', name: 'Bistecca alla Fiorentina', desc: 'Corte T-Bone de 500g con guarnición de papas al romero y ensalada.', descEn: '500g T-Bone cut with rosemary potatoes and salad.', price: 28.99, badge: 'Signature', image: 'https://images.unsplash.com/photo-1558030006-450675393462?w=400&auto=format&fit=crop&q=80' },
-  { cat: 'Carnes', name: 'Osso Buco alla Milanese', desc: 'Jarrete de ternera braseado lentamente con gremolata y risotto.', descEn: 'Slowly braised veal shank with gremolata and risotto.', price: 21.99, badge: '', image: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop&q=80' },
-  { cat: 'Mariscos', name: 'Branzino al Sale', desc: 'Lubina entera a la sal con verduras de temporada y limón siciliano.', descEn: 'Whole salt-baked sea bass with seasonal vegetables and Sicilian lemon.', price: 20.99, badge: '', image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&auto=format&fit=crop&q=80' },
-  { cat: 'Mariscos', name: 'Salmone in Crosta', desc: 'Salmón en costra de hierbas con puré de coliflor y salsa beurre blanc.', descEn: 'Herb-crusted salmon with cauliflower purée and beurre blanc sauce.', price: 17.99, badge: 'Popular', image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&auto=format&fit=crop&q=80' },
-  { cat: 'Postres', name: 'Tiramisù della Casa', desc: 'Receta familiar con mascarpone artesanal, café espresso y cacao.', descEn: 'Family recipe with artisan mascarpone, espresso coffee and cocoa.', price: 6.99, badge: '', image: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&auto=format&fit=crop&q=80' },
-  { cat: 'Postres', name: 'Panna Cotta ai Frutti di Bosco', desc: 'Crema italiana con coulis de frutos rojos y menta fresca.', descEn: 'Italian cream dessert with mixed berry coulis and fresh mint.', price: 5.99, badge: '', image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&auto=format&fit=crop&q=80' },
-  { cat: 'Bebidas', name: 'Vino de la Casa', desc: 'Sangiovese toscano, botella 750ml.', descEn: 'Tuscan Sangiovese, 750ml bottle.', price: 20.99, badge: '', image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&auto=format&fit=crop&q=80' },
-  { cat: 'Bebidas', name: 'Agua Mineral', desc: 'Con gas o sin gas, 500ml.', descEn: 'Still or sparkling, 500ml.', price: 2.99, badge: '', image: 'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=400&auto=format&fit=crop&q=80' },
+  { id: '', cat: 'Entradas', name: 'Bruschetta al Pomodoro', desc: 'Pan tostado con tomate fresco, albahaca y aceite de oliva virgen extra.', descEn: 'Toasted bread with fresh tomato, basil and extra virgin olive oil.', price: 4.99, badge: '', image: 'https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=400&auto=format&fit=crop&q=80' },
+  { id: '', cat: 'Entradas', name: 'Carpaccio di Manzo', desc: 'Finas láminas de res con rúcula, parmesano y alcaparras.', descEn: 'Thin slices of beef with arugula, parmesan and capers.', price: 8.99, badge: 'Popular', image: 'https://images.unsplash.com/photo-1625944525533-473f1a3d54e7?w=400&auto=format&fit=crop&q=80' },
+  { id: '', cat: 'Entradas', name: 'Burrata Fresca', desc: 'Burrata cremosa con tomates cherry, pesto de albahaca y reducción de balsámico.', descEn: 'Creamy burrata with cherry tomatoes, basil pesto and balsamic reduction.', price: 9.99, badge: '', image: 'https://images.unsplash.com/photo-1595587637401-83ff822bd63e?w=400&auto=format&fit=crop&q=80' },
+  { id: '', cat: 'Pastas', name: 'Tagliatelle al Ragù', desc: 'Pasta fresca artesanal con ragù de res y cerdo cocinado 6 horas.', descEn: 'Artisan fresh pasta with beef and pork ragù slow-cooked for 6 hours.', price: 11.99, badge: "Chef's Choice", image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&auto=format&fit=crop&q=80' },
+  { id: '', cat: 'Pastas', name: 'Pappardelle ai Funghi', desc: 'Pasta ancha con mix de hongos silvestres, trufa negra y parmesano.', descEn: 'Wide pasta with wild mushroom mix, black truffle and parmesan.', price: 13.99, badge: '', image: 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=400&auto=format&fit=crop&q=80' },
+  { id: '', cat: 'Pastas', name: 'Risotto al Tartufo', desc: 'Arroz carnaroli cremoso con trufa blanca de temporada.', descEn: 'Creamy carnaroli rice with seasonal white truffle.', price: 16.99, badge: 'Temporada', image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=400&auto=format&fit=crop&q=80' },
+  { id: '', cat: 'Carnes', name: 'Bistecca alla Fiorentina', desc: 'Corte T-Bone de 500g con guarnición de papas al romero y ensalada.', descEn: '500g T-Bone cut with rosemary potatoes and salad.', price: 28.99, badge: 'Signature', image: 'https://images.unsplash.com/photo-1558030006-450675393462?w=400&auto=format&fit=crop&q=80' },
+  { id: '', cat: 'Carnes', name: 'Osso Buco alla Milanese', desc: 'Jarrete de ternera braseado lentamente con gremolata y risotto.', descEn: 'Slowly braised veal shank with gremolata and risotto.', price: 21.99, badge: '', image: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=400&auto=format&fit=crop&q=80' },
+  { id: '', cat: 'Mariscos', name: 'Branzino al Sale', desc: 'Lubina entera a la sal con verduras de temporada y limón siciliano.', descEn: 'Whole salt-baked sea bass with seasonal vegetables and Sicilian lemon.', price: 20.99, badge: '', image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&auto=format&fit=crop&q=80' },
+  { id: '', cat: 'Mariscos', name: 'Salmone in Crosta', desc: 'Salmón en costra de hierbas con puré de coliflor y salsa beurre blanc.', descEn: 'Herb-crusted salmon with cauliflower purée and beurre blanc sauce.', price: 17.99, badge: 'Popular', image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&auto=format&fit=crop&q=80' },
+  { id: '', cat: 'Postres', name: 'Tiramisù della Casa', desc: 'Receta familiar con mascarpone artesanal, café espresso y cacao.', descEn: 'Family recipe with artisan mascarpone, espresso coffee and cocoa.', price: 6.99, badge: '', image: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&auto=format&fit=crop&q=80' },
+  { id: '', cat: 'Postres', name: 'Panna Cotta ai Frutti di Bosco', desc: 'Crema italiana con coulis de frutos rojos y menta fresca.', descEn: 'Italian cream dessert with mixed berry coulis and fresh mint.', price: 5.99, badge: '', image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&auto=format&fit=crop&q=80' },
+  { id: '', cat: 'Bebidas', name: 'Vino de la Casa', desc: 'Sangiovese toscano, botella 750ml.', descEn: 'Tuscan Sangiovese, 750ml bottle.', price: 20.99, badge: '', image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&auto=format&fit=crop&q=80' },
+  { id: '', cat: 'Bebidas', name: 'Agua Mineral', desc: 'Con gas o sin gas, 500ml.', descEn: 'Still or sparkling, 500ml.', price: 2.99, badge: '', image: 'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=400&auto=format&fit=crop&q=80' },
 ]
 
 const categoryLabels: Record<MenuCategory, { es: string; en: string }> = {
@@ -63,9 +64,11 @@ export default function Menu({ initialFilter = 'Todo', setActivePage }: MenuProp
       .select('*')
       .eq('active', true)
       .order('sort_order', { ascending: true })
-      .then(({ data }) => {
+      .then(({ data, error }) => {
+        if (error) { console.error('Error cargando el menú:', error.message); return }
         if (!data || data.length === 0) return
         setItems(data.map(r => ({
+          id: String(r.id),
           cat: r.cat as MenuCategory,
           name: r.name,
           desc: r.description,
@@ -78,7 +81,7 @@ export default function Menu({ initialFilter = 'Todo', setActivePage }: MenuProp
   }, [])
 
   const handleAdd = (item: BilingualMenuItem) => {
-    add({ name: item.name, price: item.price, image: item.image })
+    add({ menuItemId: item.id, name: item.name, price: item.price, image: item.image })
     setAdded(item.name)
     setTimeout(() => setAdded(null), 1200)
   }
@@ -92,7 +95,7 @@ export default function Menu({ initialFilter = 'Todo', setActivePage }: MenuProp
       i.desc.toLowerCase().includes(q) ||
       i.descEn.toLowerCase().includes(q)
     )
-  }, [active, search])
+  }, [active, search, items])
 
   return (
     <section className={styles.menu}>
@@ -138,7 +141,7 @@ export default function Menu({ initialFilter = 'Todo', setActivePage }: MenuProp
       ) : (
         <div ref={gridRef} className={styles.grid}>
           {filtered.map((item, i) => (
-            <div key={i} className={`${styles.card} fade-up ${gridVisible ? 'visible' : ''}`} style={{ transitionDelay: `${(i % 6) * 0.07}s` }}>
+            <div key={item.name} className={`${styles.card} fade-up ${gridVisible ? 'visible' : ''}`} style={{ transitionDelay: `${(i % 6) * 0.07}s` }}>
               {item.image && (
                 <div className={styles.cardImgWrapper}>
                   <img src={item.image} alt={item.name} className={styles.cardImg} loading="lazy" decoding="async" />
@@ -154,12 +157,14 @@ export default function Menu({ initialFilter = 'Todo', setActivePage }: MenuProp
               <p className={styles.cardDesc}>{lang === 'es' ? item.desc : item.descEn}</p>
               <div className={styles.cardFooter}>
                 <p className={styles.cardPrice}>{formatPrice(item.price)}</p>
-                <button
-                  className={`${styles.btnAdd} ${added === item.name ? styles.btnAdded : ''}`}
-                  onClick={() => handleAdd(item)}
-                >
-                  {added === item.name ? '✓' : '+'}
-                </button>
+                {item.id && (
+                  <button
+                    className={`${styles.btnAdd} ${added === item.name ? styles.btnAdded : ''}`}
+                    onClick={() => handleAdd(item)}
+                  >
+                    {added === item.name ? '✓' : '+'}
+                  </button>
+                )}
               </div>
             </div>
           ))}
