@@ -283,3 +283,14 @@ export function IconBox({ size = 20, strokeWidth = 1.7 }: IconProps) {
     </svg>
   )
 }
+
+export function IconRecipe({ size = 20, strokeWidth = 1.7 }: IconProps) {
+  // Libreta de recetas: tapa con anillado lateral.
+  return (
+    <svg {...base(size, strokeWidth)}>
+      <path d="M6.4 2.8h11.4a1.8 1.8 0 0 1 1.8 1.8v14.8a1.8 1.8 0 0 1-1.8 1.8H6.4a2 2 0 0 1-2-2V4.8a2 2 0 0 1 2-2z" />
+      <path d="M4.4 7.2h2.6M4.4 12h2.6M4.4 16.8h2.6" strokeWidth={detail(strokeWidth)} />
+      <path d="M10.4 8.4h6M10.4 12h6M10.4 15.6h3.4" strokeWidth={detail(strokeWidth)} />
+    </svg>
+  )
+}

@@ -8,7 +8,12 @@ const UNITS: StockUnit[] = ['kg', 'g', 'l', 'ml', 'pza', 'paq']
 
 const KIND_LABEL: Record<MovementKind, string> = {
   entrada: 'Entrada', salida: 'Salida', merma: 'Merma', ajuste: 'Ajuste',
+  consumo: 'Consumo',
 }
+
+// 'consumo' lo genera el sistema al marcar un pedido como listo:
+// no se ofrece como opcion manual.
+const MANUAL_KINDS: MovementKind[] = ['entrada', 'salida', 'merma', 'ajuste']
 
 const EMPTY_ING = { name: '', unit: 'kg' as StockUnit, category: 'General', cost: 0, active: true }
 
@@ -275,7 +280,7 @@ function MovementModal({ row, branchId, onClose, onDone }: {
           </p>
 
           <div className={styles.kinds}>
-            {(Object.keys(KIND_LABEL) as MovementKind[]).map(k => (
+            {MANUAL_KINDS.map(k => (
               <button
                 key={k} type="button"
                 className={`${styles.kindBtn} ${kind === k ? styles.kindOn : ''}`}

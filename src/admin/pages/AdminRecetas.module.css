@@ -1,0 +1,160 @@
+.page { display: flex; flex-direction: column; gap: 1.15rem; }
+
+.head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.55rem; font-weight: 700; color: var(--ad-ink); margin: 0 0 0.2rem;
+}
+.sub { color: var(--ad-ink-2); font-size: 0.9rem; margin: 0; max-width: 46ch; }
+
+.tally {
+  font-size: 0.8rem; color: var(--ad-ink-2);
+  border: 1px solid var(--ad-line-2); border-radius: 999px;
+  padding: 0.42rem 0.9rem; white-space: nowrap;
+}
+
+.empty { color: var(--ad-ink-3); font-size: 0.9rem; margin: 0; padding: 1.4rem 0; }
+
+.ok, .err { display: flex; align-items: center; gap: 0.5rem; font-size: 0.86rem; margin: 0; }
+.ok { color: var(--ad-ok); }
+.err { color: var(--ad-crit); }
+
+/* ── Tabla ───────────────────────────────── */
+.tableWrap {
+  background: var(--ad-surface); border: 1px solid var(--ad-line);
+  border-radius: var(--ad-radius); overflow-x: auto;
+}
+
+.table { width: 100%; border-collapse: collapse; font-size: 0.87rem; min-width: 680px; }
+
+.table th {
+  text-align: left; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ad-ink-3); font-weight: 700; padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--ad-line); white-space: nowrap;
+}
+
+.table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--ad-line); }
+.table tr:last-child td { border-bottom: none; }
+.table tbody tr:hover { background: rgba(255, 255, 255, 0.02); }
+
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.muted { color: var(--ad-ink-3); }
+.dishName { color: var(--ad-ink); font-weight: 600; }
+
+.marginOk { color: var(--ad-ok); font-weight: 600; }
+.marginMid { color: var(--ad-warn); font-weight: 600; }
+.marginLow { color: var(--ad-crit); font-weight: 600; }
+
+.pillOk, .pillOff {
+  font-size: 0.72rem; font-weight: 600; padding: 0.22rem 0.62rem;
+  border-radius: 999px; white-space: nowrap;
+}
+.pillOk { background: rgba(74, 222, 128, 0.14); color: var(--ad-ok); }
+.pillOff { background: rgba(255, 255, 255, 0.06); color: var(--ad-ink-3); }
+
+.btnGhost {
+  background: none; border: 1px solid var(--ad-line-2); color: var(--ad-ink-2);
+  font-family: inherit; font-size: 0.79rem; padding: 0.38rem 0.85rem;
+  border-radius: var(--ad-radius-sm); cursor: pointer; white-space: nowrap;
+}
+.btnGhost:hover { color: var(--ad-ink); border-color: var(--ad-ink-3); }
+.btnGhost:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
+
+/* ── Modal ───────────────────────────────── */
+.overlay {
+  position: fixed; inset: 0; background: rgba(4, 6, 9, 0.82); backdrop-filter: blur(3px);
+  z-index: 200; display: flex; align-items: center; justify-content: center; padding: 1.2rem;
+}
+
+.modal {
+  background: var(--ad-surface-2); border: 1px solid var(--ad-line-2);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  border-radius: var(--ad-radius); width: 100%; max-width: 560px;
+  max-height: 90vh; overflow-y: auto;
+}
+
+.modalHead {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 1.3rem; border-bottom: 1px solid var(--ad-line);
+}
+.modalHead h3 { font-size: 0.98rem; color: var(--ad-ink); margin: 0; font-weight: 600; }
+.modalHead button {
+  background: none; border: none; color: var(--ad-ink-3);
+  font-size: 1rem; cursor: pointer; padding: 0.2rem 0.4rem;
+}
+.modalHead button:hover { color: var(--ad-ink); }
+
+.modalBody { padding: 1.2rem 1.3rem; display: flex; flex-direction: column; gap: 0.95rem; }
+
+.portionNote { margin: 0; font-size: 0.82rem; color: var(--ad-ink-3); }
+
+/* ── Lista de ingredientes ───────────────── */
+.recipeList { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+
+.recipeRow {
+  display: flex; align-items: center; gap: 0.8rem;
+  padding: 0.6rem 0; border-bottom: 1px solid var(--ad-line);
+}
+.recipeRow:last-child { border-bottom: none; }
+
+.rName { flex: 1; min-width: 0; color: var(--ad-ink); font-size: 0.88rem; }
+
+.rQty {
+  color: var(--ad-ink-2); font-size: 0.85rem;
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+
+.rCost {
+  color: var(--ad-ink-3); font-size: 0.82rem;
+  font-variant-numeric: tabular-nums; white-space: nowrap; min-width: 4.5rem; text-align: right;
+}
+
+.btnX {
+  background: none; border: none; color: var(--ad-ink-3);
+  cursor: pointer; font-size: 0.85rem; padding: 0.25rem 0.4rem; border-radius: 6px; flex: none;
+}
+.btnX:hover { color: var(--ad-crit); background: rgba(248, 113, 113, 0.12); }
+.btnX:focus-visible { outline: 2px solid var(--ad-crit); outline-offset: 1px; }
+
+.totals {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  padding: 0.6rem 0.9rem; background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--ad-radius-sm); font-size: 0.86rem; color: var(--ad-ink-2);
+}
+.totals strong { color: var(--ad-ink); font-variant-numeric: tabular-nums; }
+
+/* ── Alta de ingrediente ─────────────────── */
+.addRow { display: flex; gap: 0.5rem; flex-wrap: wrap; padding-top: 0.3rem; }
+
+.select, .qtyInput {
+  background: rgba(0, 0, 0, 0.32); border: 1px solid var(--ad-line-2);
+  border-radius: var(--ad-radius-sm); color: var(--ad-ink);
+  font-family: inherit; font-size: 0.86rem; padding: 0.52rem 0.75rem; outline: none;
+}
+.select { flex: 1; min-width: 11rem; }
+.qtyInput { width: 7.5rem; }
+.qtyInput::placeholder { color: var(--ad-ink-3); }
+.select:focus, .qtyInput:focus { border-color: var(--ad-gold); }
+
+.btnAdd {
+  background: none; border: 1px solid var(--ad-gold); color: var(--ad-gold);
+  font-family: inherit; font-size: 0.84rem; font-weight: 600;
+  padding: 0.52rem 1rem; border-radius: var(--ad-radius-sm); cursor: pointer; white-space: nowrap;
+}
+.btnAdd:hover { background: var(--ad-gold-dim); }
+.btnAdd:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
+
+.modalFoot { display: flex; gap: 0.6rem; flex-wrap: wrap; padding-top: 0.2rem; }
+
+.btnSave {
+  background: var(--ad-gold-dim); border: 1px solid var(--ad-gold); color: var(--ad-gold);
+  font-family: inherit; font-size: 0.86rem; font-weight: 600;
+  padding: 0.58rem 1.3rem; border-radius: var(--ad-radius-sm); cursor: pointer;
+}
+.btnSave:hover { background: var(--ad-gold); color: #0a0c10; }
+.btnSave:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
+
+@media (max-width: 560px) {
+  .select, .qtyInput { width: 100%; flex: none; }
+}

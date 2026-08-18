@@ -100,7 +100,7 @@ export interface Profile {
 }
 
 export type StockUnit = 'kg' | 'g' | 'l' | 'ml' | 'pza' | 'paq'
-export type MovementKind = 'entrada' | 'salida' | 'merma' | 'ajuste'
+export type MovementKind = 'entrada' | 'salida' | 'merma' | 'ajuste' | 'consumo'
 
 export interface Ingredient {
   id: string
@@ -130,4 +130,22 @@ export interface StockMovement {
   created_at: string
 }
 
-export type AdminPage = 'dashboard' | 'reservaciones' | 'menu' | 'testimonios' | 'eventos' | 'mensajes' | 'pedidos' | 'config' | 'cuenta' | 'sucursales' | 'inventario'
+export interface RecipeItem {
+  id: string
+  menu_item_id: string
+  ingredient_id: string
+  quantity: number
+  ingredients?: Ingredient | null
+}
+
+/** Costo teorico y margen, desde la vista menu_item_costs. */
+export interface MenuItemCost {
+  menu_item_id: string
+  name: string
+  price: number
+  cost: number
+  margin_pct: number
+  ingredient_count: number
+}
+
+export type AdminPage = 'dashboard' | 'reservaciones' | 'menu' | 'testimonios' | 'eventos' | 'mensajes' | 'pedidos' | 'config' | 'cuenta' | 'sucursales' | 'inventario' | 'recetas'
