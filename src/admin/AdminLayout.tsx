@@ -26,6 +26,7 @@ import AdminRecetas from './pages/AdminRecetas'
 import AdminCartaSucursal from './pages/AdminCartaSucursal'
 import PlatformTenants from './pages/PlatformTenants'
 import AdminPlan from './pages/AdminPlan'
+import AdminDominio from './pages/AdminDominio'
 
 type IconCmp = ({ size }: { size?: number }) => ReactElement
 
@@ -52,6 +53,7 @@ const NAV: { id: AdminPage; label: string; Icon: IconCmp }[] = [
   { id: 'inventario',    label: 'Inventario',    Icon: IconBox },
   { id: 'sucursales',    label: 'Sucursales',    Icon: IconPin },
   { id: 'config',        label: 'Configuración', Icon: IconSettings },
+  { id: 'dominio',       label: 'Dominio',       Icon: IconGlobe },
   { id: 'plan',          label: 'Plan',          Icon: IconCard },
 ]
 
@@ -94,7 +96,7 @@ export default function AdminLayout() {
   const isOwner = profile?.role === 'owner'
   const nav = isPlatform
     ? PLATFORM_NAV
-    : isOwner ? NAV : NAV.filter(n => n.id !== 'plan')
+    : isOwner ? NAV : NAV.filter(n => n.id !== 'plan' && n.id !== 'dominio')
   const current = nav.find(n => n.id === page)
   const initial = (user?.email ?? 'A').charAt(0).toUpperCase()
 
@@ -229,6 +231,7 @@ export default function AdminLayout() {
           {page === 'carta'         && <AdminCartaSucursal />}
           {page === 'clientes'      && <PlatformTenants />}
           {page === 'plan'          && <AdminPlan />}
+          {page === 'dominio'       && <AdminDominio />}
         </div>
       </div>
     </div>

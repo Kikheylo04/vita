@@ -3,6 +3,14 @@ import { supabase } from '../../lib/supabase'
 import styles from './PlatformTenants.module.css'
 import { IconSearch, IconAlert, IconCheckCircle, IconExternal } from '../ui/Icons'
 
+interface PendingDomain {
+  tenant_id: string
+  name: string
+  custom_domain: string
+  domain_status: string
+  domain_checked_at: string | null
+}
+
 interface PlatformTenant {
   id: string
   slug: string
@@ -42,6 +50,29 @@ export default function PlatformTenants() {
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState<'all' | 'trial' | 'active' | 'suspended'>('all')
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null)
+  const [domains, setDomains] = useState<PendingDomain[]>([])
+
+  async function loadDomains() {
+    // Solo lo verificado espera accion nuestra: lo pendiente sigue
+    // en manos del cliente.
+    const { data, error } = await supabase
+      .from('platform_domains')
+      .select('tenant_id,name,custom_domain,domain_status,domain_checked_at')
+      .eq('domain_status', 'verified')
+    if (error) { console.error('Error cargando dominios:', error.message); return }
+    setDomains((data ?? []) as PendingDomain[])
+  }
+
+  async function connectDomain(d: PendingDomain) {
+    const { error } = await supabase.rpc('mark_domain_connected', { p_tenant: d.tenant_id })
+    if (error) {
+      console.error('Error conectando el dominio:', error.message)
+      setMsg({ ok: false, text: `No se pudo marcar: ${error.message}` })
+      return
+    }
+    setMsg({ ok: true, text: `${d.custom_domain} marcado como conectado.` })
+    loadDomains()
+  }
 
   async function load() {
     setLoading(true)
@@ -58,7 +89,7 @@ export default function PlatformTenants() {
     setRows((data ?? []) as PlatformTenant[])
   }
 
-  useEffect(() => { load() }, [])
+  useEffect(() => { load(); loadDomains() }, [])
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase()
@@ -116,6 +147,31 @@ export default function PlatformTenants() {
           {msg.ok ? <IconCheckCircle size={16} /> : <IconAlert size={16} />}
           <span>{msg.text}</span>
         </p>
+      )}
+
+      {domains.length > 0 && (
+        <section className={styles.domainQueue}>
+          <h3 className={styles.queueTitle}>
+            Dominios listos para conectar
+            <span className={styles.queueNum}>{domains.length}</span>
+          </h3>
+          <p className={styles.queueSub}>
+            Su DNS ya apunta aquí. Agrégalos en el proveedor de hosting y márcalos como conectados.
+          </p>
+          <ul className={styles.queueList}>
+            {domains.map(d => (
+              <li key={d.tenant_id} className={styles.queueRow}>
+                <div className={styles.queueInfo}>
+                  <span className={styles.queueDomain}>{d.custom_domain}</span>
+                  <span className={styles.queueClient}>{d.name}</span>
+                </div>
+                <button className={styles.btnOk} onClick={() => connectDomain(d)}>
+                  Marcar conectado
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
 
       <div className={styles.toolbar}>

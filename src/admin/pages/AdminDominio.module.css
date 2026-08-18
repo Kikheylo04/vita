@@ -1,0 +1,178 @@
+.page { display: flex; flex-direction: column; gap: 1.15rem; max-width: 820px; }
+
+.head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.55rem; font-weight: 700; color: var(--ad-ink); margin: 0 0 0.2rem;
+}
+.sub { color: var(--ad-ink-2); font-size: 0.9rem; margin: 0; max-width: 52ch; }
+
+.empty { color: var(--ad-ink-3); font-size: 0.9rem; margin: 0; padding: 1.5rem 0; }
+
+.ok, .err { display: flex; align-items: center; gap: 0.5rem; font-size: 0.86rem; margin: 0; }
+.ok { color: var(--ad-ok); }
+.err { color: var(--ad-crit); }
+
+/* ── Tarjetas ────────────────────────────── */
+.card {
+  background: var(--ad-surface);
+  border: 1px solid var(--ad-line);
+  border-radius: var(--ad-radius);
+  padding: 1.35rem 1.45rem;
+  display: flex; flex-direction: column; gap: 1.1rem;
+}
+
+.cardTitle { font-size: 0.98rem; font-weight: 600; color: var(--ad-ink); margin: 0; }
+.cardSub { font-size: 0.85rem; color: var(--ad-ink-2); margin: -0.6rem 0 0; line-height: 1.6; }
+
+.locked { font-size: 0.9rem; color: var(--ad-ink-2); margin: 0; line-height: 1.6; }
+
+/* ── Dirección actual ────────────────────── */
+.currentTop { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; }
+
+.globe {
+  width: 40px; height: 40px; border-radius: var(--ad-radius-sm);
+  background: var(--ad-gold-dim); color: var(--ad-gold);
+  display: grid; place-items: center; flex: none;
+}
+
+.currentInfo { flex: 1; min-width: 0; }
+
+.currentLabel {
+  font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ad-ink-3); margin: 0 0 0.15rem;
+}
+
+.currentUrl {
+  font-size: 1.02rem; color: var(--ad-ink); margin: 0; font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.badge {
+  font-size: 0.72rem; font-weight: 600; padding: 0.26rem 0.68rem;
+  border-radius: 999px; white-space: nowrap;
+}
+
+.badge_pending   { background: rgba(96, 165, 250, 0.14); color: var(--ad-info); }
+.badge_verified  { background: rgba(251, 191, 36, 0.14); color: var(--ad-warn); }
+.badge_connected { background: rgba(74, 222, 128, 0.14); color: var(--ad-ok); }
+.badge_failed    { background: rgba(248, 113, 113, 0.14); color: var(--ad-crit); }
+
+/* ── Formulario ──────────────────────────── */
+.form { display: flex; flex-direction: column; gap: 1rem; }
+
+.field { display: flex; flex-direction: column; gap: 0.38rem; }
+.field label { font-size: 0.8rem; color: var(--ad-ink-2); }
+
+.field input {
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px solid var(--ad-line-2);
+  border-radius: var(--ad-radius-sm);
+  color: var(--ad-ink);
+  font-family: inherit; font-size: 0.92rem;
+  padding: 0.62rem 0.85rem; outline: none;
+}
+
+.field input::placeholder { color: var(--ad-ink-3); }
+.field input:focus { border-color: var(--ad-gold); }
+
+.hint { font-size: 0.78rem; color: var(--ad-ink-3); margin: 0; line-height: 1.55; }
+
+.actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+.btnPrimary {
+  align-self: flex-start;
+  background: var(--ad-gold-dim); border: 1px solid var(--ad-gold); color: var(--ad-gold);
+  font-family: inherit; font-size: 0.86rem; font-weight: 600;
+  padding: 0.6rem 1.25rem; border-radius: var(--ad-radius-sm); cursor: pointer;
+}
+.btnPrimary:hover:not(:disabled) { background: var(--ad-gold); color: #0a0c10; }
+.btnPrimary:disabled { opacity: 0.55; cursor: default; }
+.btnPrimary:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
+
+.btnDanger {
+  background: none; border: 1px solid rgba(248, 113, 113, 0.35); color: var(--ad-crit);
+  font-family: inherit; font-size: 0.84rem;
+  padding: 0.6rem 1.1rem; border-radius: var(--ad-radius-sm); cursor: pointer;
+}
+.btnDanger:hover { background: rgba(248, 113, 113, 0.12); }
+.btnDanger:focus-visible { outline: 2px solid var(--ad-crit); outline-offset: 2px; }
+
+/* ── Tabla de DNS ────────────────────────── */
+.tableWrap { overflow-x: auto; border: 1px solid var(--ad-line); border-radius: var(--ad-radius-sm); }
+
+.dnsTable { width: 100%; border-collapse: collapse; font-size: 0.84rem; min-width: 480px; }
+
+.dnsTable th {
+  text-align: left; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ad-ink-3); font-weight: 700; padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--ad-line); background: rgba(255, 255, 255, 0.02);
+}
+
+.dnsTable td { padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--ad-line); vertical-align: middle; }
+.dnsTable tr:last-child td { border-bottom: none; }
+
+.dnsType {
+  font-size: 0.72rem; font-weight: 700; color: var(--ad-gold);
+  background: var(--ad-gold-dim); border-radius: 4px; padding: 0.18rem 0.45rem;
+}
+
+.dnsName { color: var(--ad-ink-2); font-family: ui-monospace, 'Cascadia Code', monospace; font-size: 0.8rem; }
+
+.dnsValue { display: flex; align-items: center; gap: 0.6rem; }
+
+.dnsValue code {
+  flex: 1; min-width: 0;
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+  font-size: 0.78rem; color: var(--ad-ink);
+  overflow-wrap: anywhere;
+}
+
+.copyBtn {
+  background: none; border: 1px solid var(--ad-line-2); color: var(--ad-ink-3);
+  font-family: inherit; font-size: 0.72rem;
+  padding: 0.26rem 0.6rem; border-radius: 5px; cursor: pointer;
+  flex: none; min-width: 3.6rem;
+}
+.copyBtn:hover { color: var(--ad-gold); border-color: var(--ad-gold); }
+.copyBtn:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 1px; }
+
+/* ── Diagnóstico ─────────────────────────── */
+.diag {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--ad-radius-sm);
+  padding: 0.9rem 1.1rem;
+}
+
+.diagTitle {
+  font-size: 0.7rem; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--ad-ink-3); margin: 0 0 0.6rem;
+}
+
+.diag ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+
+.diag li { font-size: 0.84rem; padding-left: 1.3rem; position: relative; }
+
+.diagOk { color: var(--ad-ok); }
+.diagOk::before { content: '✓'; position: absolute; left: 0; }
+
+.diagBad { color: var(--ad-crit); }
+.diagBad::before { content: '✕'; position: absolute; left: 0; }
+
+/* ── Estados finales ─────────────────────── */
+.waiting {
+  display: flex; align-items: flex-start; gap: 0.65rem;
+  font-size: 0.88rem; color: var(--ad-ink-2); margin: 0; line-height: 1.6;
+}
+.waiting > svg { color: var(--ad-ok); flex: none; margin-top: 0.1rem; }
+.waiting strong { color: var(--ad-ink); }
+
+.visitLink {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  align-self: flex-start;
+  font-size: 0.86rem; color: var(--ad-gold); text-decoration: none;
+  border: 1px solid var(--ad-gold); border-radius: var(--ad-radius-sm);
+  padding: 0.55rem 1.1rem;
+}
+.visitLink:hover { background: var(--ad-gold-dim); }

@@ -126,3 +126,42 @@
   .searchBox { margin-left: 0; width: 100%; }
   .stats { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ── Cola de dominios ────────────────────── */
+.domainQueue {
+  background: var(--ad-surface);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: var(--ad-radius);
+  padding: 1.2rem 1.35rem;
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+
+.queueTitle {
+  display: flex; align-items: center; gap: 0.55rem;
+  font-size: 0.98rem; font-weight: 600; color: var(--ad-ink); margin: 0;
+}
+
+.queueNum {
+  background: rgba(251, 191, 36, 0.16); color: var(--ad-warn);
+  font-size: 0.74rem; font-weight: 700;
+  border-radius: 999px; padding: 0.1rem 0.5rem;
+}
+
+.queueSub { font-size: 0.83rem; color: var(--ad-ink-2); margin: 0 0 0.4rem; }
+
+.queueList { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+
+.queueRow {
+  display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap;
+  padding: 0.7rem 0; border-top: 1px solid var(--ad-line);
+}
+
+.queueInfo { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+.queueDomain {
+  font-size: 0.9rem; color: var(--ad-ink); font-weight: 600;
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+  overflow-wrap: anywhere;
+}
+
+.queueClient { font-size: 0.78rem; color: var(--ad-ink-3); }
