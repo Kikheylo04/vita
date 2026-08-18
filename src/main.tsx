@@ -8,6 +8,7 @@ import { RestaurantProvider } from './context/RestaurantContext'
 import { CartProvider } from './context/CartContext'
 import { BranchProvider } from './context/BranchContext'
 import { applyTheme } from './config/brand'
+import { TenantProvider } from './context/TenantContext'
 
 // Los colores de brand.ts pisan los de index.css antes del primer render.
 applyTheme()
@@ -22,7 +23,8 @@ createRoot(rootElement).render(
     {isAdmin ? (
       <AdminApp />
     ) : (
-      <RestaurantProvider>
+      <TenantProvider>
+        <RestaurantProvider>
         <LangProvider>
           <BranchProvider>
             <CartProvider>
@@ -30,7 +32,8 @@ createRoot(rootElement).render(
             </CartProvider>
           </BranchProvider>
         </LangProvider>
-      </RestaurantProvider>
+        </RestaurantProvider>
+      </TenantProvider>
     )}
   </StrictMode>,
 )

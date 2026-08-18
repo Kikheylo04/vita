@@ -4,6 +4,7 @@ import styles from './Events.module.css'
 import { useIntersection } from '../../../hooks/useIntersection'
 import { useLang } from '../../../context/LangContext'
 import { supabase } from '../../../lib/supabase'
+import { useTenant } from '../../../context/TenantContext'
 
 interface EventsProps {
   setActivePage: (page: PageId) => void
@@ -52,16 +53,19 @@ function getTitle(title: string, lang: string): string {
 }
 
 export default function Events({ setActivePage }: EventsProps) {
+  const { tenant } = useTenant()
   const { t, lang } = useLang()
   const [headerRef, headerVisible] = useIntersection<HTMLDivElement>({ threshold: 0.1 })
   const [gridRef, gridVisible] = useIntersection<HTMLDivElement>({ threshold: 0.05 })
   const [events, setEvents] = useState<SpecialEvent[]>(STATIC_EVENTS)
 
   useEffect(() => {
+    if (!tenant) return
     const today = new Date().toISOString().split('T')[0]
     supabase
       .from('events')
       .select('*')
+      .eq('tenant_id', tenant.id)
       .eq('active', true)
       .gte('date', today)
       .order('date', { ascending: true })
@@ -78,7 +82,7 @@ export default function Events({ setActivePage }: EventsProps) {
           imageUrl: r.image_url ?? '',
         })))
       })
-  }, [])
+  }, [tenant])
 
   return (
     <section className={styles.section}>

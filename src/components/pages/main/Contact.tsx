@@ -6,12 +6,14 @@ import { useLang } from '../../../context/LangContext'
 import { useRestaurant } from '../../../context/RestaurantContext'
 import { supabase } from '../../../lib/supabase'
 import { BRAND } from '../../../config/brand'
+import { useTenant } from '../../../context/TenantContext'
 
 type ContactErrors = Partial<Record<keyof ContactForm, string>>
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function Contact() {
+  const { tenant } = useTenant()
   const { t } = useLang()
   const RESTAURANT = useRestaurant()
   const [form, setForm] = useState<ContactForm>({ name: '', email: '', subject: '', message: '' })
@@ -51,6 +53,7 @@ export default function Contact() {
 
     try {
       const { error: dbError } = await supabase.from('contact_messages').insert({
+        tenant_id: tenant?.id,
         name: form.name,
         email: form.email,
         subject: form.subject,

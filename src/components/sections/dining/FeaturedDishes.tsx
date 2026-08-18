@@ -6,6 +6,7 @@ import { useLang } from '../../../context/LangContext'
 import { useFormatPrice } from '../../../context/RestaurantContext'
 import { useCart } from '../../../context/CartContext'
 import { supabase } from '../../../lib/supabase'
+import { useTenant } from '../../../context/TenantContext'
 
 interface FeaturedDishesProps {
   setActivePage: (page: PageId) => void
@@ -54,6 +55,7 @@ const dishes: Dish[] = [
 ]
 
 export default function FeaturedDishes({ setActivePage }: FeaturedDishesProps) {
+  const { tenant } = useTenant()
   const { t, lang } = useLang()
   const formatPrice = useFormatPrice()
   const { add } = useCart()
@@ -63,12 +65,14 @@ export default function FeaturedDishes({ setActivePage }: FeaturedDishesProps) {
   const [gridRef, gridVisible] = useIntersection<HTMLDivElement>({ threshold: 0.05 })
 
   useEffect(() => {
+    if (!tenant) return
     // Destacados = los platillos con badge en el admin.
     // Antes se buscaban tres nombres literales, asi que renombrar
     // un platillo hacia desaparecer su boton de pedido sin aviso.
     supabase
       .from('menu_items')
       .select('id,name,description,description_en,price,badge,image')
+      .eq('tenant_id', tenant.id)
       .eq('active', true)
       .neq('badge', '')
       .order('sort_order', { ascending: true })
@@ -86,7 +90,7 @@ export default function FeaturedDishes({ setActivePage }: FeaturedDishesProps) {
           image: row.image,
         })))
       })
-  }, [])
+  }, [tenant])
 
   const handlePreOrder = (dish: Dish) => {
     add({ menuItemId: dish.id, name: dish.name, price: dish.price, image: dish.image })

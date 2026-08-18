@@ -1,16 +1,19 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import { supabase } from '../lib/supabase'
 import { RESTAURANT as DEFAULTS } from '../config/restaurant'
+import { useTenant } from './TenantContext'
 
 export type RestaurantConfig = typeof DEFAULTS
 
 const RestaurantContext = createContext<RestaurantConfig>(DEFAULTS)
 
 export function RestaurantProvider({ children }: { children: ReactNode }) {
+  const { tenant } = useTenant()
   const [config, setConfig] = useState<RestaurantConfig>(DEFAULTS)
 
   useEffect(() => {
-    supabase.from('config').select('key,value').then(({ data, error }) => {
+    if (!tenant) return
+    supabase.from('config').select('key,value').eq('tenant_id', tenant.id).then(({ data, error }) => {
       if (error) { console.error('Error cargando la configuracion:', error.message); return }
       if (!data || data.length === 0) return
       const map: Record<string, string> = {}
@@ -55,7 +58,7 @@ export function RestaurantProvider({ children }: { children: ReactNode }) {
         usdRate:          map.usd_rate ? Number(map.usd_rate) : DEFAULTS.usdRate,
       })
     })
-  }, [])
+  }, [tenant])
 
   return (
     <RestaurantContext.Provider value={config}>

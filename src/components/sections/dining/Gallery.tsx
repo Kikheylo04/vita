@@ -57,7 +57,13 @@ export default function Gallery({ goToMenu }: GalleryProps) {
                     onClick={e => { e.stopPropagation(); setLightboxIndex(i) }}
                     aria-label={t('Ampliar imagen', 'Enlarge image')}
                   >
-                    🔍
+                    {/* Mismo SVG de lupa que el buscador del menu: el emoji
+                        cambiaba de forma segun el sistema. */}
+                    <svg viewBox="0 0 24 24" width="17" height="17" fill="none"
+                      stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+                      <circle cx="10.6" cy="10.6" r="6.9" />
+                      <path d="M15.7 15.7l4.8 4.8" />
+                    </svg>
                   </button>
                 </div>
               </div>

@@ -4,9 +4,11 @@ import { useIntersection } from '../../../hooks/useIntersection'
 import { useLang } from '../../../context/LangContext'
 import styles from './Testimonials.module.css'
 import { supabase } from '../../../lib/supabase'
+import { useTenant } from '../../../context/TenantContext'
 import { BRAND } from '../../../config/brand'
 
 function TestimonialForm() {
+  const { tenant } = useTenant()
   const { t } = useLang()
   const [form, setForm] = useState({ name: '', role: '', rating: 5, comment: '' })
   const [sent, setSent] = useState(false)
@@ -25,6 +27,7 @@ function TestimonialForm() {
     setLoading(true)
     setSendError(false)
     const { error } = await supabase.from('testimonials').insert({
+      tenant_id: tenant?.id,
       name: form.name.trim(),
       role: form.role.trim(),
       rating: form.rating,
@@ -170,18 +173,21 @@ function Avatar({ name, avatar }: { name: string; avatar?: string }) {
 
 export default function Testimonials() {
   const { t, lang } = useLang()
+  const { tenant } = useTenant()
   const [sectionRef, isVisible] = useIntersection<HTMLElement>({ threshold: 0.1 })
-  // PERSONALIZAR: el texto de esta seccion es propio de cada
-// restaurante. Ver INSTALACION.md, paso 4.
-const staticFallback = lang === 'es' ? STATIC_TESTIMONIALS_ES : STATIC_TESTIMONIALS_EN
+  // PERSONALIZAR: los testimonios de ejemplo son propios de cada
+  // restaurante. Solo se ven si la tabla esta vacia. Ver INSTALACION.md.
+  const staticFallback = lang === 'es' ? STATIC_TESTIMONIALS_ES : STATIC_TESTIMONIALS_EN
   const [testimonials, setTestimonials] = useState<Testimonial[]>(staticFallback)
   const [loading, setLoading] = useState(true)
   const [active, setActive] = useState(0)
 
   useEffect(() => {
+    if (!tenant) return
     supabase
       .from('testimonials')
       .select('*')
+      .eq('tenant_id', tenant.id)
       .eq('status', 'approved')
       .order('created_at', { ascending: false })
       .then(({ data, error }) => {
