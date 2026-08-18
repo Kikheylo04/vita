@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAdminAuth } from '../context/AdminAuthContext'
 import styles from './AdminLogin.module.css'
+import { BRAND, CONTACT } from '../config/brand'
 
 export default function AdminLogin() {
   const { signIn } = useAdminAuth()
@@ -25,7 +26,7 @@ export default function AdminLogin() {
           <svg viewBox="0 0 40 40" width="36" height="36">
             <text x="20" y="30" fontFamily="Georgia,'Times New Roman',serif" fontSize="32" fontStyle="italic" fill="#D4A843" textAnchor="middle">V</text>
           </svg>
-          <span>VITA Admin</span>
+          <span>{BRAND.name} Admin</span>
         </div>
         <h1 className={styles.title}>Iniciar sesión</h1>
         <p className={styles.subtitle}>Panel de administración</p>
@@ -38,7 +39,7 @@ export default function AdminLogin() {
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="admin@vitarestaurante.mx"
+              placeholder={CONTACT.email}
               required
               autoFocus
             />

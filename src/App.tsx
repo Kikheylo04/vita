@@ -19,28 +19,30 @@ import Privacy from './components/pages/legal/Privacy'
 import Order from './components/pages/main/Order'
 import NotFound from './components/pages/error/NotFound'
 import type { PageId, MenuCategory } from './types/types'
+import { parseLocation, buildPath } from './lib/routes'
 import { useLang } from './context/LangContext'
 import styles from './App.module.css'
 import { useRestaurant } from './context/RestaurantContext'
-
-const KNOWN_PAGES: PageId[] = ['home', 'menu', 'reservaciones', 'contacto', 'privacidad', 'pedido']
+import { BRAND } from './config/brand'
 
 export default function App() {
   const { lang } = useLang()
   const RESTAURANT = useRestaurant()
-  const [activePage, setActivePage] = useState<PageId>('home')
-  const [visiblePage, setVisiblePage] = useState<PageId>('home')
-  const [menuFilter, setMenuFilter] = useState<MenuCategory>('Todo')
+  const initial = parseLocation(window.location.pathname, window.location.search)
+  // page === null significa URL desconocida: se renderiza NotFound.
+  const [activePage, setActivePage] = useState<PageId | null>(initial.page)
+  const [visiblePage, setVisiblePage] = useState<PageId | null>(initial.page)
+  const [menuFilter, setMenuFilter] = useState<MenuCategory>(initial.filter ?? 'Todo')
   const [fading, setFading] = useState(false)
-  const pendingPage = useRef<{ page: PageId; filter?: MenuCategory } | null>(null)
+  const pendingPage = useRef<{ page: PageId | null; filter?: MenuCategory } | null>(null)
 
   const pageTitles: Record<PageId, { es: string; en: string }> = {
-    home:        { es: 'VITA', en: 'VITA' },
-    menu:        { es: 'VITA | Menú', en: 'VITA | Menu' },
-    reservaciones:{ es: 'VITA | Reservaciones', en: 'VITA | Reservations' },
-    contacto:    { es: 'VITA | Contacto', en: 'VITA | Contact' },
-    privacidad:  { es: 'VITA | Aviso de Privacidad', en: 'VITA | Privacy Policy' },
-    pedido:      { es: 'VITA | Tu Pedido', en: 'VITA | Your Order' },
+    home:        { es: BRAND.name, en: BRAND.name },
+    menu:        { es: `${BRAND.name} | Menú`, en: `${BRAND.name} | Menu` },
+    reservaciones:{ es: `${BRAND.name} | Reservaciones`, en: `${BRAND.name} | Reservations` },
+    contacto:    { es: `${BRAND.name} | Contacto`, en: `${BRAND.name} | Contact` },
+    privacidad:  { es: `${BRAND.name} | Aviso de Privacidad`, en: `${BRAND.name} | Privacy Policy` },
+    pedido:      { es: `${BRAND.name} | Tu Pedido`, en: `${BRAND.name} | Your Order` },
   }
 
   const metaDescriptions: Record<PageId, { es: string; en: string }> = {
@@ -53,19 +55,26 @@ export default function App() {
   }
 
   useEffect(() => {
-    const titles = pageTitles[visiblePage]
-    document.title = titles ? (lang === 'es' ? titles.es : titles.en) : 'VITA'
-    const desc = metaDescriptions[visiblePage]
+    const titles = visiblePage ? pageTitles[visiblePage] : null
+    document.title = titles ? (lang === 'es' ? titles.es : titles.en) : BRAND.name
+    const desc = visiblePage ? metaDescriptions[visiblePage] : null
     if (desc) {
       let el = document.querySelector('meta[name="description"]')
       if (!el) { el = document.createElement('meta'); el.setAttribute('name', 'description'); document.head.appendChild(el) }
       el.setAttribute('content', lang === 'es' ? desc.es : desc.en)
     }
     document.documentElement.lang = lang
+
+    // El canonical seguia apuntando siempre a la raiz.
+    if (visiblePage) {
+      let link = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
+      if (!link) { link = document.createElement('link'); link.rel = 'canonical'; document.head.appendChild(link) }
+      link.href = new URL(buildPath(visiblePage), RESTAURANT.domain || window.location.origin).href
+    }
   }, [visiblePage, lang])
 
-  const navigate = (page: PageId, filter?: MenuCategory) => {
-    if (page === visiblePage && !filter) return
+  /** Cambia de pagina con el fundido y deja la URL sincronizada. */
+  const transitionTo = (page: PageId | null, filter?: MenuCategory) => {
     pendingPage.current = { page, filter }
     setFading(true)
     setTimeout(() => {
@@ -79,6 +88,27 @@ export default function App() {
       pendingPage.current = null
     }, 220)
   }
+
+  const navigate = (page: PageId, filter?: MenuCategory) => {
+    if (page === visiblePage && (!filter || filter === menuFilter)) return
+    window.history.pushState({}, '', buildPath(page, filter))
+    transitionTo(page, filter)
+  }
+
+  // Boton atras/adelante del navegador.
+  useEffect(() => {
+    const onPop = () => {
+      const route = parseLocation(window.location.pathname, window.location.search)
+      // Si solo cambio el filtro dentro del menu, no hace falta el fundido.
+      if (route.page === visiblePage) {
+        setMenuFilter(route.filter ?? 'Todo')
+        return
+      }
+      transitionTo(route.page, route.filter ?? 'Todo')
+    }
+    window.addEventListener('popstate', onPop)
+    return () => window.removeEventListener('popstate', onPop)
+  }, [visiblePage])
 
   const goToMenu = (category: MenuCategory) => navigate('menu', category)
 
@@ -104,7 +134,7 @@ export default function App() {
         {activePage === 'contacto' && <Contact />}
         {activePage === 'privacidad' && <Privacy />}
         {activePage === 'pedido' && <Order setActivePage={navigate} />}
-        {!KNOWN_PAGES.includes(activePage) && <NotFound setActivePage={navigate} />}
+        {activePage === null && <NotFound setActivePage={navigate} />}
         <Footer setActivePage={navigate} />
       </div>
       <CookieBanner setActivePage={navigate} />

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import type { Branch } from '../../types/admin'
 import styles from './AdminSucursales.module.css'
+import { BRAND } from '../../config/brand'
 import { IconPin, IconAlert, IconCheckCircle } from '../ui/Icons'
 
 const EMPTY: Omit<Branch, 'id'> = {
@@ -194,7 +195,7 @@ export default function AdminSucursales() {
                 <div className={styles.field}>
                   <label htmlFor="br-name">Nombre *</label>
                   <input id="br-name" name="name" value={form.name} onChange={handle}
-                    placeholder="VITA Polanco" />
+                    placeholder={`${BRAND.name} Centro`} />
                 </div>
                 <div className={styles.field}>
                   <label htmlFor="br-slug">Identificador</label>

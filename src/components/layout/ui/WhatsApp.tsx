@@ -1,12 +1,13 @@
 import styles from './WhatsApp.module.css'
 import { useLang } from '../../../context/LangContext'
+import { BRAND } from '../../../config/brand'
 
 const PHONE = import.meta.env.VITE_WHATSAPP_PHONE ?? '5512345678'
 
 export default function WhatsApp() {
   const { t } = useLang()
   const message = encodeURIComponent(
-    t('Hola, me gustaría hacer una reservación en VITA.', 'Hello, I would like to make a reservation at VITA.')
+    t(`Hola, me gustaría hacer una reservación en ${BRAND.name}.`, `Hello, I would like to make a reservation at ${BRAND.name}.`)
   )
   const url = `https://wa.me/${PHONE}?text=${message}`
 

@@ -4,6 +4,7 @@ import { useIntersection } from '../../../hooks/useIntersection'
 import { useLang } from '../../../context/LangContext'
 import styles from './Testimonials.module.css'
 import { supabase } from '../../../lib/supabase'
+import { BRAND } from '../../../config/brand'
 
 function TestimonialForm() {
   const { t } = useLang()
@@ -96,7 +97,7 @@ function TestimonialForm() {
             value={form.comment}
             onChange={handleChange}
             rows={4}
-            placeholder={t('Cuéntanos tu experiencia en VITA...', 'Tell us about your experience at VITA...')}
+            placeholder={t(`Cuéntanos tu experiencia en ${BRAND.name}...`, `Tell us about your experience at ${BRAND.name}...`)}
             required
           />
         </div>
@@ -170,7 +171,9 @@ function Avatar({ name, avatar }: { name: string; avatar?: string }) {
 export default function Testimonials() {
   const { t, lang } = useLang()
   const [sectionRef, isVisible] = useIntersection<HTMLElement>({ threshold: 0.1 })
-  const staticFallback = lang === 'es' ? STATIC_TESTIMONIALS_ES : STATIC_TESTIMONIALS_EN
+  // PERSONALIZAR: el texto de esta seccion es propio de cada
+// restaurante. Ver INSTALACION.md, paso 4.
+const staticFallback = lang === 'es' ? STATIC_TESTIMONIALS_ES : STATIC_TESTIMONIALS_EN
   const [testimonials, setTestimonials] = useState<Testimonial[]>(staticFallback)
   const [loading, setLoading] = useState(true)
   const [active, setActive] = useState(0)

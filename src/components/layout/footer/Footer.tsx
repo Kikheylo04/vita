@@ -2,12 +2,21 @@ import styles from './Footer.module.css'
 import type { PageId } from '../../../types/types'
 import { useLang } from '../../../context/LangContext'
 import { useRestaurant } from '../../../context/RestaurantContext'
+import { buildPath } from '../../../lib/routes'
+import Logo from '../ui/Logo'
 
 interface FooterProps {
   setActivePage: (page: PageId) => void
 }
 
 export default function Footer({ setActivePage }: FooterProps) {
+  // <a href> real para que el crawler siga los enlaces; ctrl+click sigue abriendo pestana.
+  const handleClick = (page: PageId) => (e: React.MouseEvent) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return
+    e.preventDefault()
+    setActivePage(page)
+  }
+
   const { t } = useLang()
   const RESTAURANT = useRestaurant()
 
@@ -23,28 +32,7 @@ export default function Footer({ setActivePage }: FooterProps) {
       <div className={styles.container}>
         <div className={styles.brand}>
           <div className={styles.logo}>
-            <svg className={styles.logoSvg} viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" aria-label="Vita Vita Restaurant">
-              {/* Outer rustic circle */}
-              <circle cx="100" cy="100" r="88" fill="none" stroke="rgba(201,168,76,0.4)" strokeWidth="1.5" strokeDasharray="5 3"/>
-              <circle cx="100" cy="100" r="82" fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="0.8"/>
-              {/* Fork handle */}
-              <rect x="98.5" y="52" width="3" height="28" rx="1.5" fill="rgba(201,168,76,0.85)"/>
-              {/* Fork tines */}
-              <rect x="92" y="22" width="2" height="18" rx="1" fill="rgba(201,168,76,0.85)"/>
-              <rect x="97" y="22" width="2" height="20" rx="1" fill="rgba(201,168,76,0.85)"/>
-              <rect x="102" y="22" width="2" height="20" rx="1" fill="rgba(201,168,76,0.85)"/>
-              <rect x="107" y="22" width="2" height="18" rx="1" fill="rgba(201,168,76,0.85)"/>
-              {/* Fork tine connector */}
-              <path d="M92 40 Q100 48 108 40" fill="none" stroke="rgba(201,168,76,0.85)" strokeWidth="2"/>
-              {/* Gold arc */}
-              <path d="M78 58 A25 25 0 0 1 122 58" fill="none" stroke="rgba(201,168,76,0.45)" strokeWidth="1.5"/>
-              {/* vita italic */}
-              <text x="100" y="112" fontFamily="Georgia,'Times New Roman',serif" fontSize="32" fontStyle="italic" fill="rgba(201,168,76,0.95)" textAnchor="middle" letterSpacing="1">vita</text>
-              {/* · vita · */}
-              <text x="100" y="138" fontFamily="Georgia,'Times New Roman',serif" fontSize="15" fill="rgba(255,255,255,0.65)" textAnchor="middle" letterSpacing="5">·vita·</text>
-              {/* RESTAURANT */}
-              <text x="100" y="168" fontFamily="Arial,sans-serif" fontSize="9" fill="rgba(255,255,255,0.45)" textAnchor="middle" letterSpacing="4">RESTAURANT</text>
-            </svg>
+            <Logo height={90} className={styles.logoSvg} />
           </div>
           <p className={styles.tagline}>{RESTAURANT.taglineFull}</p>
           <p className={styles.desc}>
@@ -56,7 +44,7 @@ export default function Footer({ setActivePage }: FooterProps) {
           <h4>{t('Navegación', 'Navigation')}</h4>
           <ul>
             {navLinks.map(([id, es, en]) => (
-              <li key={id}><button onClick={() => setActivePage(id)}>{t(es, en)}</button></li>
+              <li key={id}><a href={buildPath(id)} onClick={handleClick(id)}>{t(es, en)}</a></li>
             ))}
           </ul>
         </div>
@@ -87,9 +75,9 @@ export default function Footer({ setActivePage }: FooterProps) {
       </div>
       <div className={styles.bottom}>
         <p>© 2026 {RESTAURANT.fullName}. {t('Todos los derechos reservados.', 'All rights reserved.')}</p>
-        <button className={styles.privacyLink} onClick={() => setActivePage('privacidad')}>
+        <a className={styles.privacyLink} href={buildPath('privacidad')} onClick={handleClick('privacidad')}>
           {t('Aviso de Privacidad', 'Privacy Policy')}
-        </button>
+        </a>
       </div>
     </footer>
   )

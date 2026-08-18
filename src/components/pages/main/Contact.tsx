@@ -5,6 +5,7 @@ import type { ContactForm } from '../../../types/types'
 import { useLang } from '../../../context/LangContext'
 import { useRestaurant } from '../../../context/RestaurantContext'
 import { supabase } from '../../../lib/supabase'
+import { BRAND } from '../../../config/brand'
 
 type ContactErrors = Partial<Record<keyof ContactForm, string>>
 
@@ -93,7 +94,7 @@ export default function Contact() {
         <div className={styles.map}>
           <div className={styles.mapWrapper}>
             <iframe
-              title={t('Ubicación VITA Restaurante', 'VITA Restaurant Location')}
+              title={t(`Ubicación ${BRAND.name}`, `${BRAND.name} Location`)}
               src={RESTAURANT.mapsEmbed}
               width="100%"
               height="260"

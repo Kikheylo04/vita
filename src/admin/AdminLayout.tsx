@@ -9,6 +9,7 @@ import {
   IconUser, IconIdCard, IconLock, IconPin, IconBox, IconRecipe,
 } from './ui/Icons'
 import { supabase } from '../lib/supabase'
+import { BRAND } from '../config/brand'
 
 import AdminDashboard from './pages/AdminDashboard'
 import AdminReservaciones from './pages/AdminReservaciones'
@@ -83,7 +84,7 @@ export default function AdminLayout() {
           <svg viewBox="0 0 60 60" width="40" height="40" aria-hidden="true">
             <path d="M12 14 L30 46 L48 14" fill="none" stroke="#d4a843" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          <span className={styles.brandName}>VITA</span>
+          <span className={styles.brandName}>{BRAND.name}</span>
           <span className={styles.brandSub}>Administración</span>
         </div>
 
@@ -159,7 +160,7 @@ export default function AdminLayout() {
               <div className={styles.userPop} role="menu">
                 <div className={styles.userPopHead}>
                   <span className={styles.userPopName}>
-                    {(user?.user_metadata as { full_name?: string })?.full_name || 'Admin VITA'}
+                    {(user?.user_metadata as { full_name?: string })?.full_name || `Admin ${BRAND.name}`}
                   </span>
                   <span className={styles.userPopMail}>{user?.email}</span>
                 </div>

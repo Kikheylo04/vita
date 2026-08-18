@@ -7,6 +7,10 @@ import { LangProvider } from './context/LangContext'
 import { RestaurantProvider } from './context/RestaurantContext'
 import { CartProvider } from './context/CartContext'
 import { BranchProvider } from './context/BranchContext'
+import { applyTheme } from './config/brand'
+
+// Los colores de brand.ts pisan los de index.css antes del primer render.
+applyTheme()
 
 const rootElement = document.getElementById('root')
 if (!rootElement) throw new Error('Root element not found')

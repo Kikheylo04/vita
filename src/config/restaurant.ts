@@ -1,24 +1,36 @@
+/**
+ * Vista compuesta de la marca, con la forma que ya consumen los
+ * componentes. La identidad real vive en brand.ts: edita ese.
+ *
+ * Se mantiene este archivo para no tocar los 20+ componentes que
+ * ya lo importan, y porque RestaurantContext lo usa como respaldo
+ * cuando la tabla `config` de Supabase no responde.
+ */
+import { BRAND, CONTACT, SOCIAL, HOURS, CURRENCY, SITE } from './brand'
+
 export const RESTAURANT = {
-  name: 'VITA',
-  fullName: 'VITA — Vera Italia Tavola Autentica',
-  tagline: 'Vera Italia Tavola Autentica',
-  taglineFull: 'Vera Italia Tavola Autentica · dal 2009',
-  foundedYear: '2009',
+  name: BRAND.name,
+  fullName: BRAND.fullName,
+  tagline: BRAND.tagline,
+  taglineFull: BRAND.foundedYear
+    ? `${BRAND.tagline} · dal ${BRAND.foundedYear}`
+    : BRAND.tagline,
+  foundedYear: BRAND.foundedYear,
 
-  phone: '(55) 1234-5678',
-  phoneRaw: '5512345678',
-  email: 'hola@vitarestaurante.mx',
+  phone: CONTACT.phone,
+  phoneRaw: CONTACT.phoneRaw,
+  email: CONTACT.email,
 
-  address: 'Av. Presidente Masaryk 123',
-  neighborhood: 'Polanco',
-  city: 'CDMX',
-  cityFull: 'Ciudad de México',
-  zip: '11560',
-  mapsEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.661038875557!2d-99.19867492394963!3d19.432421581886825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d201f2e4e6b28f%3A0x4a501367f076b8a8!2sAv.%20Presidente%20Masaryk%2C%20Polanco%2C%20Miguel%20Hidalgo%2C%2011560%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses!2smx!4v1700000000000',
+  address: CONTACT.address,
+  neighborhood: CONTACT.neighborhood,
+  city: CONTACT.city,
+  cityFull: CONTACT.cityFull,
+  zip: CONTACT.zip,
+  mapsEmbed: CONTACT.mapsEmbed,
 
-  instagram: 'vita.restaurante',
-  instagramUrl: 'https://instagram.com/vita.restaurante',
-  facebookUrl: 'https://facebook.com/vitarestaurante',
+  instagram: SOCIAL.instagram,
+  instagramUrl: SOCIAL.instagramUrl,
+  facebookUrl: SOCIAL.facebookUrl,
 
   chef: {
     name: 'Marco Rossi',
@@ -27,33 +39,25 @@ export const RESTAURANT = {
   },
 
   hours: {
-    note: 'Lunes cerrado',
-    noteEn: 'Closed on Mondays',
-    lunch: '13:00 – 16:00',
-    dinner: '20:00 – 23:00',
+    note: HOURS.note,
+    noteEn: HOURS.noteEn,
+    lunch: HOURS.lunch,
+    dinner: HOURS.dinner,
   },
 
-  whatsappMessage: 'Hola, me gustaría hacer una reservación en VITA.',
-  whatsappMessageEn: 'Hello, I would like to make a reservation at VITA.',
+  whatsappMessage: `Hola, me gustaría hacer una reservación en ${BRAND.name}.`,
+  whatsappMessageEn: `Hello, I would like to make a reservation at ${BRAND.name}.`,
 
-  domain: 'https://vitarestaurante.mx',
+  domain: SITE.domain,
 
-  /**
-   * Configuración de moneda
-   * currency: código ISO 4217  (MXN, USD, EUR, COP, ARS, CLP, PEN, BRL…)
-   * currencySymbol: símbolo visible ($, €, S/, R$…)
-   * currencyLocale: locale para Intl.NumberFormat (es-MX, en-US, es-CO…)
-   * baseIn: la unidad en que están escritos los precios en el código ('USD' o 'local')
-   * usdRate: cuántas unidades de `currency` equivale 1 USD (solo si baseIn='USD')
-   */
-  currency: 'MXN',
-  currencySymbol: '$',
-  currencyLocale: 'es-MX',
-  baseIn: 'USD' as 'USD' | 'local',
-  usdRate: 17,
+  currency: CURRENCY.code,
+  currencySymbol: CURRENCY.symbol,
+  currencyLocale: CURRENCY.locale,
+  baseIn: CURRENCY.baseIn,
+  usdRate: CURRENCY.usdRate,
 }
 
-/** Convierte un precio base (USD) a la moneda configurada y lo formatea */
+/** Convierte un precio base a la moneda configurada y lo formatea. */
 export function formatPrice(usdPrice: number): string {
   const amount = RESTAURANT.baseIn === 'USD'
     ? usdPrice * RESTAURANT.usdRate

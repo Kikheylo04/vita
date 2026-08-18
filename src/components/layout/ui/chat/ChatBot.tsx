@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import emailjs from '@emailjs/browser'
 import styles from './ChatBot.module.css'
+import { BRAND } from '../../../../config/brand'
 import { useLang } from '../../../../context/LangContext'
 import { useRestaurant, useFormatPrice } from '../../../../context/RestaurantContext'
 import { getBotResponse } from './chatFlow'
@@ -217,7 +218,7 @@ export default function ChatBot({ externalOpen, onExternalClose }: ChatBotProps 
   return (
     <>
       {open && (
-        <div className={styles.window} role="dialog" aria-label={t('Asistente VITA', 'VITA Assistant')}>
+        <div className={styles.window} role="dialog" aria-label={t(`Asistente ${BRAND.name}`, `${BRAND.name} Assistant`)}>
           <div className={styles.header}>
             <div className={styles.headerAvatar}>
               <svg viewBox="0 0 40 40" width="22" height="22">
@@ -225,7 +226,7 @@ export default function ChatBot({ externalOpen, onExternalClose }: ChatBotProps 
               </svg>
             </div>
             <div>
-              <p className={styles.headerName}>VITA Assistant</p>
+              <p className={styles.headerName}>{BRAND.name} Assistant</p>
               <p className={styles.headerStatus}>{t('En línea', 'Online')}</p>
             </div>
             <button className={styles.closeBtn} onClick={handleClose} aria-label={t('Cerrar', 'Close')}>✕</button>

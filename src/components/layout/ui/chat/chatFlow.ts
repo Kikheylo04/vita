@@ -43,6 +43,7 @@ export interface ReservaData {
 }
 
 import type { RestaurantConfig } from '../../../../context/RestaurantContext'
+import { BRAND } from '../../../../config/brand'
 
 // Horarios
 const HOURS_ES = `🕐 *Horarios*\nMartes a Jueves: 13:00 – 23:00\nViernes y Sábado: 13:00 – 00:00\nDomingo: 13:00 – 22:00\nLunes: Cerrado`
@@ -82,8 +83,8 @@ export function getBotResponse(step: FlowStep, lang: string, input?: string, res
     case 'welcome':
       return {
         text: es
-          ? '👋 ¡Hola! Soy el asistente de VITA. ¿En qué puedo ayudarte hoy?'
-          : '👋 Hello! I\'m VITA\'s assistant. How can I help you today?',
+          ? `👋 ¡Hola! Soy el asistente de ${BRAND.name}. ¿En qué puedo ayudarte hoy?`
+          : `👋 Hello! I'm ${BRAND.name}'s assistant. How can I help you today?`,
         options: MAIN_OPTIONS_ES,
       }
 

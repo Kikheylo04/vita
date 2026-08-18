@@ -3,6 +3,8 @@ import { useIntersection } from '../../../hooks/useIntersection'
 import { useLang } from '../../../context/LangContext'
 import { useRestaurant } from '../../../context/RestaurantContext'
 
+// PERSONALIZAR: el texto de esta seccion es propio de cada
+// restaurante. Ver INSTALACION.md, paso 4.
 export default function Chef() {
   const { t } = useLang()
   const RESTAURANT = useRestaurant()

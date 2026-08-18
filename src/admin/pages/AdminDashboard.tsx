@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import type { AdminPage } from '../../types/admin'
 import styles from './AdminDashboard.module.css'
+import { BRAND } from '../../config/brand'
 import {
   IconCalendar, IconHourglass, IconMenu, IconStar, IconMail, IconCart,
   IconEvent, IconChevronRight, IconClock, IconPin, IconCheckCircle, IconAlert,
@@ -259,7 +260,7 @@ export default function AdminDashboard({ setPage }: { setPage: (p: AdminPage) =>
       <div className={styles.hero}>
         <div>
           <h2 className={styles.greeting}>¡{greeting}, Admin!</h2>
-          <p className={styles.sub}>Resumen general de tu actividad en VITA.</p>
+          <p className={styles.sub}>Resumen general de tu actividad en {BRAND.name}.</p>
         </div>
         <div className={styles.datePill}>
           <IconCalendar size={16} />

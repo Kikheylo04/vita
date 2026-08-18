@@ -3,7 +3,7 @@ import styles from './CookieBanner.module.css'
 import { useLang } from '../../../context/LangContext'
 import type { PageId } from '../../../types/types'
 
-const STORAGE_KEY = 'vita_cookie_consent'
+const STORAGE_KEY = 'cookie_consent'
 
 interface CookieBannerProps {
   setActivePage: (page: PageId) => void
