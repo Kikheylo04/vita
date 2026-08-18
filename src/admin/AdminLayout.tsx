@@ -6,7 +6,7 @@ import {
   IconDashboard, IconCalendar, IconMenu, IconStar, IconEvent, IconCart,
   IconMail, IconSettings, IconBell, IconSearch,
   IconGlobe, IconExternal, IconHamburger, IconLogout,
-  IconUser, IconIdCard, IconLock,
+  IconUser, IconIdCard, IconLock, IconPin,
 } from './ui/Icons'
 import { supabase } from '../lib/supabase'
 
@@ -19,6 +19,7 @@ import AdminConfig from './pages/AdminConfig'
 import AdminMensajes from './pages/AdminMensajes'
 import AdminPedidos from './pages/AdminPedidos'
 import AdminCuenta, { type AccountTab } from './pages/AdminCuenta'
+import AdminSucursales from './pages/AdminSucursales'
 
 type IconCmp = ({ size }: { size?: number }) => ReactElement
 
@@ -30,6 +31,7 @@ const NAV: { id: AdminPage; label: string; Icon: IconCmp }[] = [
   { id: 'eventos',       label: 'Eventos',       Icon: IconEvent },
   { id: 'pedidos',       label: 'Pedidos',       Icon: IconCart },
   { id: 'mensajes',      label: 'Mensajes',      Icon: IconMail },
+  { id: 'sucursales',    label: 'Sucursales',    Icon: IconPin },
   { id: 'config',        label: 'Configuración', Icon: IconSettings },
 ]
 
@@ -193,6 +195,7 @@ export default function AdminLayout() {
           {page === 'mensajes'      && <AdminMensajes />}
           {page === 'config'        && <AdminConfig />}
           {page === 'cuenta'        && <AdminCuenta initialTab={accountTab} />}
+          {page === 'sucursales'    && <AdminSucursales />}
         </div>
       </div>
     </div>
