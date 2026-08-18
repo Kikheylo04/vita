@@ -63,28 +63,28 @@ export default function FeaturedDishes({ setActivePage }: FeaturedDishesProps) {
   const [gridRef, gridVisible] = useIntersection<HTMLDivElement>({ threshold: 0.05 })
 
   useEffect(() => {
+    // Destacados = los platillos con badge en el admin.
+    // Antes se buscaban tres nombres literales, asi que renombrar
+    // un platillo hacia desaparecer su boton de pedido sin aviso.
     supabase
       .from('menu_items')
       .select('id,name,description,description_en,price,badge,image')
       .eq('active', true)
-      .in('name', dishes.map(d => d.name))
+      .neq('badge', '')
+      .order('sort_order', { ascending: true })
+      .limit(3)
       .then(({ data, error }) => {
         if (error) { console.error('Error cargando platos estrella:', error.message); return }
         if (!data || data.length === 0) return
-        // Se respeta el orden curado del arreglo local.
-        setFeatured(dishes.map(local => {
-          const row = data.find(r => r.name === local.name)
-          if (!row) return local
-          return {
-            id: String(row.id),
-            name: row.name,
-            descEs: row.description || local.descEs,
-            descEn: row.description_en || local.descEn,
-            price: row.price,
-            badge: row.badge || local.badge,
-            image: row.image || local.image,
-          }
-        }))
+        setFeatured(data.map(row => ({
+          id: String(row.id),
+          name: row.name,
+          descEs: row.description,
+          descEn: row.description_en || row.description,
+          price: row.price,
+          badge: row.badge,
+          image: row.image,
+        })))
       })
   }, [])
 
