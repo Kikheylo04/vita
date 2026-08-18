@@ -31,6 +31,18 @@ insert into reserved_slugs (slug) values
   ('demo'), ('test'), ('staging'), ('dev')
 on conflict (slug) do nothing;
 
+-- Se lee al registrarse, pero solo la plataforma la edita: sin
+-- esto, cualquiera con la clave anonima podria reservar slugs.
+alter table reserved_slugs enable row level security;
+
+drop policy if exists "Anyone reads reserved slugs" on reserved_slugs;
+create policy "Anyone reads reserved slugs" on reserved_slugs
+  for select using (true);
+
+drop policy if exists "Platform writes reserved slugs" on reserved_slugs;
+create policy "Platform writes reserved slugs" on reserved_slugs
+  for all using (is_platform()) with check (is_platform());
+
 -- ── 2. ¿Esta libre este slug? ────────────────────────────
 --  Lo consulta el formulario de registro mientras el usuario
 --  escribe, para avisar antes de enviar.
