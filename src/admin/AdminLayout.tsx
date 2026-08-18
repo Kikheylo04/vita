@@ -1,7 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef, type ReactElement } from 'react'
 import { useAdminAuth } from '../context/AdminAuthContext'
 import type { AdminPage } from '../types/admin'
 import styles from './AdminLayout.module.css'
+import {
+  IconDashboard, IconCalendar, IconMenu, IconStar, IconEvent, IconCart,
+  IconMail, IconSettings, IconBell, IconSearch, IconChevronDown,
+  IconGlobe, IconExternal, IconHamburger, IconLogout,
+} from './ui/Icons'
+import { supabase } from '../lib/supabase'
 
 import AdminDashboard from './pages/AdminDashboard'
 import AdminReservaciones from './pages/AdminReservaciones'
@@ -12,68 +18,147 @@ import AdminConfig from './pages/AdminConfig'
 import AdminMensajes from './pages/AdminMensajes'
 import AdminPedidos from './pages/AdminPedidos'
 
-const NAV: { id: AdminPage; label: string; icon: string }[] = [
-  { id: 'dashboard',     label: 'Dashboard',      icon: '▦' },
-  { id: 'reservaciones', label: 'Reservaciones',  icon: '📅' },
-  { id: 'menu',          label: 'Menú',           icon: '🍽️' },
-  { id: 'testimonios',   label: 'Testimonios',    icon: '⭐' },
-  { id: 'eventos',       label: 'Eventos',        icon: '🎉' },
-  { id: 'pedidos',       label: 'Pedidos',        icon: '🛒' },
-  { id: 'mensajes',      label: 'Mensajes',       icon: '✉️' },
-  { id: 'config',        label: 'Configuración',  icon: '⚙️' },
+type IconCmp = ({ size }: { size?: number }) => ReactElement
+
+const NAV: { id: AdminPage; label: string; Icon: IconCmp }[] = [
+  { id: 'dashboard',     label: 'Dashboard',     Icon: IconDashboard },
+  { id: 'reservaciones', label: 'Reservaciones', Icon: IconCalendar },
+  { id: 'menu',          label: 'Menú',          Icon: IconMenu },
+  { id: 'testimonios',   label: 'Testimonios',   Icon: IconStar },
+  { id: 'eventos',       label: 'Eventos',       Icon: IconEvent },
+  { id: 'pedidos',       label: 'Pedidos',       Icon: IconCart },
+  { id: 'mensajes',      label: 'Mensajes',      Icon: IconMail },
+  { id: 'config',        label: 'Configuración', Icon: IconSettings },
 ]
 
 export default function AdminLayout() {
   const { user, signOut } = useAdminAuth()
   const [page, setPage] = useState<AdminPage>('dashboard')
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [unread, setUnread] = useState(0)
+  const [userMenu, setUserMenu] = useState(false)
+  const userRef = useRef<HTMLDivElement>(null)
 
   const handleNav = (id: AdminPage) => { setPage(id); setSidebarOpen(false) }
 
+  // Badge de mensajes sin leer, compartido por el sidebar y la campana.
+  useEffect(() => {
+    supabase
+      .from('contact_messages')
+      .select('id', { count: 'exact', head: true })
+      .eq('read', false)
+      .then(({ count, error }) => {
+        if (error) { console.error('Error contando mensajes:', error.message); return }
+        setUnread(count ?? 0)
+      })
+  }, [page])
+
+  useEffect(() => {
+    if (!userMenu) return
+    const onDown = (e: MouseEvent) => {
+      if (userRef.current && !userRef.current.contains(e.target as Node)) setUserMenu(false)
+    }
+    document.addEventListener('mousedown', onDown)
+    return () => document.removeEventListener('mousedown', onDown)
+  }, [userMenu])
+
+  const current = NAV.find(n => n.id === page)
+  const initial = (user?.email ?? 'A').charAt(0).toUpperCase()
+
   return (
     <div className={styles.wrap}>
-      {/* Sidebar */}
       <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : ''}`}>
-        <div className={styles.sidebarHeader}>
-          <div className={styles.logo}>
-            <svg viewBox="0 0 40 40" width="28" height="28">
-              <text x="20" y="29" fontFamily="Georgia,'Times New Roman',serif" fontSize="28" fontStyle="italic" fill="#D4A843" textAnchor="middle">V</text>
-            </svg>
-            <span>VITA Admin</span>
-          </div>
+        <div className={styles.brand}>
+          <svg viewBox="0 0 60 60" width="40" height="40" aria-hidden="true">
+            <path d="M12 14 L30 46 L48 14" fill="none" stroke="#d4a843" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span className={styles.brandName}>VITA</span>
+          <span className={styles.brandSub}>Administración</span>
         </div>
 
-        <nav className={styles.nav}>
-          {NAV.map(n => (
+        <nav className={styles.nav} aria-label="Secciones">
+          {NAV.map(({ id, label, Icon }) => (
             <button
-              key={n.id}
-              className={`${styles.navBtn} ${page === n.id ? styles.navActive : ''}`}
-              onClick={() => handleNav(n.id)}
+              key={id}
+              className={`${styles.navBtn} ${page === id ? styles.navActive : ''}`}
+              onClick={() => handleNav(id)}
+              aria-current={page === id ? 'page' : undefined}
             >
-              <span className={styles.navIcon}>{n.icon}</span>
-              <span>{n.label}</span>
+              <span className={styles.navIcon}><Icon size={19} /></span>
+              <span className={styles.navLabel}>{label}</span>
+              {id === 'mensajes' && unread > 0 && (
+                <span className={styles.navBadge}>{unread}</span>
+              )}
             </button>
           ))}
         </nav>
 
         <div className={styles.sidebarFooter}>
-          <p className={styles.userEmail}>{user?.email}</p>
-          <button className={styles.signOutBtn} onClick={signOut}>Cerrar sesión</button>
+          <a className={styles.siteLink} href="/" target="_blank" rel="noreferrer">
+            <IconGlobe size={17} />
+            <span>Ver sitio web</span>
+            <IconExternal size={14} />
+          </a>
+
+          <div className={styles.userBlock} ref={userRef}>
+            <button
+              className={styles.userBtn}
+              onClick={() => setUserMenu(o => !o)}
+              aria-expanded={userMenu}
+            >
+              <span className={styles.avatar} aria-hidden="true">{initial}</span>
+              <span className={styles.userText}>
+                <span className={styles.userName}>Admin VITA</span>
+                <span className={styles.userMail}>{user?.email}</span>
+              </span>
+              <IconChevronDown size={16} />
+            </button>
+            {userMenu && (
+              <div className={styles.userPop} role="menu">
+                <button className={styles.userPopBtn} onClick={signOut} role="menuitem">
+                  <IconLogout size={16} />
+                  <span>Cerrar sesión</span>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </aside>
 
-      {/* Overlay móvil */}
       {sidebarOpen && <div className={styles.overlay} onClick={() => setSidebarOpen(false)} />}
 
-      {/* Main */}
       <div className={styles.main}>
         <header className={styles.topbar}>
-          <button className={styles.hamburger} onClick={() => setSidebarOpen(o => !o)} aria-label="Menú">
-            ☰
+          <button
+            className={styles.hamburger}
+            onClick={() => setSidebarOpen(o => !o)}
+            aria-label="Abrir menú"
+          >
+            <IconHamburger size={20} />
           </button>
-          <h1 className={styles.pageTitle}>
-            {NAV.find(n => n.id === page)?.icon} {NAV.find(n => n.id === page)?.label}
-          </h1>
+
+          <h1 className={styles.pageTitle}>{current?.label}</h1>
+
+          <div className={styles.search}>
+            <IconSearch size={17} />
+            <input
+              type="search"
+              placeholder="Buscar..."
+              aria-label="Buscar en el panel"
+              className={styles.searchInput}
+            />
+          </div>
+
+          <button
+            className={styles.bellBtn}
+            onClick={() => handleNav('mensajes')}
+            aria-label={`Mensajes sin leer: ${unread}`}
+          >
+            <IconBell size={20} />
+            {unread > 0 && <span className={styles.bellBadge}>{unread}</span>}
+          </button>
+
+          <span className={styles.topAvatar} aria-hidden="true">{initial}</span>
         </header>
 
         <div className={styles.content}>

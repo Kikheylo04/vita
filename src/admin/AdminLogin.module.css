@@ -1,6 +1,6 @@
 .page {
   min-height: 100vh;
-  background: #0f0c08;
+  background: var(--ad-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,9 +8,9 @@
 }
 
 .card {
-  background: #181410;
-  border: 1px solid rgba(201,168,76,0.2);
-  border-radius: 12px;
+  background: var(--ad-surface);
+  border: 1px solid var(--ad-gold-dim);
+  border-radius: var(--ad-radius);
   padding: 2.5rem 2rem;
   width: 100%;
   max-width: 400px;
@@ -21,7 +21,7 @@
   align-items: center;
   gap: 0.6rem;
   margin-bottom: 1.5rem;
-  color: #D4A843;
+  color: var(--ad-gold);
   font-family: Georgia, serif;
   font-size: 1.1rem;
   font-style: italic;
@@ -35,7 +35,7 @@
 }
 
 .subtitle {
-  color: rgba(255,255,255,0.4);
+  color: var(--ad-ink-3);
   font-size: 0.85rem;
   margin: 0 0 2rem;
 }
@@ -45,15 +45,15 @@
 .field { display: flex; flex-direction: column; gap: 0.4rem; }
 
 .field label {
-  color: rgba(255,255,255,0.7);
+  color: var(--ad-ink-2);
   font-size: 0.85rem;
   font-weight: 500;
 }
 
 .field input {
   background: #201c16;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px;
+  border: 1px solid var(--ad-line-2);
+  border-radius: var(--ad-radius-sm);
   color: #fff;
   padding: 0.65rem 0.9rem;
   font-size: 0.95rem;
@@ -62,20 +62,20 @@
 }
 
 .field input:focus {
-  border-color: rgba(201,168,76,0.5);
+  border-color: var(--ad-gold-dim);
 }
 
 .error {
-  color: #f87171;
+  color: var(--ad-crit);
   font-size: 0.85rem;
   margin: 0;
 }
 
 .btn {
-  background: #D4A843;
-  color: #0f0c08;
+  background: var(--ad-gold);
+  color: var(--ad-bg);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--ad-radius-sm);
   padding: 0.75rem;
   font-size: 0.95rem;
   font-weight: 700;

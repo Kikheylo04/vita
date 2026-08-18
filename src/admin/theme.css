@@ -1,0 +1,125 @@
+/* ══════════════════════════════════════════════
+   VITA Admin — tokens compartidos
+   Importado una sola vez desde AdminApp.
+   ══════════════════════════════════════════════ */
+:root {
+  --ad-bg:        #0b0906;
+  --ad-surface:   #14100b;
+  --ad-surface-2: #1b1610;
+  --ad-raised:    #221c14;
+  --ad-line:      rgba(255, 255, 255, 0.07);
+  --ad-line-2:    rgba(255, 255, 255, 0.12);
+
+  --ad-ink:       #f0e9dc;
+  --ad-ink-2:     #a2937c;
+  --ad-ink-3:     #6d6252;
+
+  --ad-gold:      #d4a843;
+  --ad-gold-dim:  rgba(212, 168, 67, 0.14);
+
+  --ad-ok:        #4ade80;
+  --ad-warn:      #fbbf24;
+  --ad-crit:      #f87171;
+  --ad-info:      #60a5fa;
+  --ad-violet:    #a78bfa;
+  --ad-pink:      #f472b6;
+
+  --ad-radius:    12px;
+  --ad-radius-sm: 8px;
+}
+
+.adCard {
+  background: var(--ad-surface);
+  border: 1px solid var(--ad-line);
+  border-radius: var(--ad-radius);
+}
+
+.adCardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.15rem 1.35rem;
+  border-bottom: 1px solid var(--ad-line);
+}
+
+.adCardTitle {
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--ad-ink);
+  margin: 0;
+}
+
+.adLink {
+  background: none;
+  border: none;
+  color: var(--ad-gold);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--ad-radius-sm);
+  font-family: inherit;
+}
+
+.adLink:hover { background: var(--ad-gold-dim); }
+.adLink:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
+
+.adPill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.24rem 0.66rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.adPillOk      { background: rgba(74, 222, 128, 0.14); color: var(--ad-ok); }
+.adPillWarn    { background: rgba(251, 191, 36, 0.14); color: var(--ad-warn); }
+.adPillCrit    { background: rgba(248, 113, 113, 0.14); color: var(--ad-crit); }
+.adPillMute    { background: rgba(255, 255, 255, 0.06); color: var(--ad-ink-3); }
+
+.adTabNums { font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Unificación de secciones ─────────────────
+   Las 7 secciones internas heredan tipografía,
+   superficies y controles del Dashboard.
+   ────────────────────────────────────────────── */
+[class*="AdminReservaciones"] h2, [class*="AdminMenu"] h2,
+[class*="AdminPedidos"] h2, [class*="AdminEventos"] h2,
+[class*="AdminTestimonios"] h2, [class*="AdminMensajes"] h2,
+[class*="AdminConfig"] h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  color: var(--ad-ink);
+}
+
+.adSectionHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.2rem;
+}
+
+.adSectionTitle {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ad-ink);
+  margin: 0;
+}
+
+.adSectionSub {
+  color: var(--ad-ink-2);
+  font-size: 0.9rem;
+  margin: 0.15rem 0 0;
+}

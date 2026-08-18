@@ -1,12 +1,12 @@
 .page { display: flex; flex-direction: column; gap: 1.25rem; }
-.loading, .empty { color: rgba(255,255,255,0.4); font-size: 0.9rem; }
+.loading, .empty { color: var(--ad-ink-3); font-size: 0.9rem; }
 
 .filters { display: flex; gap: 0.4rem; flex-wrap: wrap; }
 .tab {
-  background: #181410;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 6px;
-  color: rgba(255,255,255,0.5);
+  background: var(--ad-surface);
+  border: 1px solid var(--ad-line);
+  border-radius: var(--ad-radius-sm);
+  color: var(--ad-ink-2);
   font-size: 0.8rem;
   padding: 0.35rem 0.75rem;
   cursor: pointer;
@@ -15,21 +15,21 @@
   gap: 0.4rem;
   transition: all 0.15s;
 }
-.tab:hover { border-color: rgba(201,168,76,0.3); color: rgba(255,255,255,0.8); }
-.tabActive { border-color: #D4A843 !important; color: #D4A843 !important; }
-.count { background: rgba(255,255,255,0.08); border-radius: 999px; padding: 0 0.4rem; font-size: 0.72rem; }
+.tab:hover { border-color: var(--ad-gold-dim); color: var(--ad-ink); }
+.tabActive { border-color: var(--ad-gold) !important; color: var(--ad-gold) !important; }
+.count { background: var(--ad-line); border-radius: 999px; padding: 0 0.4rem; font-size: 0.72rem; }
 
 .list { display: flex; flex-direction: column; gap: 0.75rem; }
 
 .card {
-  background: #181410;
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 12px;
+  background: var(--ad-surface);
+  border: 1px solid var(--ad-line);
+  border-radius: var(--ad-radius);
   overflow: hidden;
   transition: border-color 0.15s;
 }
-.cardUnread { border-color: rgba(201,168,76,0.3); }
-.card:hover { border-color: rgba(201,168,76,0.25); }
+.cardUnread { border-color: var(--ad-gold-dim); }
+.card:hover { border-color: var(--ad-gold-dim); }
 
 .cardHeader {
   display: flex;
@@ -46,21 +46,21 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #D4A843;
+  background: var(--ad-gold);
   flex-shrink: 0;
 }
 
-.name { font-size: 0.9rem; font-weight: 600; color: rgba(255,255,255,0.9); }
-.email { font-size: 0.78rem; color: rgba(255,255,255,0.4); margin-top: 0.1rem; }
+.name { font-size: 0.9rem; font-weight: 600; color: var(--ad-ink); }
+.email { font-size: 0.78rem; color: var(--ad-ink-3); margin-top: 0.1rem; }
 
 .right { text-align: right; flex-shrink: 0; }
-.subject { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
-.date { font-size: 0.75rem; color: rgba(255,255,255,0.35); margin-top: 0.15rem; }
+.subject { font-size: 0.85rem; color: var(--ad-ink-2); }
+.date { font-size: 0.75rem; color: var(--ad-ink-3); margin-top: 0.15rem; }
 
-.chevron { color: rgba(255,255,255,0.3); font-size: 0.7rem; flex-shrink: 0; }
+.chevron { color: var(--ad-ink-3); font-size: 0.7rem; flex-shrink: 0; }
 
 .body {
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid var(--ad-line);
   padding: 1rem 1.25rem;
   display: flex;
   flex-direction: column;
@@ -69,7 +69,7 @@
 
 .message {
   font-size: 0.88rem;
-  color: rgba(255,255,255,0.75);
+  color: var(--ad-ink-2);
   line-height: 1.6;
   white-space: pre-wrap;
 }
@@ -77,35 +77,35 @@
 .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 
 .btnReply {
-  background: rgba(201,168,76,0.12);
-  border: 1px solid rgba(201,168,76,0.3);
-  border-radius: 6px;
-  color: #D4A843;
+  background: var(--ad-gold-dim);
+  border: 1px solid var(--ad-gold-dim);
+  border-radius: var(--ad-radius-sm);
+  color: var(--ad-gold);
   font-size: 0.8rem;
   padding: 0.35rem 0.8rem;
   text-decoration: none;
   cursor: pointer;
   transition: background 0.15s;
 }
-.btnReply:hover { background: rgba(201,168,76,0.22); }
+.btnReply:hover { background: var(--ad-gold-dim); }
 
 .btnToggle {
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 6px;
-  color: rgba(255,255,255,0.5);
+  border: 1px solid var(--ad-line-2);
+  border-radius: var(--ad-radius-sm);
+  color: var(--ad-ink-2);
   font-size: 0.8rem;
   padding: 0.35rem 0.8rem;
   cursor: pointer;
   transition: all 0.15s;
 }
-.btnToggle:hover { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.8); }
+.btnToggle:hover { border-color: var(--ad-ink-3); color: var(--ad-ink); }
 
 .btnDelete {
   background: transparent;
   border: 1px solid rgba(239,68,68,0.25);
-  border-radius: 6px;
-  color: #f87171;
+  border-radius: var(--ad-radius-sm);
+  color: var(--ad-crit);
   font-size: 0.8rem;
   padding: 0.35rem 0.8rem;
   cursor: pointer;

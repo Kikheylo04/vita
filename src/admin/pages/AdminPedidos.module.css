@@ -11,10 +11,10 @@
 .stats { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 
 .statBtn {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 6px;
-  color: rgba(255,255,255,0.6);
+  background: var(--ad-line);
+  border: 1px solid var(--ad-line-2);
+  border-radius: var(--ad-radius-sm);
+  color: var(--ad-ink-2);
   font-size: 0.8rem;
   padding: 0.4rem 0.8rem;
   cursor: pointer;
@@ -23,30 +23,30 @@
   gap: 0.4rem;
   transition: all 0.15s;
 }
-.statBtn:hover { border-color: rgba(201,168,76,0.4); color: rgba(255,255,255,0.9); }
-.statActive { border-color: var(--color-gold) !important; color: var(--color-gold) !important; background: rgba(201,168,76,0.08) !important; }
+.statBtn:hover { border-color: var(--ad-gold-dim); color: var(--ad-ink); }
+.statActive { border-color: var(--color-gold) !important; color: var(--color-gold) !important; background: var(--ad-gold-dim) !important; }
 
 .statCount {
-  background: rgba(255,255,255,0.1);
-  border-radius: 10px;
+  background: var(--ad-line-2);
+  border-radius: var(--ad-radius);
   font-size: 0.72rem;
   padding: 0.1rem 0.45rem;
 }
 
 .refreshBtn {
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 6px;
-  color: rgba(255,255,255,0.5);
+  border: 1px solid var(--ad-line-2);
+  border-radius: var(--ad-radius-sm);
+  color: var(--ad-ink-2);
   font-size: 0.82rem;
   padding: 0.4rem 0.9rem;
   cursor: pointer;
   transition: all 0.15s;
 }
-.refreshBtn:hover { border-color: rgba(201,168,76,0.4); color: var(--color-gold); }
+.refreshBtn:hover { border-color: var(--ad-gold-dim); color: var(--color-gold); }
 
 .loading, .empty {
-  color: rgba(255,255,255,0.4);
+  color: var(--ad-ink-3);
   text-align: center;
   padding: 3rem;
   font-size: 0.9rem;
@@ -56,8 +56,8 @@
 
 .card {
   background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 10px;
+  border: 1px solid var(--ad-line);
+  border-radius: var(--ad-radius);
   overflow: hidden;
 }
 
@@ -81,21 +81,21 @@
 }
 
 .cardName { font-size: 0.95rem; color: white; font-weight: 500; }
-.cardMeta { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-top: 0.15rem; }
+.cardMeta { font-size: 0.78rem; color: var(--ad-ink-3); margin-top: 0.15rem; }
 
 .cardRight { display: flex; align-items: center; gap: 1rem; }
 
 .cardTotal {
   font-family: var(--font-heading, Georgia, serif);
   font-size: 1.05rem;
-  color: var(--color-gold, #c9a84c);
+  color: var(--color-gold, var(--ad-gold));
 }
 
-.cardChevron { font-size: 0.7rem; color: rgba(255,255,255,0.3); }
+.cardChevron { font-size: 0.7rem; color: var(--ad-ink-3); }
 
 .cardBody {
   padding: 0 1.25rem 1.25rem;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid var(--ad-line);
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
@@ -107,22 +107,22 @@
   grid-template-columns: 1fr 1fr;
   gap: 0.75rem 1.5rem;
   font-size: 0.85rem;
-  color: rgba(255,255,255,0.75);
+  color: var(--ad-ink-2);
 }
 .infoFull { grid-column: 1 / -1; }
-.infoLabel { display: block; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 0.2rem; }
+.infoLabel { display: block; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ad-ink-3); margin-bottom: 0.2rem; }
 
 .items {
   background: rgba(0,0,0,0.2);
-  border-radius: 6px;
+  border-radius: var(--ad-radius-sm);
   padding: 0.9rem 1rem;
 }
-.itemsTitle { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 0.6rem; }
-.item { display: flex; align-items: center; gap: 0.6rem; padding: 0.3rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.itemsTitle { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ad-ink-3); margin-bottom: 0.6rem; }
+.item { display: flex; align-items: center; gap: 0.6rem; padding: 0.3rem 0; border-bottom: 1px solid var(--ad-line); }
 .item:last-child { border-bottom: none; }
-.itemQty { font-size: 0.82rem; color: var(--color-gold, #c9a84c); min-width: 2rem; }
-.itemName { flex: 1; font-size: 0.88rem; color: rgba(255,255,255,0.8); }
-.itemPrice { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+.itemQty { font-size: 0.82rem; color: var(--color-gold, var(--ad-gold)); min-width: 2rem; }
+.itemName { flex: 1; font-size: 0.88rem; color: var(--ad-ink); }
+.itemPrice { font-size: 0.85rem; color: var(--ad-ink-2); }
 
 .actions {
   display: flex;
@@ -136,15 +136,15 @@
 
 .statusBtn {
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid var(--ad-line-2);
   border-radius: 5px;
-  color: rgba(255,255,255,0.5);
+  color: var(--ad-ink-2);
   font-size: 0.78rem;
   padding: 0.35rem 0.75rem;
   cursor: pointer;
   transition: all 0.15s;
 }
-.statusBtn:hover { border-color: rgba(255,255,255,0.3); color: white; }
+.statusBtn:hover { border-color: var(--ad-ink-3); color: white; }
 .statusBtnActive { color: #0a0a0a !important; font-weight: 600; }
 
 .deleteBtn {
@@ -157,7 +157,7 @@
   cursor: pointer;
   transition: all 0.15s;
 }
-.deleteBtn:hover { background: rgba(239,68,68,0.08); border-color: #ef4444; color: #ef4444; }
+.deleteBtn:hover { background: rgba(239,68,68,0.08); border-color: var(--ad-crit); color: var(--ad-crit); }
 
 @media (max-width: 600px) {
   .infoGrid { grid-template-columns: 1fr; }
