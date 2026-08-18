@@ -22,6 +22,7 @@ import AdminCuenta, { type AccountTab } from './pages/AdminCuenta'
 import AdminSucursales from './pages/AdminSucursales'
 import AdminInventario from './pages/AdminInventario'
 import AdminRecetas from './pages/AdminRecetas'
+import AdminCartaSucursal from './pages/AdminCartaSucursal'
 
 type IconCmp = ({ size }: { size?: number }) => ReactElement
 
@@ -33,6 +34,7 @@ const NAV: { id: AdminPage; label: string; Icon: IconCmp }[] = [
   { id: 'eventos',       label: 'Eventos',       Icon: IconEvent },
   { id: 'pedidos',       label: 'Pedidos',       Icon: IconCart },
   { id: 'mensajes',      label: 'Mensajes',      Icon: IconMail },
+  { id: 'carta',         label: 'Carta',         Icon: IconMenu },
   { id: 'recetas',       label: 'Recetas',       Icon: IconRecipe },
   { id: 'inventario',    label: 'Inventario',    Icon: IconBox },
   { id: 'sucursales',    label: 'Sucursales',    Icon: IconPin },
@@ -202,6 +204,7 @@ export default function AdminLayout() {
           {page === 'sucursales'    && <AdminSucursales />}
           {page === 'inventario'    && <AdminInventario />}
           {page === 'recetas'       && <AdminRecetas />}
+          {page === 'carta'         && <AdminCartaSucursal />}
         </div>
       </div>
     </div>

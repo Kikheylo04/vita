@@ -5,7 +5,9 @@ import { useIntersection } from '../../../hooks/useIntersection'
 import { useLang } from '../../../context/LangContext'
 import { useFormatPrice } from '../../../context/RestaurantContext'
 import { useCart } from '../../../context/CartContext'
+import { useBranch } from '../../../context/BranchContext'
 import { supabase } from '../../../lib/supabase'
+import { buildPath } from '../../../lib/routes'
 
 interface MenuProps {
   initialFilter?: MenuCategory
@@ -51,6 +53,7 @@ export default function Menu({ initialFilter = 'Todo', setActivePage }: MenuProp
   const { t, lang } = useLang()
   const formatPrice = useFormatPrice()
   const { add, count } = useCart()
+  const { branches, branch, setBranch } = useBranch()
   const [added, setAdded] = useState<string | null>(null)
   const [active, setActive] = useState<MenuCategory>(initialFilter)
   const [search, setSearch] = useState('')
@@ -59,16 +62,17 @@ export default function Menu({ initialFilter = 'Todo', setActivePage }: MenuProp
   const [gridRef, gridVisible] = useIntersection<HTMLDivElement>({ threshold: 0.05 })
 
   useEffect(() => {
+    if (!branch) return
     supabase
-      .from('menu_items')
+      .from('branch_menu_public')
       .select('*')
-      .eq('active', true)
+      .eq('branch_id', branch.id)
       .order('sort_order', { ascending: true })
       .then(({ data, error }) => {
         if (error) { console.error('Error cargando el menú:', error.message); return }
         if (!data || data.length === 0) return
         setItems(data.map(r => ({
-          id: String(r.id),
+          id: String(r.menu_item_id),
           cat: r.cat as MenuCategory,
           name: r.name,
           desc: r.description,
@@ -78,7 +82,20 @@ export default function Menu({ initialFilter = 'Todo', setActivePage }: MenuProp
           image: r.image ?? '',
         })))
       })
-  }, [])
+  }, [branch])
+
+  // El componente no se desmonta al navegar entre filtros (p.ej. boton atras),
+  // asi que initialFilter puede cambiar despues del montaje.
+  useEffect(() => { setActive(initialFilter) }, [initialFilter])
+
+  /**
+   * Refleja la categoria elegida en la URL con replaceState, para que el enlace
+   * se pueda compartir sin llenar el historial con cada click de filtro.
+   */
+  const selectCategory = (c: MenuCategory) => {
+    setActive(c)
+    window.history.replaceState({}, '', buildPath('menu', c))
+  }
 
   const handleAdd = (item: BilingualMenuItem) => {
     add({ menuItemId: item.id, name: item.name, price: item.price, image: item.image })
@@ -106,13 +123,35 @@ export default function Menu({ initialFilter = 'Todo', setActivePage }: MenuProp
         <p className={styles.subtitle}>{t('Precios en pesos mexicanos. IVA incluido.', 'Prices in Mexican pesos. VAT included.')}</p>
       </div>
 
+      {branches.length > 1 && branch && (
+        <div className={styles.branchBar}>
+          <span className={styles.branchLabel}>{t('Sucursal', 'Location')}</span>
+          <select
+            className={styles.branchSelect}
+            value={branch.slug}
+            onChange={e => {
+              const next = branches.find(b => b.slug === e.target.value)
+              if (next) setBranch(next)
+            }}
+            aria-label={t('Elegir sucursal', 'Choose location')}
+          >
+            {branches.map(b => (
+              <option key={b.id} value={b.slug}>{b.name}</option>
+            ))}
+          </select>
+          <span className={styles.branchAddress}>
+            {branch.address}{branch.neighborhood ? `, ${branch.neighborhood}` : ''}
+          </span>
+        </div>
+      )}
+
       <div className={styles.controls}>
         <div className={styles.tabs}>
           {categories.map(c => (
             <button
               key={c}
               className={`${styles.tab} ${active === c ? styles.tabActive : ''}`}
-              onClick={() => setActive(c)}
+              onClick={() => selectCategory(c)}
             >
               {lang === 'es' ? categoryLabels[c].es : categoryLabels[c].en}
             </button>

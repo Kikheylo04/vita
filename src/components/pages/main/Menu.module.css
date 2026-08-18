@@ -310,3 +310,44 @@
   .grid { grid-template-columns: 1fr; }
   .cartBar { width: calc(100% - 2rem); bottom: 1rem; }
 }
+
+/* ── Selector de sucursal ─────────────────── */
+.branchBar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto 1.5rem;
+  padding: 0.85rem 1.15rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 10px;
+}
+
+.branchLabel {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-gold, #c9a84c);
+}
+
+.branchSelect {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 7px;
+  color: inherit;
+  font-family: inherit;
+  font-size: 0.92rem;
+  padding: 0.45rem 0.75rem;
+  cursor: pointer;
+}
+
+.branchSelect:focus { outline: 2px solid var(--color-gold, #c9a84c); outline-offset: 2px; }
+
+.branchAddress { font-size: 0.85rem; opacity: 0.6; }
+
+@media (max-width: 640px) {
+  .branchBar { margin-left: 1rem; margin-right: 1rem; }
+  .branchAddress { width: 100%; }
+}

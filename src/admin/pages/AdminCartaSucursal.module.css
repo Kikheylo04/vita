@@ -1,0 +1,105 @@
+.page { display: flex; flex-direction: column; gap: 1.15rem; }
+
+.head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.55rem; font-weight: 700; color: var(--ad-ink); margin: 0 0 0.2rem;
+}
+.sub { color: var(--ad-ink-2); font-size: 0.9rem; margin: 0; max-width: 56ch; }
+
+.empty { color: var(--ad-ink-3); font-size: 0.9rem; margin: 0; padding: 1.4rem 0; }
+
+.ok, .err { display: flex; align-items: center; gap: 0.5rem; font-size: 0.86rem; margin: 0; }
+.ok { color: var(--ad-ok); }
+.err { color: var(--ad-crit); }
+
+/* ── Barra ───────────────────────────────── */
+.toolbar { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+
+.select {
+  background: rgba(0, 0, 0, 0.32); border: 1px solid var(--ad-line-2);
+  border-radius: var(--ad-radius-sm); color: var(--ad-ink);
+  font-family: inherit; font-size: 0.86rem; padding: 0.5rem 0.8rem; outline: none;
+}
+.select:focus { border-color: var(--ad-gold); }
+
+.searchBox {
+  display: flex; align-items: center; gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.32); border: 1px solid var(--ad-line-2);
+  border-radius: var(--ad-radius-sm); padding: 0 0.75rem; color: var(--ad-ink-3);
+}
+
+.searchBox input {
+  background: none; border: none; outline: none; padding: 0.5rem 0; min-width: 10rem;
+  color: var(--ad-ink); font-family: inherit; font-size: 0.86rem;
+}
+.searchBox input::placeholder { color: var(--ad-ink-3); }
+.searchBox:focus-within { border-color: var(--ad-gold); color: var(--ad-gold); }
+
+.tally { font-size: 0.8rem; color: var(--ad-ink-3); margin-left: auto; }
+
+/* ── Tabla ───────────────────────────────── */
+.tableWrap {
+  background: var(--ad-surface); border: 1px solid var(--ad-line);
+  border-radius: var(--ad-radius); overflow-x: auto;
+}
+
+.table { width: 100%; border-collapse: collapse; font-size: 0.87rem; min-width: 640px; }
+
+.table th {
+  text-align: left; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ad-ink-3); font-weight: 700; padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--ad-line); white-space: nowrap;
+}
+
+.table td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--ad-line); }
+.table tr:last-child td { border-bottom: none; }
+.table tbody tr:hover { background: rgba(255, 255, 255, 0.02); }
+
+.rowOff td { opacity: 0.45; }
+
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.center { text-align: center; }
+.muted { color: var(--ad-ink-3); }
+.dishName { color: var(--ad-ink); font-weight: 600; }
+
+/* ── Precio editable ─────────────────────── */
+.priceBtn {
+  background: none; border: 1px solid transparent; color: var(--ad-ink);
+  font-family: inherit; font-size: 0.86rem; font-variant-numeric: tabular-nums;
+  padding: 0.32rem 0.6rem; border-radius: var(--ad-radius-sm); cursor: pointer;
+}
+.priceBtn:hover { border-color: var(--ad-line-2); background: rgba(255, 255, 255, 0.03); }
+.priceBtn:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 1px; }
+
+.inherit { color: var(--ad-ink-3); font-style: italic; font-size: 0.82rem; }
+
+.priceInput {
+  width: 6.5rem; text-align: right;
+  background: rgba(0, 0, 0, 0.35); border: 1px solid var(--ad-gold);
+  border-radius: var(--ad-radius-sm); color: var(--ad-ink);
+  font-family: inherit; font-size: 0.86rem; padding: 0.32rem 0.55rem; outline: none;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Interruptor ─────────────────────────── */
+.toggle {
+  width: 40px; height: 22px; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1); border: 1px solid var(--ad-line-2);
+  cursor: pointer; padding: 0; position: relative;
+  transition: background 0.16s, border-color 0.16s;
+}
+
+.toggle:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
+
+.toggleOn { background: var(--ad-gold-dim); border-color: var(--ad-gold); }
+
+.knob {
+  position: absolute; top: 2px; left: 2px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--ad-ink-3);
+  transition: transform 0.16s, background 0.16s;
+}
+
+.toggleOn .knob { transform: translateX(18px); background: var(--ad-gold); }
