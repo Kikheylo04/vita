@@ -70,12 +70,17 @@ alter table profiles
   add column if not exists tenant_id uuid references tenants(id) on delete cascade;
 
 alter table profiles drop constraint if exists profiles_role_check;
-alter table profiles add constraint profiles_role_check
-  check (role in ('platform','owner','manager'));
 
 -- Los admins actuales pasan a operadores de la plataforma: son
--- ustedes, no clientes.
+-- ustedes, no clientes. Se convierte antes de imponer la
+-- restriccion nueva, o las filas viejas la violarian.
 update profiles set role = 'platform' where role = 'admin';
+-- Cualquier rol fuera del juego nuevo cae en 'manager'.
+update profiles set role = 'manager'
+  where role not in ('platform','owner','manager');
+
+alter table profiles add constraint profiles_role_check
+  check (role in ('platform','owner','manager'));
 
 update profiles
   set tenant_id = (select id from tenants where slug = 'principal')
