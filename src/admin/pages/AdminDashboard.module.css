@@ -44,8 +44,9 @@
   grid-template-columns: auto 1fr;
   gap: 0.35rem 0.85rem;
   padding: 1.15rem 1.25rem;
-  background: var(--ad-surface);
+  background: linear-gradient(160deg, #171614 0%, #100f0e 100%);
   border: 1px solid var(--ad-line);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 6px 18px rgba(0, 0, 0, 0.45);
   border-radius: var(--ad-radius);
   text-align: left;
   cursor: pointer;
@@ -54,7 +55,11 @@
   transition: border-color 0.15s, transform 0.15s;
 }
 
-.statCard:hover { border-color: var(--ad-gold); transform: translateY(-2px); }
+.statCard:hover {
+  border-color: rgba(212, 168, 67, 0.55);
+  transform: translateY(-2px);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 12px 26px rgba(0, 0, 0, 0.55);
+}
 .statCard:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
 
 .statIcon {
@@ -107,8 +112,9 @@
 }
 
 .panel {
-  background: var(--ad-surface);
+  background: linear-gradient(160deg, #171614 0%, #100f0e 100%);
   border: 1px solid var(--ad-line);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 6px 18px rgba(0, 0, 0, 0.45);
   border-radius: var(--ad-radius);
   display: flex;
   flex-direction: column;
@@ -165,7 +171,7 @@
 }
 
 .totalItem {
-  background: var(--ad-surface);
+  background: rgba(255, 255, 255, 0.015);
   padding: 0.85rem 0.7rem;
   display: grid;
   grid-template-columns: auto auto;
