@@ -393,3 +393,10 @@
   .grid { grid-template-columns: 1fr; }
   .title { font-size: 1.8rem; }
 }
+
+.formError {
+  margin-top: 0.75rem;
+  color: #e06c6c;
+  font-size: 0.85rem;
+  text-align: center;
+}

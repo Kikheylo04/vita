@@ -10,7 +10,8 @@ export function RestaurantProvider({ children }: { children: ReactNode }) {
   const [config, setConfig] = useState<RestaurantConfig>(DEFAULTS)
 
   useEffect(() => {
-    supabase.from('config').select('key,value').then(({ data }) => {
+    supabase.from('config').select('key,value').then(({ data, error }) => {
+      if (error) { console.error('Error cargando la configuracion:', error.message); return }
       if (!data || data.length === 0) return
       const map: Record<string, string> = {}
       for (const row of data) map[row.key] = row.value

@@ -65,7 +65,8 @@ export default function Events({ setActivePage }: EventsProps) {
       .eq('active', true)
       .gte('date', today)
       .order('date', { ascending: true })
-      .then(({ data }) => {
+      .then(({ data, error }) => {
+        if (error) { console.error('Error cargando eventos:', error.message); return }
         if (!data || data.length === 0) return
         setEvents(data.map(r => ({
           id: String(r.id),

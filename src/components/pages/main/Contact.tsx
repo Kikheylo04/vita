@@ -49,12 +49,14 @@ export default function Contact() {
     const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
     try {
-      await supabase.from('contact_messages').insert({
+      const { error: dbError } = await supabase.from('contact_messages').insert({
         name: form.name,
         email: form.email,
         subject: form.subject,
         message: form.message,
       })
+
+      if (dbError) throw dbError
 
       if (SERVICE_ID && TEMPLATE_CONTACT && PUBLIC_KEY) {
         await emailjs.send(SERVICE_ID, TEMPLATE_CONTACT, {

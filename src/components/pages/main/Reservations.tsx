@@ -72,7 +72,7 @@ export default function Reservations() {
     const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
     try {
-      await supabase.from('reservations').insert({
+      const { error: dbError } = await supabase.from('reservations').insert({
         name: form.name,
         email: form.email,
         phone: form.phone,
@@ -82,6 +82,8 @@ export default function Reservations() {
         notes: form.notes || '',
         status: 'pending',
       })
+
+      if (dbError) throw dbError
 
       if (SERVICE_ID && TEMPLATE_RESERVA && PUBLIC_KEY) {
         await emailjs.send(SERVICE_ID, TEMPLATE_RESERVA, {

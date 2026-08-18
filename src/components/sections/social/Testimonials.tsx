@@ -11,6 +11,7 @@ function TestimonialForm() {
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
+  const [sendError, setSendError] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -21,7 +22,8 @@ function TestimonialForm() {
     e.preventDefault()
     if (!form.name.trim() || !form.comment.trim()) return
     setLoading(true)
-    await supabase.from('testimonials').insert({
+    setSendError(false)
+    const { error } = await supabase.from('testimonials').insert({
       name: form.name.trim(),
       role: form.role.trim(),
       rating: form.rating,
@@ -29,6 +31,11 @@ function TestimonialForm() {
       status: 'pending',
     })
     setLoading(false)
+    if (error) {
+      console.error('Error enviando el testimonio:', error.message)
+      setSendError(true)
+      return
+    }
     setSent(true)
   }
 
@@ -102,6 +109,11 @@ function TestimonialForm() {
             {loading ? t('Enviando...', 'Sending...') : t('Enviar reseña', 'Submit review')}
           </button>
         </div>
+        {sendError && (
+          <p className={styles.formError} role="alert">
+            {t('No pudimos enviar tu reseña. Intenta de nuevo por favor.', 'We could not send your review. Please try again.')}
+          </p>
+        )}
         <p className={styles.formNote}>{t('Tu reseña será revisada antes de publicarse.', 'Your review will be moderated before publishing.')}</p>
       </form>
     </div>
@@ -169,7 +181,8 @@ export default function Testimonials() {
       .select('*')
       .eq('status', 'approved')
       .order('created_at', { ascending: false })
-      .then(({ data }) => {
+      .then(({ data, error }) => {
+        if (error) { console.error('Error cargando testimonios:', error.message); return }
         if (data && data.length > 0) {
           setTestimonials(data.map(r => ({
             id: String(r.id),
