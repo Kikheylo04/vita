@@ -39,9 +39,8 @@
 
 /* ── Tarjeta ─────────────────────────────── */
 .card {
-  background: linear-gradient(160deg, #171614 0%, #100f0e 100%);
+  background: var(--ad-surface);
   border: 1px solid var(--ad-line);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 6px 18px rgba(0, 0, 0, 0.45);
   border-radius: var(--ad-radius);
   padding: 1.5rem 1.6rem;
 }
@@ -148,7 +147,7 @@
   cursor: pointer;
 }
 
-.btn:hover:not(:disabled) { background: var(--ad-gold); color: #17120a; }
+.btn:hover:not(:disabled) { background: var(--ad-gold); color: #0a0c10; }
 .btn:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
 .btn:disabled { opacity: 0.55; cursor: default; }
 

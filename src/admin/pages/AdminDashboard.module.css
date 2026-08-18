@@ -44,9 +44,8 @@
   grid-template-columns: auto 1fr;
   gap: 0.35rem 0.85rem;
   padding: 1.15rem 1.25rem;
-  background: linear-gradient(160deg, #171614 0%, #100f0e 100%);
+  background: var(--ad-surface);
   border: 1px solid var(--ad-line);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 6px 18px rgba(0, 0, 0, 0.45);
   border-radius: var(--ad-radius);
   text-align: left;
   cursor: pointer;
@@ -56,9 +55,8 @@
 }
 
 .statCard:hover {
-  border-color: rgba(212, 168, 67, 0.55);
+  border-color: rgba(212, 168, 67, 0.5);
   transform: translateY(-2px);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 12px 26px rgba(0, 0, 0, 0.55);
 }
 .statCard:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
 
@@ -112,9 +110,8 @@
 }
 
 .panel {
-  background: linear-gradient(160deg, #171614 0%, #100f0e 100%);
+  background: var(--ad-surface);
   border: 1px solid var(--ad-line);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 6px 18px rgba(0, 0, 0, 0.45);
   border-radius: var(--ad-radius);
   display: flex;
   flex-direction: column;
@@ -334,7 +331,7 @@
   white-space: nowrap;
 }
 
-.eventBtn:hover { background: var(--ad-gold); color: #17120a; }
+.eventBtn:hover { background: var(--ad-gold); color: #0a0c10; }
 .eventBtn:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
 
 /* ── Notificaciones ──────────────────────── */

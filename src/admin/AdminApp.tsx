@@ -23,7 +23,7 @@ export default function AdminApp() {
   // necesita su propio lienzo, asi que lo sobrescribe mientras esta montado.
   useEffect(() => {
     const prev = document.body.style.backgroundColor
-    document.body.style.backgroundColor = '#060505'
+    document.body.style.backgroundColor = '#0a0c10'  // = --ad-bg
     return () => { document.body.style.backgroundColor = prev }
   }, [])
 

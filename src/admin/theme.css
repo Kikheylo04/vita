@@ -3,18 +3,19 @@
    Importado una sola vez desde AdminApp.
    ══════════════════════════════════════════════ */
 :root {
-  /* Fondo casi neutro; las superficies suben en luminosidad
-     para que las tarjetas se separen del lienzo. */
-  --ad-bg:        #060505;
-  --ad-surface:   #121110;
-  --ad-surface-2: #191716;
-  --ad-raised:    #211f1d;
-  --ad-line:      rgba(255, 255, 255, 0.06);
-  --ad-line-2:    rgba(255, 255, 255, 0.11);
+  /* Neutros frios. Un gris calido sobre negro se lee como marron,
+     que era lo que apagaba el panel. */
+  --ad-bg:        #0a0c10;
+  --ad-surface:   #12151b;
+  --ad-surface-2: #171b22;
+  --ad-raised:    #1d222a;
+  --ad-line:      rgba(255, 255, 255, 0.09);
+  --ad-line-2:    rgba(255, 255, 255, 0.15);
 
-  --ad-ink:       #f0e9dc;
-  --ad-ink-2:     #a2937c;
-  --ad-ink-3:     #6d6252;
+  /* La tinta pierde el tinte sepia; el dorado ya aporta la calidez. */
+  --ad-ink:       #e9edf2;
+  --ad-ink-2:     #9aa4b2;
+  --ad-ink-3:     #6b7482;
 
   --ad-gold:      #d4a843;
   --ad-gold-dim:  rgba(212, 168, 67, 0.14);
