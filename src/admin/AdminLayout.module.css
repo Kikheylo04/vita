@@ -179,7 +179,7 @@
 .userPopOut:hover { background: rgba(248, 113, 113, 0.12); color: var(--ad-crit); }
 
 /* ── Main ────────────────────────────────── */
-.main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.main { flex: 1; min-width: 0; max-width: 100%; display: flex; flex-direction: column; overflow-x: hidden; }
 
 .topbar {
   display: flex;
@@ -290,7 +290,7 @@
 .topAvatar:hover { background: var(--ad-gold); color: #0a0c10; }
 .topAvatar:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
 
-.content { padding: 1.8rem 1.6rem 3rem; flex: 1; }
+.content { padding: 1.8rem 1.6rem 3rem; flex: 1; min-width: 0; }
 
 .overlay {
   position: fixed;
