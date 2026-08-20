@@ -101,6 +101,7 @@ export default function AdminLayout() {
   // El operador de la plataforma administra clientes, no un menu.
   const isOwner = profile?.role === 'owner'
   const [impersonating, setImpersonating] = useState(false)
+  const [query, setQuery] = useState('')
 
   // Define si el operador ve su consola o el panel de un cliente.
   useEffect(() => {
@@ -123,6 +124,20 @@ export default function AdminLayout() {
     ? (impersonating ? NAV : PLATFORM_NAV)
     : isOwner ? NAV : NAV.filter(n => n.id !== 'plan' && n.id !== 'dominio')
   const current = nav.find(n => n.id === page)
+
+  // Busqueda de secciones: sin acentos, para que "menu" encuentre "Menú".
+  const norm = (v: string) =>
+    v.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+
+  const matches = query.trim().length > 0
+    ? nav.filter(n => norm(n.label).includes(norm(query.trim()))).slice(0, 6)
+    : []
+
+  const goTo = (id: AdminPage) => {
+    setPage(id)
+    setQuery('')
+    setSidebarOpen(false)
+  }
   const initial = (user?.email ?? 'A').charAt(0).toUpperCase()
 
   return (
@@ -183,10 +198,35 @@ export default function AdminLayout() {
             <IconSearch size={17} />
             <input
               type="search"
-              placeholder="Buscar..."
-              aria-label="Buscar en el panel"
+              placeholder="Ir a una sección…"
+              aria-label="Buscar sección"
               className={styles.searchInput}
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              onKeyDown={e => {
+                // Enter salta a la primera coincidencia: mas rapido que
+                // mover el raton hasta el resultado.
+                if (e.key === 'Enter' && matches.length > 0) goTo(matches[0].id)
+                if (e.key === 'Escape') setQuery('')
+              }}
             />
+            {matches.length > 0 && (
+              <ul className={styles.searchResults} role="listbox">
+                {matches.map(m => (
+                  <li key={m.id}>
+                    <button
+                      className={styles.searchResult}
+                      onClick={() => goTo(m.id)}
+                      role="option"
+                      aria-selected={false}
+                    >
+                      <span className={styles.searchIcon}><m.Icon size={16} /></span>
+                      <span>{m.label}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           <button

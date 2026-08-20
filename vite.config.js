@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import brandHtml from './vite-plugin-brand-html'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), brandHtml()],
   build: {
     outDir: 'dist',
     sourcemap: false,
