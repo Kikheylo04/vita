@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, type ReactElement } from 'react'
 import Navbar from './components/layout/nav/Navbar'
 import Footer from './components/layout/footer/Footer'
 import CookieBanner from './components/layout/ui/CookieBanner'
@@ -24,10 +24,21 @@ import { useLang } from './context/LangContext'
 import styles from './App.module.css'
 import { useRestaurant } from './context/RestaurantContext'
 import { BRAND } from './config/brand'
+import { getTemplate, applyTemplate, type SectionId } from './config/templates'
+import { useTenant } from './context/TenantContext'
 
 export default function App() {
   const { lang } = useLang()
   const RESTAURANT = useRestaurant()
+  const { tenant, brand } = useTenant()
+  const template = getTemplate(tenant?.template)
+
+  // La plantilla define forma y tipografia; los colores del cliente
+  // la pisan, para que dos negocios con la misma plantilla no se vean
+  // identicos.
+  useEffect(() => {
+    applyTemplate(template, brand.theme)
+  }, [template, brand.theme])
   const initial = parseLocation(window.location.pathname, window.location.search)
   // page === null significa URL desconocida: se renderiza NotFound.
   const [activePage, setActivePage] = useState<PageId | null>(initial.page)
@@ -112,21 +123,30 @@ export default function App() {
 
   const goToMenu = (category: MenuCategory) => navigate('menu', category)
 
+  // Cada seccion se instancia una vez; la plantilla elige cuales
+  // pinta y en que orden.
+  const HOME_SECTIONS: Partial<Record<SectionId, ReactElement>> = {
+    hero:         <Hero setActivePage={navigate} />,
+    about:        <About />,
+    featured:     <FeaturedDishes setActivePage={navigate} />,
+    gallery:      <Gallery goToMenu={goToMenu} />,
+    chef:         <Chef />,
+    events:       <Events setActivePage={navigate} />,
+    testimonials: <Testimonials />,
+    cta:          <CallToAction setActivePage={navigate} />,
+    hours:        <Hours />,
+  }
+
   return (
     <>
       <Navbar activePage={visiblePage} setActivePage={navigate} />
       <div className={`${styles.pageWrap} ${fading ? styles.fadeOut : styles.fadeIn}`}>
         {activePage === 'home' && (
           <>
-            <Hero setActivePage={navigate} />
-            <About />
-            <FeaturedDishes setActivePage={navigate} />
-            <Gallery goToMenu={goToMenu} />
-            <Chef />
-            <Events setActivePage={navigate} />
-            <Testimonials />
-            <CallToAction setActivePage={navigate} />
-            <Hours />
+            {template.sections.map(id => {
+              const section = HOME_SECTIONS[id]
+              return section ? <div key={id}>{section}</div> : null
+            })}
           </>
         )}
         {activePage === 'menu' && <Menu initialFilter={menuFilter} setActivePage={navigate} />}

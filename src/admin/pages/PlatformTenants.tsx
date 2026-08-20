@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from 'react'
 import { supabase } from '../../lib/supabase'
 import styles from './PlatformTenants.module.css'
+import { getTemplate } from '../../config/templates'
 import { IconSearch, IconAlert, IconCheckCircle, IconExternal } from '../ui/Icons'
 
 interface Plan {
@@ -316,6 +317,10 @@ export default function PlatformTenants() {
                       : `${left} ${left === 1 ? 'día' : 'días'} de prueba`}
                   </p>
                 )}
+
+                <p className={styles.owner}>
+                  Diseño: <strong>{getTemplate(t.template).name}</strong>
+                </p>
 
                 <p className={styles.owner}>
                   {owners[t.id]

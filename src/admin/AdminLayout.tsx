@@ -31,6 +31,7 @@ import PlatformFinanzas from './pages/PlatformFinanzas'
 import PlatformPlanes from './pages/PlatformPlanes'
 import AdminPlan from './pages/AdminPlan'
 import AdminDominio from './pages/AdminDominio'
+import AdminDiseno from './pages/AdminDiseno'
 
 type IconCmp = ({ size }: { size?: number }) => ReactElement
 
@@ -59,6 +60,7 @@ const NAV: { id: AdminPage; label: string; Icon: IconCmp }[] = [
   { id: 'inventario',    label: 'Inventario',    Icon: IconBox },
   { id: 'sucursales',    label: 'Sucursales',    Icon: IconPin },
   { id: 'config',        label: 'Configuración', Icon: IconSettings },
+  { id: 'diseno',        label: 'Diseño',        Icon: IconStar },
   { id: 'dominio',       label: 'Dominio',       Icon: IconGlobe },
   { id: 'plan',          label: 'Plan',          Icon: IconCard },
 ]
@@ -122,7 +124,7 @@ export default function AdminLayout() {
   // navegacion propia de cada rol.
   const nav = isPlatform
     ? (impersonating ? NAV : PLATFORM_NAV)
-    : isOwner ? NAV : NAV.filter(n => n.id !== 'plan' && n.id !== 'dominio')
+    : isOwner ? NAV : NAV.filter(n => n.id !== 'plan' && n.id !== 'dominio' && n.id !== 'diseno')
   const current = nav.find(n => n.id === page)
 
   // Busqueda de secciones: sin acentos, para que "menu" encuentre "Menú".
@@ -302,6 +304,7 @@ export default function AdminLayout() {
           {page === 'planes'        && <PlatformPlanes />}
           {page === 'plan'          && <AdminPlan />}
           {page === 'dominio'       && <AdminDominio />}
+          {page === 'diseno'        && <AdminDiseno />}
         </div>
       </div>
     </div>

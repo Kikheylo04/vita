@@ -8,13 +8,48 @@
   --color-primary: #9B2020;
   --color-primary-light: #B52828;
   --color-gold: #D4A843;
-  --color-dark: #0f0c08;
-  --color-dark-2: #181410;
-  --color-dark-3: #201c16;
-  --color-text: #e8e4dc;
-  --color-text-light: rgba(232, 228, 220, 0.55);
+  /* Neutros, no sepia. Los anteriores (#0f0c08, #181410, #201c16) tenian
+     20-30% de saturacion en matiz ~34, es decir marron: el rojo superaba
+     al azul en 7 puntos y eso tenia de calido todos los fondos del sitio.
+     Ahora son grises puros con una pizca de calidez apenas medible. */
+  --color-dark: #0e0e0f;
+  --color-dark-2: #161618;
+  --color-dark-3: #1e1e21;
+  --color-text: #e9e9ea;
+  --color-text-light: rgba(233, 233, 234, 0.55);
   --font-heading: 'Playfair Display', serif;
   --font-body: 'Lato', sans-serif;
+
+  /* Forma de la plantilla. applyTemplate() los sobrescribe; estos
+     son los del diseño clasico. */
+  --tpl-radius: 10px;
+  --tpl-section-gap: 6rem;
+  --tpl-heading-transform: none;
+  --tpl-heading-spacing: 0;
+}
+
+/* ── Rasgos de plantilla ──────────────────────
+   Lo que hace que dos plantillas no se vean igual sin duplicar
+   componentes: forma, ritmo vertical y tratamiento de titulos. */
+[data-template] h2 {
+  text-transform: var(--tpl-heading-transform);
+  letter-spacing: var(--tpl-heading-spacing);
+}
+
+/* Las plantillas claras necesitan sombra en vez de borde tenue,
+   porque un borde blanco sobre blanco no se ve. */
+[data-template='moderno'] section,
+[data-template='minimal'] section {
+  color: var(--color-text);
+}
+
+[data-template='minimal'] h2 {
+  font-weight: 800;
+}
+
+/* Rústico prescinde de curvas: la forma recta es su rasgo. */
+[data-template='rustico'] img {
+  border-radius: var(--tpl-radius);
 }
 
 html {

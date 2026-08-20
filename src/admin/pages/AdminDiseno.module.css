@@ -1,0 +1,130 @@
+.page { display: flex; flex-direction: column; gap: 1.3rem; }
+
+.head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.55rem; font-weight: 700; color: var(--ad-ink); margin: 0 0 0.2rem;
+}
+.sub { color: var(--ad-ink-2); font-size: 0.9rem; margin: 0; }
+
+.empty { color: var(--ad-ink-3); font-size: 0.9rem; margin: 0; padding: 1.5rem 0; }
+
+.ok, .err { display: flex; align-items: center; gap: 0.5rem; font-size: 0.86rem; margin: 0; }
+.ok { color: var(--ad-ok); }
+.err { color: var(--ad-crit); }
+
+/* ── Tarjetas de plantilla ───────────────── */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.1rem; }
+
+.card {
+  background: var(--ad-surface);
+  border: 1px solid var(--ad-line);
+  border-radius: var(--ad-radius);
+  padding: 1rem;
+  display: flex; flex-direction: column; gap: 0.85rem;
+}
+
+.cardOn { border-color: var(--ad-gold); }
+
+/* ── Vista previa ────────────────────────── */
+.preview {
+  aspect-ratio: 4 / 3;
+  padding: 0.85rem;
+  display: flex; flex-direction: column; gap: 0.4rem;
+  overflow: hidden;
+}
+
+.previewBar { display: flex; gap: 0.3rem; padding: 0.4rem 0.5rem; margin: -0.85rem -0.85rem 0.6rem; }
+.previewBar span { height: 4px; border-radius: 2px; flex: 1; opacity: 0.7; }
+.previewBar span:first-child { flex: 0 0 22%; opacity: 1; }
+
+.previewTitle { font-size: 1.05rem; margin: 0; line-height: 1.2; }
+.previewBody { font-size: 0.74rem; margin: 0; }
+
+.previewBtn {
+  align-self: flex-start; margin-top: auto;
+  font-size: 0.68rem; font-weight: 700;
+  padding: 0.3rem 0.7rem;
+}
+
+/* ── Datos ───────────────────────────────── */
+.cardBody { display: flex; flex-direction: column; gap: 0.3rem; }
+
+.cardName {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.98rem; font-weight: 600; color: var(--ad-ink); margin: 0;
+}
+
+.badge {
+  font-size: 0.66rem; font-weight: 700;
+  background: var(--ad-gold-dim); color: var(--ad-gold);
+  border-radius: 999px; padding: 0.12rem 0.5rem;
+}
+
+.cardDesc { font-size: 0.8rem; color: var(--ad-ink-2); margin: 0; line-height: 1.5; }
+.cardMeta { font-size: 0.74rem; color: var(--ad-ink-3); margin: 0; }
+
+.btnChoose {
+  margin-top: auto;
+  background: none; border: 1px solid var(--ad-line-2); color: var(--ad-ink-2);
+  font-family: inherit; font-size: 0.84rem; font-weight: 600;
+  padding: 0.55rem 1rem; border-radius: var(--ad-radius-sm); cursor: pointer;
+}
+.btnChoose:hover:not(:disabled) { border-color: var(--ad-gold); color: var(--ad-gold); }
+.btnChoose:disabled { opacity: 0.5; cursor: default; }
+.btnChoose:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
+
+.currentTag {
+  margin-top: auto; text-align: center;
+  font-size: 0.82rem; font-weight: 600; color: var(--ad-gold);
+  padding: 0.55rem 1rem;
+}
+
+/* ── Colores ─────────────────────────────── */
+.colorPanel {
+  background: var(--ad-surface);
+  border: 1px solid var(--ad-line);
+  border-radius: var(--ad-radius);
+  padding: 1.3rem 1.4rem;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+
+.panelTitle { font-size: 0.98rem; font-weight: 600; color: var(--ad-ink); margin: 0; }
+.panelSub { font-size: 0.84rem; color: var(--ad-ink-2); margin: -0.7rem 0 0; }
+
+.colorRow { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
+.colorField {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-size: 0.85rem; color: var(--ad-ink-2); cursor: pointer;
+}
+
+.colorField input {
+  width: 40px; height: 32px; padding: 0;
+  background: none; border: 1px solid var(--ad-line-2);
+  border-radius: var(--ad-radius-sm); cursor: pointer;
+}
+
+.colorField code {
+  font-family: ui-monospace, monospace; font-size: 0.76rem;
+  color: var(--ad-ink-3); min-width: 4.6rem;
+}
+
+.colorActions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+.btnSave {
+  background: var(--ad-gold-dim); border: 1px solid var(--ad-gold); color: var(--ad-gold);
+  font-family: inherit; font-size: 0.86rem; font-weight: 600;
+  padding: 0.58rem 1.2rem; border-radius: var(--ad-radius-sm); cursor: pointer;
+}
+.btnSave:hover:not(:disabled) { background: var(--ad-gold); color: #0a0c10; }
+.btnSave:disabled { opacity: 0.55; cursor: default; }
+
+.btnGhost {
+  background: none; border: 1px solid var(--ad-line-2); color: var(--ad-ink-2);
+  font-family: inherit; font-size: 0.84rem;
+  padding: 0.58rem 1.1rem; border-radius: var(--ad-radius-sm); cursor: pointer;
+}
+.btnGhost:hover:not(:disabled) { color: var(--ad-ink); border-color: var(--ad-ink-3); }
+.btnGhost:disabled { opacity: 0.55; cursor: default; }
