@@ -121,10 +121,34 @@ export default function PlatformTenants() {
 
   useEffect(() => { load(); loadDomains(); loadMeta() }, [])
 
-  async function assignOwner(t: PlatformTenant) {
-    const email = prompt(`Correo del dueño de ${t.name}:
+  async function enterAccount(t: PlatformTenant) {
+    const { error } = await supabase.rpc('start_impersonation', { p_tenant: t.id })
+    if (error) {
+      console.error('Error entrando a la cuenta:', error.message)
+      setMsg({ ok: false, text: error.message })
+      return
+    }
+    // El panel decide su navegacion al montar, asi que se recarga.
+    window.location.reload()
+  }
 
-La cuenta debe existir ya.`)
+  async function addNote(t: PlatformTenant) {
+    const body = prompt(`Nota interna sobre ${t.name}:`)
+    if (!body?.trim()) return
+
+    const { error } = await supabase.rpc('add_tenant_note', {
+      p_tenant: t.id, p_body: body.trim(),
+    })
+    if (error) {
+      console.error('Error guardando la nota:', error.message)
+      setMsg({ ok: false, text: error.message })
+      return
+    }
+    setMsg({ ok: true, text: 'Nota guardada.' })
+  }
+
+  async function assignOwner(t: PlatformTenant) {
+    const email = prompt(`Correo del dueño de ${t.name}. La cuenta debe existir ya.`)
     if (!email?.trim()) return
 
     const { error } = await supabase.rpc('platform_assign_owner', {
@@ -327,6 +351,12 @@ La cuenta debe existir ya.`)
                       Asignar dueño
                     </button>
                   )}
+                  <button className={styles.btnGhost} onClick={() => enterAccount(t)}>
+                    Entrar
+                  </button>
+                  <button className={styles.btnGhost} onClick={() => addNote(t)}>
+                    Nota
+                  </button>
                   {t.status !== 'suspended' && t.status !== 'cancelled' && (
                     <button className={styles.btnWarn} onClick={() => setStatus(t, 'suspended')}>
                       Suspender

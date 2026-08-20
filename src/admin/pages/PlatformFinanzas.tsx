@@ -40,6 +40,20 @@ interface Expense {
   note: string
 }
 
+interface Payment {
+  id: string
+  tenant_name: string
+  amount: number
+  status: string
+  paid_at: string
+  plan: string | null
+}
+
+interface Operator {
+  id: string
+  email: string
+}
+
 interface AtRisk {
   id: string
   name: string
@@ -73,20 +87,35 @@ export default function PlatformFinanzas() {
   const [pnl, setPnl] = useState<PnlRow[]>([])
   const [expenses, setExpenses] = useState<Expense[]>([])
   const [risk, setRisk] = useState<AtRisk[]>([])
+  const [payments, setPayments] = useState<Payment[]>([])
+  const [operators, setOperators] = useState<Operator[]>([])
   const [loading, setLoading] = useState(true)
   const [adding, setAdding] = useState(false)
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null)
 
   async function load() {
     setLoading(true)
-    const [s, p, l, e, r] = await Promise.all([
+    const [s, p, l, e, r, pay, ops] = await Promise.all([
       supabase.from('platform_summary').select('*').maybeSingle(),
       supabase.from('platform_mrr_by_plan').select('*'),
       supabase.from('platform_pnl').select('*').limit(6),
       supabase.from('platform_expenses').select('*').order('incurred_on', { ascending: false }).limit(20),
       supabase.from('platform_at_risk').select('*').limit(10),
+      supabase.from('platform_payments').select('*').limit(15),
+      supabase.from('platform_operators').select('id,email'),
     ])
     setLoading(false)
+
+    // Los cobros y operadores necesitan la migracion de soporte:
+    // si falta, se muestran vacios en vez de romper la pantalla.
+    if (pay.error && !pay.error.message.includes('does not exist')) {
+      console.error('Error cargando cobros:', pay.error.message)
+    }
+    if (ops.error && !ops.error.message.includes('does not exist')) {
+      console.error('Error cargando operadores:', ops.error.message)
+    }
+    setPayments((pay.data ?? []) as Payment[])
+    setOperators((ops.data ?? []) as Operator[])
 
     const firstError = [s, p, l, e, r].find(x => x.error)?.error
     if (firstError) {
@@ -102,6 +131,33 @@ export default function PlatformFinanzas() {
   }
 
   useEffect(() => { load() }, [])
+
+  async function addOperator() {
+    const email = prompt('Correo del nuevo operador. La cuenta debe existir ya.')
+    if (!email?.trim()) return
+
+    const { error } = await supabase.rpc('grant_platform_access', { p_email: email.trim() })
+    if (error) {
+      console.error('Error dando acceso:', error.message)
+      setMsg({ ok: false, text: error.message })
+      return
+    }
+    setMsg({ ok: true, text: `${email.trim()} ahora es operador.` })
+    load()
+  }
+
+  async function removeOperator(o: Operator) {
+    if (!confirm(`¿Quitar el acceso de plataforma a ${o.email}?`)) return
+
+    const { error } = await supabase.rpc('revoke_platform_access', { p_email: o.email })
+    if (error) {
+      console.error('Error quitando acceso:', error.message)
+      setMsg({ ok: false, text: error.message })
+      return
+    }
+    setMsg({ ok: true, text: `Acceso de ${o.email} retirado.` })
+    load()
+  }
 
   async function removeExpense(x: Expense) {
     if (!confirm(`¿Eliminar "${x.concept}"?`)) return
@@ -266,6 +322,72 @@ export default function PlatformFinanzas() {
                   </tbody>
                 </table>
               </div>
+            )}
+          </section>
+
+          {/* ── Historial de cobros ── */}
+          <section className={styles.panel}>
+            <h3 className={styles.panelTitle}>Cobros recibidos</h3>
+            {payments.length === 0 ? (
+              <p className={styles.empty}>
+                Sin cobros todavía. Aparecerán cuando un cliente pague su suscripción.
+              </p>
+            ) : (
+              <div className={styles.tableWrap}>
+                <table className={styles.table}>
+                  <thead>
+                    <tr>
+                      <th>Cliente</th>
+                      <th>Plan</th>
+                      <th>Fecha</th>
+                      <th>Estado</th>
+                      <th className={styles.num}>Monto</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {payments.map(x => (
+                      <tr key={x.id}>
+                        <td className={styles.strong}>{x.tenant_name}</td>
+                        <td className={styles.muted}>{x.plan ?? '—'}</td>
+                        <td className={styles.muted}>{fmtDate(x.paid_at)}</td>
+                        <td>
+                          <span className={x.status === 'approved' ? styles.up : styles.muted}>
+                            {x.status === 'approved' ? 'Pagado' : x.status}
+                          </span>
+                        </td>
+                        <td className={`${styles.num} ${styles.strong}`}>{money(x.amount)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </section>
+
+          {/* ── Operadores ── */}
+          <section className={styles.panel}>
+            <h3 className={styles.panelTitle}>
+              Operadores
+              <button className={styles.btnGhostSm} onClick={addOperator}>+ Agregar</button>
+            </h3>
+            {operators.length === 0 ? (
+              <p className={styles.empty}>Corre la migración de soporte para administrar operadores.</p>
+            ) : (
+              <ul className={styles.riskList}>
+                {operators.map(o => (
+                  <li key={o.id} className={styles.riskRow}>
+                    <div className={styles.riskInfo}>
+                      <span className={styles.riskName}>{o.email}</span>
+                      <span className={styles.riskMeta}>Acceso completo a la plataforma</span>
+                    </div>
+                    {operators.length > 1 && (
+                      <button className={styles.btnGhostSm} onClick={() => removeOperator(o)}>
+                        Quitar
+                      </button>
+                    )}
+                  </li>
+                ))}
+              </ul>
             )}
           </section>
 

@@ -10,6 +10,7 @@ import {
   IconChart,
 } from './ui/Icons'
 import { supabase } from '../lib/supabase'
+import ImpersonationBar from './ImpersonationBar'
 import { BRAND } from '../config/brand'
 
 import AdminDashboard from './pages/AdminDashboard'
@@ -99,8 +100,27 @@ export default function AdminLayout() {
 
   // El operador de la plataforma administra clientes, no un menu.
   const isOwner = profile?.role === 'owner'
+  const [impersonating, setImpersonating] = useState(false)
+
+  // Define si el operador ve su consola o el panel de un cliente.
+  useEffect(() => {
+    if (!isPlatform) return
+    supabase.rpc('impersonation_state').then(({ data, error }) => {
+      if (error) {
+        if (!error.message.includes('Could not find')) {
+          console.error('Error leyendo la suplantación:', error.message)
+        }
+        return
+      }
+      const on = Boolean(data?.[0])
+      setImpersonating(on)
+      if (on) setPage('dashboard')
+    })
+  }, [isPlatform])
+  // Suplantando, se muestran las secciones del cliente; si no, la
+  // navegacion propia de cada rol.
   const nav = isPlatform
-    ? PLATFORM_NAV
+    ? (impersonating ? NAV : PLATFORM_NAV)
     : isOwner ? NAV : NAV.filter(n => n.id !== 'plan' && n.id !== 'dominio')
   const current = nav.find(n => n.id === page)
   const initial = (user?.email ?? 'A').charAt(0).toUpperCase()
@@ -145,6 +165,9 @@ export default function AdminLayout() {
       {sidebarOpen && <div className={styles.overlay} onClick={() => setSidebarOpen(false)} />}
 
       <div className={styles.main}>
+        {isPlatform && (
+          <ImpersonationBar onExit={() => window.location.reload()} />
+        )}
         <header className={styles.topbar}>
           <button
             className={styles.hamburger}

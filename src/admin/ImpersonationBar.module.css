@@ -1,0 +1,40 @@
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 0.7rem 1.2rem;
+  background: rgba(251, 191, 36, 0.14);
+  border-bottom: 1px solid rgba(251, 191, 36, 0.35);
+  color: var(--ad-warn);
+  font-family: 'Lato', -apple-system, sans-serif;
+  font-size: 0.85rem;
+}
+
+.bar > svg { flex: none; }
+
+.text { flex: 1; min-width: 12rem; color: var(--ad-ink-2); line-height: 1.45; }
+.text strong { color: var(--ad-ink); font-weight: 700; }
+
+.timer {
+  font-size: 0.76rem;
+  color: var(--ad-warn);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.btn {
+  background: var(--ad-warn);
+  border: none;
+  color: #241a05;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.42rem 0.9rem;
+  border-radius: var(--ad-radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn:hover { filter: brightness(1.08); }
+.btn:focus-visible { outline: 2px solid var(--ad-ink); outline-offset: 2px; }
