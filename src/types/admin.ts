@@ -148,4 +148,4 @@ export interface MenuItemCost {
   ingredient_count: number
 }
 
-export type AdminPage = 'dashboard' | 'reservaciones' | 'menu' | 'testimonios' | 'eventos' | 'mensajes' | 'pedidos' | 'config' | 'cuenta' | 'sucursales' | 'inventario' | 'recetas' | 'carta' | 'clientes' | 'plan' | 'dominio'
+export type AdminPage = 'dashboard' | 'reservaciones' | 'menu' | 'testimonios' | 'eventos' | 'mensajes' | 'pedidos' | 'config' | 'cuenta' | 'sucursales' | 'inventario' | 'recetas' | 'carta' | 'clientes' | 'plan' | 'dominio' | 'finanzas' | 'planes'

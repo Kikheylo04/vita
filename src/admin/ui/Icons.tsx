@@ -304,3 +304,12 @@ export function IconCard({ size = 20, strokeWidth = 1.7 }: IconProps) {
     </svg>
   )
 }
+
+export function IconChart({ size = 20, strokeWidth = 1.7 }: IconProps) {
+  return (
+    <svg {...base(size, strokeWidth)}>
+      <path d="M3.4 20.6h17.2" />
+      <path d="M6.4 20.6v-6.2M11 20.6V8.4M15.6 20.6v-9M20.2 20.6V4.6" />
+    </svg>
+  )
+}

@@ -7,6 +7,7 @@ import {
   IconMail, IconSettings, IconBell, IconSearch,
   IconGlobe, IconExternal, IconHamburger, IconLogout,
   IconUser, IconIdCard, IconLock, IconPin, IconBox, IconRecipe, IconCard,
+  IconChart,
 } from './ui/Icons'
 import { supabase } from '../lib/supabase'
 import { BRAND } from '../config/brand'
@@ -25,6 +26,8 @@ import AdminInventario from './pages/AdminInventario'
 import AdminRecetas from './pages/AdminRecetas'
 import AdminCartaSucursal from './pages/AdminCartaSucursal'
 import PlatformTenants from './pages/PlatformTenants'
+import PlatformFinanzas from './pages/PlatformFinanzas'
+import PlatformPlanes from './pages/PlatformPlanes'
 import AdminPlan from './pages/AdminPlan'
 import AdminDominio from './pages/AdminDominio'
 
@@ -38,6 +41,8 @@ function profileRole() {
 
 const PLATFORM_NAV: { id: AdminPage; label: string; Icon: IconCmp }[] = [
   { id: 'clientes', label: 'Clientes', Icon: IconDashboard },
+  { id: 'finanzas', label: 'Finanzas', Icon: IconChart },
+  { id: 'planes',   label: 'Planes',   Icon: IconCard },
 ]
 
 const NAV: { id: AdminPage; label: string; Icon: IconCmp }[] = [
@@ -230,6 +235,8 @@ export default function AdminLayout() {
           {page === 'recetas'       && <AdminRecetas />}
           {page === 'carta'         && <AdminCartaSucursal />}
           {page === 'clientes'      && <PlatformTenants />}
+          {page === 'finanzas'      && <PlatformFinanzas />}
+          {page === 'planes'        && <PlatformPlanes />}
           {page === 'plan'          && <AdminPlan />}
           {page === 'dominio'       && <AdminDominio />}
         </div>
