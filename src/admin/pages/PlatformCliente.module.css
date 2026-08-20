@@ -1,0 +1,140 @@
+.page { display: flex; flex-direction: column; gap: 1.1rem; max-width: 900px; }
+
+.back {
+  align-self: flex-start;
+  background: none; border: none; color: var(--ad-ink-3);
+  font-family: inherit; font-size: 0.84rem; cursor: pointer; padding: 0.3rem 0;
+}
+.back:hover { color: var(--ad-gold); }
+
+.empty { color: var(--ad-ink-3); font-size: 0.9rem; margin: 0; padding: 1.5rem 0; }
+.inner { color: var(--ad-ink-3); font-size: 0.86rem; margin: 0; padding: 0 1.25rem 1.1rem; }
+
+.ok, .err { display: flex; align-items: center; gap: 0.5rem; font-size: 0.86rem; margin: 0; }
+.ok { color: var(--ad-ok); }
+.err { color: var(--ad-crit); }
+
+.warn {
+  display: flex; align-items: flex-start; gap: 0.6rem;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: var(--ad-radius);
+  padding: 0.85rem 1.1rem; margin: 0;
+  font-size: 0.86rem; color: var(--ad-ink-2); line-height: 1.5;
+}
+.warn > svg { color: var(--ad-warn); flex: none; margin-top: 0.1rem; }
+
+/* ── Encabezado ──────────────────────────── */
+.head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.7rem; font-weight: 700; color: var(--ad-ink); margin: 0 0 0.25rem;
+}
+
+.url {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-size: 0.83rem; color: var(--ad-ink-3); text-decoration: none;
+}
+.url:hover { color: var(--ad-gold); }
+
+.headRight { display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap; }
+
+.badge {
+  font-size: 0.74rem; font-weight: 600; padding: 0.26rem 0.7rem;
+  border-radius: 999px; white-space: nowrap;
+}
+.badge_trial     { background: rgba(96, 165, 250, 0.14); color: var(--ad-info); }
+.badge_active    { background: rgba(74, 222, 128, 0.14); color: var(--ad-ok); }
+.badge_suspended { background: rgba(251, 191, 36, 0.14); color: var(--ad-warn); }
+.badge_cancelled { background: rgba(255, 255, 255, 0.06); color: var(--ad-ink-3); }
+
+.btnEnter {
+  background: var(--ad-gold-dim); border: 1px solid var(--ad-gold); color: var(--ad-gold);
+  font-family: inherit; font-size: 0.84rem; font-weight: 600;
+  padding: 0.52rem 1.1rem; border-radius: var(--ad-radius-sm);
+  cursor: pointer; white-space: nowrap;
+}
+.btnEnter:hover { background: var(--ad-gold); color: #0a0c10; }
+.btnEnter:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
+
+/* ── Paneles ─────────────────────────────── */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+
+.panel {
+  background: var(--ad-surface); border: 1px solid var(--ad-line);
+  border-radius: var(--ad-radius); overflow: hidden;
+}
+
+.panelTitle {
+  font-size: 0.94rem; font-weight: 600; color: var(--ad-ink);
+  margin: 0; padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--ad-line);
+}
+
+.facts { display: flex; flex-direction: column; margin: 0; padding: 0.4rem 0; }
+
+.facts > div {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1rem; padding: 0.55rem 1.25rem;
+}
+
+.facts dt { font-size: 0.8rem; color: var(--ad-ink-3); }
+.facts dd { margin: 0; font-size: 0.87rem; color: var(--ad-ink); text-align: right; }
+
+/* ── Listas ──────────────────────────────── */
+.list { list-style: none; margin: 0; padding: 0.35rem 0 0.6rem; }
+
+.row {
+  display: flex; align-items: center; gap: 0.8rem;
+  padding: 0.6rem 1.25rem; flex-wrap: wrap;
+}
+
+.rowInfo { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+
+.rowMain {
+  font-size: 0.88rem; color: var(--ad-ink); font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.rowSub { font-size: 0.76rem; color: var(--ad-ink-3); }
+.rowMeta { font-size: 0.76rem; color: var(--ad-ink-3); white-space: nowrap; }
+
+.noteBody { font-size: 0.87rem; color: var(--ad-ink); line-height: 1.5; }
+
+.auditIcon { color: var(--ad-ink-3); display: flex; flex: none; }
+
+.pillOk, .pillOff {
+  font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.6rem;
+  border-radius: 999px; white-space: nowrap;
+}
+.pillOk { background: rgba(74, 222, 128, 0.14); color: var(--ad-ok); }
+.pillOff { background: rgba(255, 255, 255, 0.06); color: var(--ad-ink-3); }
+
+.btnX {
+  background: none; border: none; color: var(--ad-ink-3);
+  cursor: pointer; font-size: 0.8rem; padding: 0.25rem 0.4rem; border-radius: 5px;
+}
+.btnX:hover { color: var(--ad-crit); background: rgba(248, 113, 113, 0.12); }
+
+/* ── Nota nueva ──────────────────────────── */
+.noteForm { display: flex; gap: 0.55rem; padding: 1rem 1.25rem 0.4rem; flex-wrap: wrap; }
+
+.noteForm input {
+  flex: 1; min-width: 12rem;
+  background: rgba(0, 0, 0, 0.32); border: 1px solid var(--ad-line-2);
+  border-radius: var(--ad-radius-sm); color: var(--ad-ink);
+  font-family: inherit; font-size: 0.86rem; padding: 0.55rem 0.8rem; outline: none;
+}
+.noteForm input::placeholder { color: var(--ad-ink-3); }
+.noteForm input:focus { border-color: var(--ad-gold); }
+
+.noteForm button {
+  background: none; border: 1px solid var(--ad-gold); color: var(--ad-gold);
+  font-family: inherit; font-size: 0.84rem; font-weight: 600;
+  padding: 0.55rem 1.05rem; border-radius: var(--ad-radius-sm); cursor: pointer;
+}
+.noteForm button:hover:not(:disabled) { background: var(--ad-gold-dim); }
+.noteForm button:disabled { opacity: 0.45; cursor: default; }
+
+@media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }

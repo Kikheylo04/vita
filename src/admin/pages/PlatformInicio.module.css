@@ -1,0 +1,120 @@
+.page { display: flex; flex-direction: column; gap: 1.2rem; }
+
+.hero { display: flex; flex-direction: column; gap: 0.25rem; }
+
+.greeting {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.72rem; font-weight: 700; color: var(--ad-ink); margin: 0;
+}
+.sub { color: var(--ad-ink-2); font-size: 0.92rem; margin: 0; }
+
+.empty { color: var(--ad-ink-3); font-size: 0.88rem; margin: 0; padding: 1.3rem 1.25rem; }
+
+/* ── Cifras ──────────────────────────────── */
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; }
+
+.kpi {
+  background: var(--ad-surface); border: 1px solid var(--ad-line);
+  border-radius: var(--ad-radius); padding: 1.15rem 1.25rem;
+  display: flex; flex-direction: column; gap: 0.28rem;
+  text-align: left; cursor: pointer; font-family: inherit;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.kpi:hover { border-color: rgba(212, 168, 67, 0.5); transform: translateY(-2px); }
+.kpi:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
+
+.kpiLabel {
+  font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ad-ink-3);
+}
+
+.kpiValue {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.68rem; line-height: 1; color: var(--ad-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.kpiNote { font-size: 0.76rem; color: var(--ad-ink-3); }
+
+/* ── Avisos ──────────────────────────────── */
+.alerts { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.alert {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.75rem 1.1rem; margin: 0;
+  border-radius: var(--ad-radius);
+  font-size: 0.87rem;
+}
+
+.alertWarn {
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.28);
+  color: var(--ad-warn);
+}
+
+.alertCrit {
+  background: rgba(248, 113, 113, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.28);
+  color: var(--ad-crit);
+}
+
+/* ── Paneles ─────────────────────────────── */
+.grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.2rem; }
+
+.panel {
+  background: var(--ad-surface); border: 1px solid var(--ad-line);
+  border-radius: var(--ad-radius); overflow: hidden;
+  display: flex; flex-direction: column;
+}
+
+.panelHead {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--ad-line);
+}
+
+.panelTitle { font-size: 0.95rem; font-weight: 600; color: var(--ad-ink); margin: 0; }
+.panelNote { font-size: 0.76rem; color: var(--ad-ink-3); }
+
+.seeAll {
+  background: none; border: 1px solid var(--ad-line-2); color: var(--ad-gold);
+  font-family: inherit; font-size: 0.76rem; font-weight: 600;
+  padding: 0.3rem 0.7rem; border-radius: 999px; cursor: pointer; white-space: nowrap;
+}
+.seeAll:hover { background: var(--ad-gold-dim); }
+
+/* ── Filas ───────────────────────────────── */
+.list { list-style: none; margin: 0; padding: 0.35rem 0.6rem 0.6rem; }
+
+.row {
+  display: flex; align-items: center; gap: 0.75rem;
+  width: 100%; padding: 0.6rem 0.7rem;
+  background: none; border: none; border-radius: var(--ad-radius-sm);
+  cursor: pointer; font-family: inherit; text-align: left;
+}
+.row:hover { background: rgba(255, 255, 255, 0.04); }
+.row:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: -2px; }
+.row > svg { color: var(--ad-ink-3); flex: none; }
+
+.rowInfo { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+
+.rowMain {
+  font-size: 0.88rem; color: var(--ad-ink); font-weight: 600;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.rowSub {
+  font-size: 0.76rem; color: var(--ad-ink-3);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.rowMeta { font-size: 0.77rem; color: var(--ad-ink-3); white-space: nowrap; }
+
+.tagWarn, .tagCrit {
+  font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.55rem;
+  border-radius: 999px; white-space: nowrap;
+}
+.tagWarn { background: rgba(251, 191, 36, 0.14); color: var(--ad-warn); }
+.tagCrit { background: rgba(248, 113, 113, 0.14); color: var(--ad-crit); }
+
+@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }

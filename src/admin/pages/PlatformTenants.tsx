@@ -56,7 +56,7 @@ function daysLeft(iso: string) {
   return Math.ceil((new Date(iso).getTime() - Date.now()) / 86400000)
 }
 
-export default function PlatformTenants() {
+export default function PlatformTenants({ onOpen }: { onOpen?: (id: string) => void }) {
   const [rows, setRows] = useState<PlatformTenant[]>([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
@@ -295,7 +295,13 @@ export default function PlatformTenants() {
               <article key={t.id} className={styles.card}>
                 <div className={styles.cardTop}>
                   <div className={styles.cardInfo}>
-                    <h3 className={styles.cardName}>{t.name}</h3>
+                    {onOpen ? (
+                      <button className={styles.cardNameBtn} onClick={() => onOpen(t.id)}>
+                        {t.name}
+                      </button>
+                    ) : (
+                      <h3 className={styles.cardName}>{t.name}</h3>
+                    )}
                     <a
                       className={styles.cardUrl}
                       href={`https://${t.custom_domain ?? `${t.slug}.${PLATFORM_DOMAIN}`}`}

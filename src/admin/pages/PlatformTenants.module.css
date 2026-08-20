@@ -245,3 +245,12 @@
 .btnSave:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
 
 @media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } }
+
+.cardNameBtn {
+  background: none; border: none; padding: 0;
+  font-family: inherit; font-size: 1rem; font-weight: 600;
+  color: var(--ad-ink); cursor: pointer; text-align: left;
+  max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.cardNameBtn:hover { color: var(--ad-gold); text-decoration: underline; }
+.cardNameBtn:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }

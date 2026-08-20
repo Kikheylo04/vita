@@ -27,6 +27,8 @@ import AdminInventario from './pages/AdminInventario'
 import AdminRecetas from './pages/AdminRecetas'
 import AdminCartaSucursal from './pages/AdminCartaSucursal'
 import PlatformTenants from './pages/PlatformTenants'
+import PlatformInicio from './pages/PlatformInicio'
+import PlatformCliente from './pages/PlatformCliente'
 import PlatformFinanzas from './pages/PlatformFinanzas'
 import PlatformPlanes from './pages/PlatformPlanes'
 import AdminPlan from './pages/AdminPlan'
@@ -42,7 +44,8 @@ function profileRole() {
 }
 
 const PLATFORM_NAV: { id: AdminPage; label: string; Icon: IconCmp }[] = [
-  { id: 'clientes', label: 'Clientes', Icon: IconDashboard },
+  { id: 'inicio',   label: 'Inicio',   Icon: IconDashboard },
+  { id: 'clientes', label: 'Clientes', Icon: IconPin },
   { id: 'finanzas', label: 'Finanzas', Icon: IconChart },
   { id: 'planes',   label: 'Planes',   Icon: IconCard },
 ]
@@ -69,7 +72,7 @@ export default function AdminLayout() {
   const { user, signOut, profile } = useAdminAuth()
   const isPlatform = profile?.role === 'platform'
   const [page, setPage] = useState<AdminPage>(
-    () => (profileRole() === 'platform' ? 'clientes' : 'dashboard')
+    () => (profileRole() === 'platform' ? 'inicio' : 'dashboard')
   )
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [unread, setUnread] = useState(0)
@@ -104,6 +107,7 @@ export default function AdminLayout() {
   const isOwner = profile?.role === 'owner'
   const [impersonating, setImpersonating] = useState(false)
   const [query, setQuery] = useState('')
+  const [clientId, setClientId] = useState<string | null>(null)
 
   // Define si el operador ve su consola o el panel de un cliente.
   useEffect(() => {
@@ -299,7 +303,18 @@ export default function AdminLayout() {
           {page === 'inventario'    && <AdminInventario />}
           {page === 'recetas'       && <AdminRecetas />}
           {page === 'carta'         && <AdminCartaSucursal />}
-          {page === 'clientes'      && <PlatformTenants />}
+          {page === 'inicio'        && (
+            <PlatformInicio
+              setPage={setPage}
+              openClient={id => { setClientId(id); setPage('cliente') }}
+            />
+          )}
+          {page === 'cliente'       && clientId && (
+            <PlatformCliente tenantId={clientId} onBack={() => setPage('clientes')} />
+          )}
+          {page === 'clientes'      && (
+            <PlatformTenants onOpen={id => { setClientId(id); setPage('cliente') }} />
+          )}
           {page === 'finanzas'      && <PlatformFinanzas />}
           {page === 'planes'        && <PlatformPlanes />}
           {page === 'plan'          && <AdminPlan />}
