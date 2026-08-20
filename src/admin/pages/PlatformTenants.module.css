@@ -165,3 +165,83 @@
 }
 
 .queueClient { font-size: 0.78rem; color: var(--ad-ink-3); }
+
+/* ── Alta de cliente ─────────────────────── */
+.btnNew {
+  background: var(--ad-gold-dim); border: 1px solid var(--ad-gold); color: var(--ad-gold);
+  font-family: inherit; font-size: 0.86rem; font-weight: 600;
+  padding: 0.58rem 1.15rem; border-radius: var(--ad-radius-sm);
+  cursor: pointer; white-space: nowrap;
+}
+.btnNew:hover { background: var(--ad-gold); color: #0a0c10; }
+.btnNew:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
+
+.owner { font-size: 0.78rem; color: var(--ad-ink-2); margin: 0; overflow-wrap: anywhere; }
+.owner strong { color: var(--ad-ink); font-weight: 600; }
+.noOwner { color: var(--ad-warn); }
+
+/* ── Modal ───────────────────────────────── */
+.overlay {
+  position: fixed; inset: 0; background: rgba(4, 6, 9, 0.82); backdrop-filter: blur(3px);
+  z-index: 200; display: flex; align-items: center; justify-content: center; padding: 1.2rem;
+}
+
+.modal {
+  background: var(--ad-surface-2); border: 1px solid var(--ad-line-2);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  border-radius: var(--ad-radius); width: 100%; max-width: 520px;
+  max-height: 90vh; overflow-y: auto;
+}
+
+.modalHead {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 1.3rem; border-bottom: 1px solid var(--ad-line);
+}
+.modalHead h3 { font-size: 0.98rem; color: var(--ad-ink); margin: 0; font-weight: 600; }
+.modalHead button {
+  background: none; border: none; color: var(--ad-ink-3);
+  font-size: 1rem; cursor: pointer; padding: 0.2rem 0.4rem;
+}
+.modalHead button:hover { color: var(--ad-ink); }
+
+.modalBody { padding: 1.2rem 1.3rem; display: flex; flex-direction: column; gap: 1rem; }
+
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+
+.field { display: flex; flex-direction: column; gap: 0.35rem; }
+.field label { color: var(--ad-ink-2); font-size: 0.8rem; }
+
+.field input, .field select {
+  background: rgba(0, 0, 0, 0.32); border: 1px solid var(--ad-line-2);
+  border-radius: var(--ad-radius-sm); color: var(--ad-ink);
+  font-family: inherit; font-size: 0.88rem; padding: 0.55rem 0.8rem; outline: none;
+}
+.field input::placeholder { color: var(--ad-ink-3); }
+.field input:focus, .field select:focus { border-color: var(--ad-gold); }
+
+.fieldHint { font-size: 0.76rem; color: var(--ad-ink-3); margin: 0; line-height: 1.5; }
+
+.slugRow {
+  display: flex; align-items: center; gap: 0.4rem;
+  background: rgba(0, 0, 0, 0.32); border: 1px solid var(--ad-line-2);
+  border-radius: var(--ad-radius-sm); padding-right: 0.7rem;
+}
+.slugRow:focus-within { border-color: var(--ad-gold); }
+.slugRow input { flex: 1; min-width: 0; background: none; border: none; }
+.slugSuffix { color: var(--ad-ink-3); font-size: 0.82rem; white-space: nowrap; }
+
+.slugOk { font-size: 0.76rem; color: var(--ad-ok); margin: 0; }
+.slugBad { font-size: 0.76rem; color: var(--ad-crit); margin: 0; }
+
+.modalFoot { display: flex; gap: 0.6rem; flex-wrap: wrap; padding-top: 0.3rem; }
+
+.btnSave {
+  background: var(--ad-gold-dim); border: 1px solid var(--ad-gold); color: var(--ad-gold);
+  font-family: inherit; font-size: 0.86rem; font-weight: 600;
+  padding: 0.58rem 1.2rem; border-radius: var(--ad-radius-sm); cursor: pointer;
+}
+.btnSave:hover:not(:disabled) { background: var(--ad-gold); color: #0a0c10; }
+.btnSave:disabled { opacity: 0.55; cursor: default; }
+.btnSave:focus-visible { outline: 2px solid var(--ad-gold); outline-offset: 2px; }
+
+@media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } }
